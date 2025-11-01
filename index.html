@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ARC Raiders Progress Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Inter:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="notifications" aria-live="polite" aria-atomic="true"></div>
+    <header class="app-header">
+      <div class="branding">
+        <i class="fa-solid fa-satellite-dish" aria-hidden="true"></i>
+        <h1>ARC Raiders Progress Tracker</h1>
+      </div>
+      <div class="header-controls">
+        <button id="theme-toggle" class="icon-button" aria-label="Toggle theme">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+      </div>
+      <nav class="primary-nav" aria-label="Primary">
+        <button class="nav-link active" data-target="workshop" aria-controls="workshop" aria-expanded="true">
+          <i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i>
+          <span>Workshop</span>
+        </button>
+        <button class="nav-link" data-target="quests" aria-controls="quests" aria-expanded="false">
+          <i class="fa-solid fa-bullseye" aria-hidden="true"></i>
+          <span>Quests</span>
+        </button>
+        <button class="nav-link" data-target="skills" aria-controls="skills" aria-expanded="false">
+          <i class="fa-solid fa-diagram-project" aria-hidden="true"></i>
+          <span>Skill Tree</span>
+        </button>
+      </nav>
+    </header>
+
+    <main class="app-main">
+      <section id="workshop" class="view active" aria-labelledby="workshop">
+        <div class="section-header">
+          <h2><i class="fa-solid fa-screwdriver-wrench"></i> Workshop Upgrades</h2>
+          <p>Track materials for each station and see progress in real time.</p>
+        </div>
+        <div class="workshop-grid" id="workshop-grid">
+          <p class="loading-state">Loading workshop stations…</p>
+        </div>
+      </section>
+
+      <section id="quests" class="view" aria-labelledby="quests">
+        <div class="section-header">
+          <h2><i class="fa-solid fa-bullseye"></i> Quest Log</h2>
+          <p>Filter quests, tick off objectives and monitor completion per trader.</p>
+        </div>
+        <div class="quest-controls">
+          <label>
+            <span class="sr-only">Search quests</span>
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="search" id="quest-search" placeholder="Search quests" />
+          </label>
+          <label>
+            <span class="sr-only">Filter by trader</span>
+            <i class="fa-solid fa-user-astronaut"></i>
+            <select id="quest-trader-filter">
+              <option value="all">All Traders</option>
+            </select>
+          </label>
+          <label class="toggle">
+            <input type="checkbox" id="quest-incomplete-only" />
+            <span>Show incomplete only</span>
+          </label>
+        </div>
+        <div class="quest-grid" id="quest-grid">
+          <p class="loading-state">Loading quest log…</p>
+        </div>
+      </section>
+
+      <section id="skills" class="view" aria-labelledby="skills">
+        <div class="section-header">
+          <h2><i class="fa-solid fa-diagram-project"></i> Skill Tree Planner</h2>
+          <p>Plan your skill progression and keep track of points spent.</p>
+        </div>
+        <div class="skills-summary">
+          <span>Total Skill Points: <strong id="skill-points-total">0</strong> / 75</span>
+          <button id="export-data" class="icon-button">
+            <i class="fa-solid fa-file-export"></i>
+            <span class="sr-only">Export progress</span>
+          </button>
+          <label class="file-upload">
+            <i class="fa-solid fa-file-import"></i>
+            <span>Import</span>
+            <input type="file" id="import-data" accept="application/json" />
+          </label>
+        </div>
+        <div class="skill-phases" id="skill-phases">
+          <p class="loading-state">Loading skill phases…</p>
+        </div>
+      </section>
+    </main>
+
+    <template id="tooltip-template">
+      <div class="tooltip" role="dialog"></div>
+    </template>
+
+    <noscript>
+      <div class="noscript-notice">
+        <p>
+          JavaScript is required to render the ARC Raiders tracker. Please enable it in your
+          browser and reload the page.
+        </p>
+      </div>
+    </noscript>
+
+    <script defer src="app.js"></script>
+  </body>
+</html>

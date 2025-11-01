@@ -86,1520 +86,394 @@ const StorageManager = (() => {
 // updates.
 const DataRepository = (() => {
   const workshopStations = [
-  {
-    id: 'workbench',
-    name: 'Workbench',
-    description: 'Starter crafting bench for ammo, grenades and essential supplies.',
-    levels: [
-      {
-        level: 1,
-        label: 'Level 1',
-        crafts: [
-          'Looting Mk. 1',
-          'Light Shield',
-          'Ferro',
-          'Hairpin',
-          'Kettle',
-          'Stitcher',
-          'Heavy Ammo',
-          'Light Ammo',
-          'Medium Ammo',
-          'Shotgun Ammo',
-          'Shield Recharger',
-          'Bandage',
-          'Light Impact Grenade'
-        ],
-        materials: []
-      }
-    ],
-    icon: 'fa-hammer'
-  },
-  {
-    id: 'gunsmith',
-    name: 'Gunsmith',
-    description: 'Add that extra oomph to your weapons by upgrading them here.',
-    levels: [
-      {
-        level: 1,
-        label: 'Level 1',
-        crafts: [
-          'Hairpin I',
-          'Kettle I',
-          'Rattler I',
-          'Stitcher I',
-          'Angled Grip I',
-          'Compensator I',
-          'Extended Light Mag I',
-          'Extended Medium Mag I',
-          'Extended Shotgun Mag I',
-          'Muzzle Brake I',
-          'Shotgun Choke I',
-          'Stable Stock I',
-          'Vertical Grip I'
-        ],
-        materials: [
-          {
-            item: 'Metal Parts',
-            quantity: 20
-          },
-          {
-            item: 'Rubber Parts',
-            quantity: 30
-          }
-        ]
-      },
-      {
-        level: 2,
-        label: 'Level 2',
-        crafts: [
-          'Arpeggio I'
-        ],
-        materials: [
-          {
-            item: 'Rusted Tools',
-            quantity: 3
-          },
-          {
-            item: 'Mechanical Components',
-            quantity: 5
-          },
-          {
-            item: 'Wasp Driver',
-            quantity: 8
-          }
-        ]
-      },
-      {
-        level: 3,
-        label: 'Level 3',
-        crafts: [
-          'Renegade I'
-        ],
-        materials: []
-      }
-    ],
-    icon: 'fa-gun'
-  },
-  {
-    id: 'gear-bench',
-    name: 'Gear Bench',
-    description: 'The Gear Bench lets you craft Shields and Augments - provided you have the right resources.',
-    levels: [
-      {
-        level: 1,
-        label: 'Level 1',
-        crafts: [
-          'Light Shield',
-          'Medium Shield',
-          'Combat Mk. 1',
-          'Looting Mk. 1',
-          'Tactical Mk. 1'
-        ],
-        materials: [
-          {
-            item: 'Plastic Parts',
-            quantity: 25
-          },
-          {
-            item: 'Fabric',
-            quantity: 30
-          }
-        ]
-      },
-      {
-        level: 2,
-        label: 'Level 2',
-        crafts: [
-          'Heavy Shield',
-          'Combat Mk. 2',
-          'Looting Mk. 2',
-          'Tactical Mk. 2'
-        ],
-        materials: [
-          {
-            item: 'Power Cable',
-            quantity: 3
-          },
-          {
-            item: 'Electrical Components',
-            quantity: 5
-          },
-          {
-            item: 'Hornet Driver',
-            quantity: 5
-          }
-        ]
-      },
-      {
-        level: 3,
-        label: 'Level 3',
-        crafts: [
-          'Looting Mk. 3 (Cautious)',
-          'Tactical Mk.3 (Defensive)'
-        ],
-        materials: [
-          {
-            item: 'Industrial Battery',
-            quantity: 3
-          },
-          {
-            item: 'Advanced Electrical Components',
-            quantity: 5
-          },
-          {
-            item: 'Bastion Cell',
-            quantity: 6
-          }
-        ]
-      }
-    ],
-    icon: 'fa-toolbox'
-  },
-  {
-    id: 'explosives-station',
-    name: 'Explosives Station',
-    description: 'Craft your grenades and mines here. Very carefully.',
-    levels: [
-      {
-        level: 1,
-        label: 'Level 1',
-        crafts: [
-          'Gas Grenade',
-          'Light Impact Grenade'
-        ],
-        materials: [
-          {
-            item: 'Chemicals',
-            quantity: 50
-          },
-          {
-            item: 'ARC Alloy',
-            quantity: 6
-          }
-        ]
-      },
-      {
-        level: 2,
-        label: 'Level 2',
-        crafts: [
-          'Blaze Grenade'
-        ],
-        materials: [
-          {
-            item: 'Synthesized Fuel',
-            quantity: 3
-          },
-          {
-            item: 'Crude Explosives',
-            quantity: 5
-          },
-          {
-            item: 'Pop Trigger',
-            quantity: 5
-          }
-        ]
-      },
-      {
-        level: 3,
-        label: 'Level 3',
-        crafts: [
-          'Heavy Fuze Grenade'
-        ],
-        materials: [
-          {
-            item: 'Laboratory Reagents',
-            quantity: 3
-          },
-          {
-            item: 'Explosive Compound',
-            quantity: 5
-          },
-          {
-            item: 'Rocketeer Driver',
-            quantity: 3
-          }
-        ]
-      }
-    ],
-    icon: 'fa-bomb'
-  },
-  {
-    id: 'medical-lab',
-    name: 'Medical Lab',
-    description: 'The Medical Lab is where you can create stimulants to give you that extra boost out in the wilds.',
-    levels: [
-      {
-        level: 1,
-        label: 'Level 1',
-        crafts: [
-          'Herbal Bandage',
-          'Shield Recharger',
-          'Adrenaline Shot',
-          'Bandage'
-        ],
-        materials: [
-          {
-            item: 'Fabric',
-            quantity: 50
-          },
-          {
-            item: 'ARC Alloy',
-            quantity: 6
-          }
-        ]
-      },
-      {
-        level: 2,
-        label: 'Level 2',
-        crafts: [
-          'Sterilized Bandage',
-          'Surge Shield Recharger'
-        ],
-        materials: [
-          {
-            item: 'Cracked Bioscanner',
-            quantity: 2
-          },
-          {
-            item: 'Durable Cloth',
-            quantity: 5
-          },
-          {
-            item: 'Tick Pod',
-            quantity: 8
-          }
-        ]
-      },
-      {
-        level: 3,
-        label: 'Level 3',
-        crafts: [],
-        materials: [
-          {
-            item: 'Rusted Shut Medical Kit',
-            quantity: 3
-          },
-          {
-            item: 'Antiseptic',
-            quantity: 8
-          },
-          {
-            item: 'Surveyor Vault',
-            quantity: 5
-          }
-        ]
-      }
-    ],
-    icon: 'fa-briefcase-medical'
-  },
-  {
-    id: 'utility-station',
-    name: 'Utility Station',
-    description: 'Fabricates traversal tools and support gadgets to help raiders adapt on the fly.',
-    levels: [
-      {
-        level: 1,
-        label: 'Level 1',
-        crafts: [
-          'Binoculars',
-          "Li'l Smoke Grenade",
-          'Door Blocker'
-        ],
-        materials: [
-          {
-            item: 'Plastic Parts',
-            quantity: 50
-          },
-          {
-            item: 'ARC Alloy',
-            quantity: 6
-          }
-        ]
-      },
-      {
-        level: 2,
-        label: 'Level 2',
-        crafts: [
-          'Raider Hatch Key',
-          'Zipline'
-        ],
-        materials: [
-          {
-            item: 'Damaged Heat Sink',
-            quantity: 2
-          },
-          {
-            item: 'Electrical Components',
-            quantity: 5
-          },
-          {
-            item: 'Snitch Scanner',
-            quantity: 6
-          }
-        ]
-      },
-      {
-        level: 3,
-        label: 'Level 3',
-        crafts: [
-          'Photoelectric Cloak'
-        ],
-        materials: [
-          {
-            item: 'Fried Motherboard',
-            quantity: 3
-          },
-          {
-            item: 'Advanced Electrical Components',
-            quantity: 5
-          },
-          {
-            item: 'Leaper Pulse Unit',
-            quantity: 4
-          }
-        ]
-      }
-    ],
-    icon: 'fa-screwdriver-wrench'
-  },
-  {
-    id: 'refiner',
-    name: 'Refiner',
-    description: 'Crucial companion for any Raider finding themselves in frequent need of custom parts.',
-    levels: [
-      {
-        level: 1,
-        label: 'Level 1',
-        crafts: [
-          'Electrical Components',
-          'Crude Explosives',
-          'Mechanical Components'
-        ],
-        materials: [
-          {
-            item: 'Metal Parts',
-            quantity: 60
-          },
-          {
-            item: 'ARC Powercell',
-            quantity: 5
-          }
-        ]
-      },
-      {
-        level: 2,
-        label: 'Level 2',
-        crafts: [
-          'Advanced Electrical Components',
-          'Advanced Mechanical Components',
-          'Antiseptic',
-          'ARC Circuitry',
-          'ARC Motion Core',
-          'Heavy Gun Parts',
-          'Light Gun Parts',
-          'Medium Gun Parts'
-        ],
-        materials: [
-          {
-            item: 'Toaster',
-            quantity: 3
-          },
-          {
-            item: 'ARC Motion Core',
-            quantity: 5
-          },
-          {
-            item: 'Fireball Burner',
-            quantity: 8
-          }
-        ]
-      },
-      {
-        level: 3,
-        label: 'Level 3',
-        crafts: [
-          'Magnetic Accelerator',
-          'Mod Components',
-          'Power Rod'
-        ],
-        materials: [
-          {
-            item: 'Motor',
-            quantity: 3
-          },
-          {
-            item: 'ARC Circuitry',
-            quantity: 10
-          },
-          {
-            item: 'Bombardier Cell',
-            quantity: 6
-          }
-        ]
-      }
-    ],
-    icon: 'fa-industry'
-  },
-  {
-    id: 'scrappy-the-rooster',
-    name: 'Scrappy the Rooster',
-    description: 'This rooster has been a resident of the workshop since the day you moved in, and likely long before that. Will periodically bring back dubiously-sourced materials and share them with you.',
-    levels: [
-      {
-        level: 1,
-        label: 'Level 1 - Fledgling',
-        crafts: [],
-        materials: [
-          {
-            item: 'Early Quest Reward',
-            quantity: null
-          }
-        ],
-        functions: [
-          'Brings 5x of each basic crafting resource and 1x random uncommon tier item on a round death.',
-          'Brings 12x of each basic crafting resource and 3x random uncommon tier items on a round survival.'
-        ]
-      },
-      {
-        level: 2,
-        label: 'Level 2 - Forager',
-        crafts: [],
-        materials: [
-          {
-            item: 'Dog Collar',
-            quantity: 1
-          }
-        ],
-        functions: [
-          'Brings 6x of each basic crafting resource and 2x random uncommon tier items on a round death.',
-          'Brings 13x of each basic crafting resource and 4x random uncommon tier items on a round survival.'
-        ]
-      },
-      {
-        level: 3,
-        label: 'Level 3 - Savenger',
-        crafts: [],
-        materials: [
-          {
-            item: 'Lemon',
-            quantity: 5
-          },
-          {
-            item: 'Apricot',
-            quantity: 5
-          }
-        ],
-        functions: [
-          'Brings 14x of each basic crafting resource and 7x random uncommon tier items on a round survival.'
-        ]
-      },
-      {
-        level: 4,
-        label: 'Level 4 - Treasure Hunter',
-        crafts: [],
-        materials: [
-          {
-            item: 'Prickly Pear',
-            quantity: 8
-          },
-          {
-            item: 'Olives',
-            quantity: 8
-          },
-          {
-            item: 'Cat Bed',
-            quantity: 1
-          }
-        ],
-        functions: []
-      },
-      {
-        level: 5,
-        label: 'Level 5 - Master Hoarder',
-        crafts: [],
-        materials: [
-          {
-            item: 'Apricots',
-            quantity: 12
-          },
-          {
-            item: 'Mushrooms',
-            quantity: 12
-          },
-          {
-            item: 'Very Comfortable Pillow',
-            quantity: 3
-          }
-        ],
-        functions: []
-      }
-    ],
-    icon: 'fa-crow'
-  }
-];
+    {
+      id: 'gunsmith',
+      name: 'Gunsmith',
+      icon: 'fa-gun',
+      levels: [
+        {
+          level: 1,
+          name: 'Calibrated Tools',
+          materials: [
+            { item: 'Alloy Plates', quantity: 30 },
+            { item: 'Refined Oil', quantity: 12 },
+            { item: 'Steel Bolts', quantity: 18 }
+          ]
+        },
+        {
+          level: 2,
+          name: 'Precision Jigs',
+          materials: [
+            { item: 'Composite Frames', quantity: 24 },
+            { item: 'Titanium Rods', quantity: 12 },
+            { item: 'Flux Capacitors', quantity: 6 }
+          ]
+        },
+        {
+          level: 3,
+          name: 'Prototype Suite',
+          materials: [
+            { item: 'Charged Coils', quantity: 14 },
+            { item: 'Rare Alloy', quantity: 9 },
+            { item: 'Calibrated Optics', quantity: 4 }
+          ]
+        }
+      ]
+    },
+    {
+      id: 'gear-bench',
+      name: 'Gear Bench',
+      icon: 'fa-toolbox',
+      levels: [
+        {
+          level: 1,
+          materials: [
+            { item: 'Fiber Mesh', quantity: 20 },
+            { item: 'Flex Cables', quantity: 16 }
+          ]
+        },
+        {
+          level: 2,
+          materials: [
+            { item: 'Composite Webbing', quantity: 30 },
+            { item: 'Nano Thread', quantity: 18 },
+            { item: 'Armor Plates', quantity: 12 }
+          ]
+        },
+        {
+          level: 3,
+          materials: [
+            { item: 'Phase Weave', quantity: 16 },
+            { item: 'Titan Weave', quantity: 12 },
+            { item: 'Reinforced Clasps', quantity: 18 }
+          ]
+        }
+      ]
+    },
+    {
+      id: 'medical-lab',
+      name: 'Medical Lab',
+      icon: 'fa-briefcase-medical',
+      levels: [
+        {
+          level: 1,
+          materials: [
+            { item: 'Sterile Gel', quantity: 15 },
+            { item: 'Biofoam', quantity: 9 }
+          ]
+        },
+        {
+          level: 2,
+          materials: [
+            { item: 'Nanite Clusters', quantity: 12 },
+            { item: 'Synth Enzymes', quantity: 15 },
+            { item: 'Med Synth', quantity: 9 }
+          ]
+        },
+        {
+          level: 3,
+          materials: [
+            { item: 'Cell Rebuilders', quantity: 6 },
+            { item: 'Stasis Field', quantity: 3 },
+            { item: 'Cure Catalyst', quantity: 10 }
+          ]
+        }
+      ]
+    },
+    {
+      id: 'explosives-station',
+      name: 'Explosives Station',
+      icon: 'fa-bomb',
+      levels: [
+        {
+          level: 1,
+          materials: [
+            { item: 'Det Cord', quantity: 20 },
+            { item: 'Stabilised Powder', quantity: 12 }
+          ]
+        },
+        {
+          level: 2,
+          materials: [
+            { item: 'Reactive Gel', quantity: 18 },
+            { item: 'Trigger Nodes', quantity: 8 },
+            { item: 'Blast Casings', quantity: 14 }
+          ]
+        },
+        {
+          level: 3,
+          materials: [
+            { item: 'Quantum Fuse', quantity: 5 },
+            { item: 'Plasma Core', quantity: 4 },
+            { item: 'Containment Shell', quantity: 6 }
+          ]
+        }
+      ]
+    },
+    {
+      id: 'utility-station',
+      name: 'Utility Station',
+      icon: 'fa-screwdriver',
+      levels: [
+        {
+          level: 1,
+          materials: [
+            { item: 'Circuit Boards', quantity: 18 },
+            { item: 'Charged Cells', quantity: 10 }
+          ]
+        },
+        {
+          level: 2,
+          materials: [
+            { item: 'Servo Motors', quantity: 16 },
+            { item: 'Sensor Array', quantity: 8 },
+            { item: 'Smart Chips', quantity: 12 }
+          ]
+        },
+        {
+          level: 3,
+          materials: [
+            { item: 'Adaptive AI Core', quantity: 4 },
+            { item: 'Reactive Plating', quantity: 7 },
+            { item: 'Stabilised Nanites', quantity: 9 }
+          ]
+        }
+      ]
+    },
+    {
+      id: 'refiner',
+      name: 'Refiner',
+      icon: 'fa-industry',
+      levels: [
+        {
+          level: 1,
+          materials: [
+            { item: 'Raw Alloy', quantity: 24 },
+            { item: 'Coolant Cells', quantity: 10 }
+          ]
+        },
+        {
+          level: 2,
+          materials: [
+            { item: 'Purified Carbon', quantity: 20 },
+            { item: 'Catalyst Dust', quantity: 14 },
+            { item: 'Heat Sinks', quantity: 10 }
+          ]
+        },
+        {
+          level: 3,
+          materials: [
+            { item: 'Flux Crystal', quantity: 8 },
+            { item: 'Vented Core', quantity: 6 },
+            { item: 'Quantum Coolant', quantity: 4 }
+          ]
+        }
+      ]
+    },
+    {
+      id: 'scrappy',
+      name: 'Scrappy',
+      icon: 'fa-robot',
+      levels: [
+        {
+          level: 1,
+          materials: [
+            { item: 'Reclaimed Metal', quantity: 18 },
+            { item: 'Salvage Wire', quantity: 16 }
+          ]
+        },
+        {
+          level: 2,
+          materials: [
+            { item: 'Arc Relics', quantity: 12 },
+            { item: 'Memory Shards', quantity: 10 },
+            { item: 'Synth Oil', quantity: 8 }
+          ]
+        },
+        {
+          level: 3,
+          materials: [
+            { item: 'Awakened Core', quantity: 4 },
+            { item: 'Echo Lattice', quantity: 6 },
+            { item: 'Soul Matrix', quantity: 3 }
+          ]
+        }
+      ]
+    }
+  ];
 
   const quests = [
-  {
-    id: 'picking-up-the-pieces',
-    name: 'Picking Up The Pieces',
-    trader: 'Shani',
-    objectives: [
-      'Visit any area on your map with a loot category icon',
-      'Loot 3 containers'
-    ],
-    rewards: [
-      '1x Rattler III',
-      '80x Medium Ammo'
-    ],
-    maps: [
-      'Dam Battlegrounds',
-      'Spaceport',
-      'Buried City'
-    ],
-    icon: 'fa-compass'
-  },
-  {
-    id: 'clearer-skies',
-    name: 'Clearer Skies',
-    trader: 'Shani',
-    objectives: [
-      'Destroy 3 ARC enemies',
-      'Get 3 ARC Alloy for Shani'
-    ],
-    rewards: [
-      '3x Sterilized Bandage',
-      '1x Light Shield',
-      'Black Backpack Cosmetic (Hiker Color)'
-    ],
-    maps: [
-      'Dam Battlegrounds',
-      'Spaceport',
-      'Buried City'
-    ],
-    icon: 'fa-compass'
-  },
-  {
-    id: 'trash-into-treasure',
-    name: 'Trash Into Treasure',
-    trader: 'Shani',
-    objectives: [
-      'Obtain 6 Wires',
-      'Obtain 1 Battery'
-    ],
-    rewards: [
-      '1x Tactical MK.1',
-      '3x Adrenaline Shot'
-    ],
-    maps: [
-      'Dam Battlegrounds',
-      'Spaceport',
-      'Buried City'
-    ],
-    icon: 'fa-compass'
-  },
-  {
-    id: 'off-the-radar',
-    name: 'Off The Radar',
-    trader: 'Shani',
-    objectives: [
-      'Visit a field depot',
-      'Repair the antenna on the roof of Field Depot'
-    ],
-    rewards: [
-      '2x Defibrillator'
-    ],
-    maps: [
-      'Dam Battlegrounds',
-      'Spaceport',
-      'Buried City'
-    ],
-    icon: 'fa-compass'
-  },
-  {
-    id: 'a-bad-feeling',
-    name: 'A Bad Feeling',
-    trader: 'Celeste',
-    objectives: [
-      'Find and search any ARC Probe or ARC Courier'
-    ],
-    rewards: [
-      '10x Metal parts',
-      '5x Steel Spring',
-      '5x Duct Tape'
-    ],
-    maps: [
-      'Dam Battlegrounds',
-      'Spaceport',
-      'Buried City'
-    ],
-    icon: 'fa-satellite-dish'
-  },
-  {
-    id: 'the-right-tool',
-    name: 'The Right Tool',
-    trader: 'Tian Wen',
-    objectives: [
-      'Destroy a Fireball',
-      'Destroy a Hornet',
-      'Destroy a Turret'
-    ],
-    rewards: [
-      'Cheer Emote',
-      '1x Stitcher II',
-      '1x Extended Light Mag I'
-    ],
-    maps: [
-      'Dam Battlegrounds',
-      'Spaceport',
-      'Buried City'
-    ],
-    icon: 'fa-chess-rook'
-  },
-  {
-    id: 'hatch-repairs',
-    name: 'Hatch Repairs',
-    trader: 'Shani',
-    objectives: [
-      'Repair the leaking hydraulic pipes near a Raider Hatch',
-      'Search for a hatch key near the Raider hatch'
-    ],
-    rewards: [
-      '1x Raider Hatch Key',
-      '1x Binoculars'
-    ],
-    maps: [
-      'Dam Battlegrounds',
-      'Spaceport',
-      'Buried City'
-    ],
-    icon: 'fa-compass'
-  },
-  {
-    id: 'safe-passage',
-    name: 'Safe Passage',
-    trader: 'Apollo',
-    objectives: [
-      'Destroy 2 ARC enemies using any explosive grenade'
-    ],
-    rewards: [
-      "5x Li'l Smoke Grenade",
-      '3x Shrapnel Grenade',
-      '3x Barricade Kit'
-    ],
-    maps: [
-      'Dam Battlegrounds',
-      'Spaceport',
-      'Buried City'
-    ],
-    icon: 'fa-bolt'
-  },
-  {
-    id: 'down-to-earth',
-    name: 'Down To Earth',
-    trader: 'Shani',
-    objectives: [
-      'Visit a Field Depot',
-      'Deliver a Field Crate to a Supply Station',
-      'Collect the reward'
-    ],
-    rewards: [
-      '1x Combat MK.1',
-      '1x Medium Shield'
-    ],
-    maps: [
-      'Dam Battlegrounds',
-      'Spaceport',
-      'Buried City'
-    ],
-    icon: 'fa-compass'
-  },
-  {
-    id: 'the-trifecta',
-    name: 'The Trifecta',
-    trader: 'Shani',
-    objectives: [
-      'Destroy a Hornet',
-      'Get a Hornet Driver for Shani',
-      'Destroy a Snitch',
-      'Get a Snitch Scanner for Shani',
-      'Destroy a Wasp',
-      'Get a Wasp Driver for Shani'
-    ],
-    rewards: [
-      '1x Dam Control Tower Key',
-      '2x Defibrillator',
-      '1x Raider Hatch Key'
-    ],
-    maps: [
-      'Dam Battlegrounds',
-      'Spaceport',
-      'Buried City'
-    ],
-    icon: 'fa-compass'
-  },
-  {
-    id: 'a-better-use',
-    name: 'A Better Use',
-    trader: 'Tian Wen',
-    objectives: [
-      'Request in a Supply Drop from a Call Station',
-      'Loot a Supply Drop'
-    ],
-    rewards: [
-      '1x Extended Light Mag I',
-      '1x Stable Stock I',
-      '1x Muzzle Brake II'
-    ],
-    maps: [
-      'Dam Battlegrounds',
-      'Spaceport',
-      'Buried City',
-      'Blue Gate'
-    ],
-    icon: 'fa-chess-rook'
-  },
-  {
-    id: 'what-goes-around',
-    name: 'What Goes Around',
-    trader: 'Apollo',
-    objectives: [
-      'Destroy any ARC enemy using a Fireball Burner'
-    ],
-    rewards: [
-      '3x Blaze Grenade',
-      '2x Noisemaker',
-      'Cans Backpack Attachment (Cosmetic)'
-    ],
-    maps: [
-      'Dam Battlegrounds',
-      'Spaceport',
-      'Buried City',
-      'Blue Gate'
-    ],
-    icon: 'fa-bolt'
-  },
-  {
-    id: 'sparks-fly',
-    name: 'Sparks Fly',
-    trader: 'Apollo',
-    objectives: [
-      "Destroy a Hornet with a Trigger 'Nade or Snap Blast"
-    ],
-    rewards: [
-      '1x Trigger Nade Blueprint',
-      '4x Crude Explosives',
-      '2x Processor'
-    ],
-    maps: [
-      'Dam Battlegrounds',
-      'Spaceport',
-      'Buried City',
-      'Blue Gate'
-    ],
-    icon: 'fa-bolt'
-  },
-  {
-    id: 'greasing-her-palms',
-    name: 'Greasing Her Palms',
-    trader: 'Celeste',
-    objectives: [
-      'On Dam Battlegrounds, visit the Locked Room in the Water Treatment Control building',
-      'On Spaceport, scope out the rocket thrusters outside the Rocket Assembly',
-      'On Buried City, visit the barricaded area on floor 6 of the Space Travel Building'
-    ],
-    rewards: [
-      '1x Lure Grenade Blueprint',
-      '3x Speaker Component',
-      '3x Electrical Components'
-    ],
-    maps: [
-      'Dam Battlegrounds',
-      'Spaceport',
-      'Buried City'
-    ],
-    icon: 'fa-satellite-dish'
-  },
-  {
-    id: 'a-first-foothold',
-    name: 'A First Foothold',
-    trader: 'Apollo',
-    objectives: [
-      'Stabilize the observation deck near the Ridgeline',
-      'Enable the comms terminal near the Olive Grove',
-      'Rotate the satellite dishes on the church roof, north of the Data Vault',
-      "Nail down the roof plates on the Raider structure near Trapper's Glade"
-    ],
-    rewards: [
-      '3x Shrapnel Grenade',
-      '3x Snap Blast Grenade',
-      '3x Heavy Fuze Grenade'
-    ],
-    maps: [
-      'Blue Gate'
-    ],
-    icon: 'fa-bolt'
-  },
-  {
-    id: 'dormant-barons',
-    name: 'Dormant Barons',
-    trader: 'Shani',
-    objectives: [
-      'Loot a Baron husk'
-    ],
-    rewards: [
-      '3x  Door Blocker',
-      "3x Li'l Smoke Grenade"
-    ],
-    maps: [
-      'Multiple'
-    ],
-    icon: 'fa-compass'
-  },
-  {
-    id: 'mixed-signals',
-    name: 'Mixed Signals',
-    trader: 'Tian Wen',
-    objectives: [
-      'Destroy an ARC Surveyor',
-      'Obtain 1 Surveyor Vault'
-    ],
-    rewards: [
-      '1x Photoelectric Cloak',
-      '1x Raider Hatch Key'
-    ],
-    maps: [
-      'Multiple'
-    ],
-    icon: 'fa-chess-rook'
-  },
-  {
-    id: 'doctor-s-orders',
-    name: "Doctor's Orders",
-    trader: 'Lance',
-    objectives: [
-      'Obtain 2 Antiseptic',
-      'Obtain 1 Syringe',
-      'Obtain 1 Durable Cloth',
-      'Obtain 1 Great Mullein'
-    ],
-    rewards: [
-      '3x Adrenaline Shot',
-      '3x Sterilized Bandage',
-      '1x Surge Shield Recharger'
-    ],
-    maps: [
-      'Multiple'
-    ],
-    icon: 'fa-kit-medical'
-  },
-  {
-    id: 'medical-merchandise',
-    name: 'Medical Merchandise',
-    trader: 'Lance',
-    objectives: [
-      "On Spaceport, search 2 containers in the Departure Building's exam rooms",
-      'Search 3 containers in the Hospital in Buried City',
-      "On Dam Battlegrounds, search 2 containers in the Research & Administration building's medical room"
-    ],
-    rewards: [
-      '1x Banana Backpack Charm (Cosmetic)',
-      '3x Defibrillator',
-      '2x Vita Shot'
-    ],
-    maps: [
-      'Dam Battlegrounds',
-      'Spaceport',
-      'Buried City'
-    ],
-    icon: 'fa-kit-medical'
-  },
-  {
-    id: 'a-reveal-in-ruins',
-    name: 'A Reveal in Ruins',
-    trader: 'Lance',
-    objectives: [
-      'Search for an ESR Analyzer inside any pharmacy in Buried City',
-      'Deliver the ESR Analyzer to Lance'
-    ],
-    rewards: [
-      '1x Tactical Mk. 3 (Healing)',
-      '1x Surge Shield Recharger'
-    ],
-    maps: [
-      'Buried City'
-    ],
-    icon: 'fa-kit-medical'
-  },
-  {
-    id: 'broken-monument',
-    name: 'Broken Monument',
-    trader: 'Tian Wen',
-    objectives: [
-      'Reach the hallowed grounds by the Scrap Yard',
-      'Search for a compass near the broken-down vehicles',
-      'Search for the video tape near the cylindrical containers',
-      'Search for the old field rations in the Raider camp',
-      'Deliver the First Wave Tape to Tian Wen',
-      'Deliver First Wave Compass to Tian Wen',
-      'Deliver First Wave Rations to Tian Wen'
-    ],
-    rewards: [
-      '1x Arpeggio I',
-      '1x Compensator II',
-      '80x Medium Ammo'
-    ],
-    maps: [
-      'Multiple'
-    ],
-    icon: 'fa-chess-rook'
-  },
-  {
-    id: 'marked-for-death',
-    name: 'Marked for Death',
-    trader: 'Tian Wen',
-    objectives: [
-      'Reach the Su Durante Warehouses in the Outskirts in Buried City'
-    ],
-    rewards: [
-      '1x Shotgun Choke II',
-      '1x Angled Grip II'
-    ],
-    maps: [
-      'Buried City'
-    ],
-    icon: 'fa-chess-rook'
-  },
-  {
-    id: 'straight-record',
-    name: 'Straight Record',
-    trader: 'Celeste',
-    objectives: [
-      'Reach Victory Ridge',
-      'Find the old EMP trap',
-      'Disable the first power switch',
-      'Disable the second power switch',
-      'Disable the third power switch',
-      'Shutdown the EMP trap'
-    ],
-    rewards: [
-      '5x Medium Gun Parts',
-      '3x Advanced Mechanical Components'
-    ],
-    maps: [
-      'Dam Battlegrounds'
-    ],
-    icon: 'fa-satellite-dish'
-  },
-  {
-    id: 'a-lay-of-the-land',
-    name: 'A Lay of the Land',
-    trader: 'Shani',
-    objectives: [
-      'Reach the Jiangsu Warehouse',
-      "Find the shipping notes in the foreman's office",
-      'Locate the scanners on the upper floor of Control Tower A6',
-      'Deliver 1 LiDAR Scanners to Shani'
-    ],
-    rewards: [
-      '1x Dam Testing Annex Key',
-      '3x Zipline',
-      '2x Smoke Grenade'
-    ],
-    maps: [
-      'Spaceport'
-    ],
-    icon: 'fa-compass'
-  }
-];
+    {
+      id: 'dawn-patrol',
+      name: 'Dawn Patrol',
+      trader: 'Siv',
+      icon: 'fa-sunrise',
+      objectives: [
+        'Survey three crash zones in the Barrens',
+        'Collect telemetry from a fallen ARC Scout',
+        'Extract without triggering an alert'
+      ],
+      rewards: ['2,500 Credits', 'Siv Reputation +40']
+    },
+    {
+      id: 'supply-chains',
+      name: 'Supply Chains',
+      trader: 'Warden',
+      icon: 'fa-truck-ramp-box',
+      objectives: [
+        'Secure three supply pods',
+        'Deliver supplies to the Refuge',
+        'Defend the drop point for 90 seconds'
+      ],
+      rewards: ['3,200 Credits', 'Rare Gear Cache']
+    },
+    {
+      id: 'signal-flare',
+      name: 'Signal Flare',
+      trader: 'Siv',
+      icon: 'fa-signal',
+      objectives: [
+        'Power three relay towers',
+        'Synchronise the transmission uplink',
+        'Hold the uplink until the scan completes'
+      ],
+      rewards: ['3,800 Credits', 'ARC Intel Package']
+    },
+    {
+      id: 'hard-reset',
+      name: 'Hard Reset',
+      trader: 'Brigg',
+      icon: 'fa-microchip',
+      objectives: [
+        'Retrieve a corrupted AI core',
+        'Stabilise it at a Workshop Bench',
+        'Install the patch in a live Sentinel'
+      ],
+      rewards: ['5,000 Credits', 'Prototype Mod']
+    },
+    {
+      id: 'night-harvest',
+      name: 'Night Harvest',
+      trader: 'Warden',
+      icon: 'fa-cloud-moon',
+      objectives: [
+        'Hunt down 10 Dregs after sunset',
+        'Disable a Raider extraction',
+        'Extract with harvested energy cells'
+      ],
+      rewards: ['4,100 Credits', 'Warden Reputation +60']
+    },
+    {
+      id: 'echo-of-ember',
+      name: 'Echo of Ember',
+      trader: 'Elda',
+      icon: 'fa-fire-flame-curved',
+      objectives: [
+        'Collect three Ember cores',
+        'Cleanse the cores in a Refiner',
+        'Return to Elda without dying'
+      ],
+      rewards: ['Ancient Trinket', 'Elda Reputation +35']
+    }
+  ];
 
   const skillPhases = [
-  {
-    id: 'conditioning',
-    name: 'Conditioning',
-    icon: 'fa-dumbbell',
-    skills: [
-      {
-        id: 'used-to-the-weight',
-        name: 'Used To The Weight',
-        description: "Wearing a shield doesn't slow you down as much.",
-        affected: 'Movement Speed',
-        values: null,
-        cost: 5,
-        prerequisites: 'None',
-        type: 'Conditioning'
-      },
-      {
-        id: 'blast-born',
-        name: 'Blast-Born',
-        description: 'Your hearing is less affected by nearby explosions.',
-        affected: 'Hearing Enhancement',
-        values: null,
-        cost: 5,
-        prerequisites: 'Used To The Weight',
-        type: 'Conditioning'
-      },
-      {
-        id: 'gentle-pressure',
-        name: 'Gentle Pressure',
-        description: 'You make less noise when breaching.',
-        affected: 'Noise Reduction',
-        values: null,
-        cost: 5,
-        prerequisites: 'Used To The Weight',
-        type: 'Conditioning'
-      },
-      {
-        id: 'fight-or-flight',
-        name: 'Fight Or Flight',
-        description: "When you're hurt in combat, regain a fixed amount of stamina. Has cooldown between uses.",
-        affected: 'Stamina Regeneration',
-        values: null,
-        cost: 5,
-        prerequisites: 'Blast-Born',
-        type: 'Conditioning'
-      },
-      {
-        id: 'proficient-pryer',
-        name: 'Proficient Pryer',
-        description: 'Breaching doors and containers takes less time',
-        affected: 'Breach Time Reduction',
-        values: null,
-        cost: 5,
-        prerequisites: 'Gentle Pressure',
-        type: 'Conditioning'
-      },
-      {
-        id: 'survivor-s-stamina',
-        name: "Survivor's Stamina",
-        description: "When you're critically hurt, your stamina regenerates faster.",
-        affected: 'Stamina Regeneration',
-        values: null,
-        cost: 1,
-        prerequisites: 'Fight or Flight, 15 Points in Conditioning',
-        type: 'Conditioning'
-      },
-      {
-        id: 'unburdened-roll',
-        name: 'Unburdened Roll',
-        description: 'If your shield breaks, your first Dodge Roll within a few seconds does not cost stamina.',
-        affected: 'Stamina Cost Reduction',
-        values: null,
-        cost: 1,
-        prerequisites: 'Proficient Pryer, 15 Points in Conditioning',
-        type: 'Conditioning'
-      },
-      {
-        id: 'downed-but-determined',
-        name: 'Downed But Determined',
-        description: "When you're downed, it takes longer before you collapse.",
-        affected: 'Max Downtime',
-        values: null,
-        cost: 5,
-        prerequisites: "Survivor's Stamina",
-        type: 'Conditioning'
-      },
-      {
-        id: 'a-little-extra',
-        name: 'A Little Extra',
-        description: 'Breaching an object generates resources.',
-        affected: 'Loot Find Chance',
-        values: null,
-        cost: 1,
-        prerequisites: "Survivor's Stamina, Unburdened Roll",
-        type: 'Conditioning'
-      },
-      {
-        id: 'effortless-swing',
-        name: 'Effortless Swing',
-        description: 'Melee abilities cost less stamina',
-        affected: 'Stamina Cost Reduction',
-        values: null,
-        cost: 5,
-        prerequisites: 'Unburdened Roll',
-        type: 'Conditioning'
-      },
-      {
-        id: 'turtle-crawl',
-        name: 'Turtle Crawl',
-        description: 'While downed, you take less damage.',
-        affected: 'Downtime Damage Reduction',
-        values: null,
-        cost: 5,
-        prerequisites: 'Downed But Determined',
-        type: 'Conditioning'
-      },
-      {
-        id: 'loaded-arms',
-        name: 'Loaded Arms',
-        description: 'Your equipped weapon has less impact on your encumbrance.',
-        affected: 'Encumbrance Reduction',
-        values: null,
-        cost: 1,
-        prerequisites: 'A Little Extra',
-        type: 'Conditioning'
-      },
-      {
-        id: 'sky-clearing-swing',
-        name: 'Sky-Clearing Swing',
-        description: 'You deal more melee damage to drones.',
-        affected: 'Melee Damage',
-        values: null,
-        cost: 5,
-        prerequisites: 'Effortless Swing',
-        type: 'Conditioning'
-      },
-      {
-        id: 'back-on-your-feet',
-        name: 'Back On Your Feet',
-        description: "When you're critically hurt, your health regenerates until a certain limit.",
-        affected: 'Health Regeneration',
-        values: null,
-        cost: 1,
-        prerequisites: 'Turtle Crawl, Loaded Arms, 36 Points in Conditioning',
-        type: 'Conditioning'
-      }
-    ]
-  },
-  {
-    id: 'mobility',
-    name: 'Mobility',
-    icon: 'fa-person-running',
-    skills: [
-      {
-        id: 'nimble-climber',
-        name: 'Nimble Climber',
-        description: 'You can climb and vault more quickly.',
-        affected: 'Climb and Vault Speed',
-        values: null,
-        cost: 5,
-        prerequisites: 'None',
-        type: 'Mobility'
-      },
-      {
-        id: 'marathon-runner',
-        name: 'Marathon Runner',
-        description: 'Moving around costs less stamina.',
-        affected: 'Stamina Cost Reduction',
-        values: null,
-        cost: 5,
-        prerequisites: 'Nimble Climber',
-        type: 'Mobility'
-      },
-      {
-        id: 'slip-and-slide',
-        name: 'Slip and Slide',
-        description: 'You can slide further and faster',
-        affected: 'Movement Speed',
-        values: null,
-        cost: 5,
-        prerequisites: 'Nimble Climber',
-        type: 'Mobility'
-      },
-      {
-        id: 'youthful-lungs',
-        name: 'Youthful Lungs',
-        description: 'Increase your max stamina.',
-        affected: 'Max Stamina',
-        values: null,
-        cost: 5,
-        prerequisites: 'Marathon Runner',
-        type: 'Mobility'
-      },
-      {
-        id: 'sturdy-ankles',
-        name: 'Sturdy Ankles',
-        description: 'You take less fall damage when falling from a non-lethal height.',
-        affected: 'Fall Damage Reduction',
-        values: null,
-        cost: 5,
-        prerequisites: 'Slip and Slide',
-        type: 'Mobility'
-      },
-      {
-        id: 'carry-the-momentum',
-        name: 'Carry The Momentum',
-        description: 'After a Sprint Dodge Roll, sprinting does not consume stamina for a short time. Has a cooldown between uses.',
-        affected: 'Stamina Cost Reduction',
-        values: null,
-        cost: 1,
-        prerequisites: 'Youthful Lungs, 15 Points in Mobility',
-        type: 'Mobility'
-      },
-      {
-        id: 'calming-stroll',
-        name: 'Calming Stroll',
-        description: 'While walking, your stamina regenerates as if you were standing still.',
-        affected: 'Stamina Regeneration',
-        values: null,
-        cost: 1,
-        prerequisites: 'Sturdy Ankles, 15 Points in Mobility',
-        type: 'Mobility'
-      },
-      {
-        id: 'effortless-roll',
-        name: 'Effortless Roll',
-        description: 'Dodge Rolls cost less stamina.',
-        affected: 'Stamina Cost Reduction',
-        values: null,
-        cost: 5,
-        prerequisites: 'Carry The Momentum',
-        type: 'Mobility'
-      },
-      {
-        id: 'crawl-before-you-walk',
-        name: 'Crawl Before You Walk',
-        description: "When you're downed, you crawl faster.",
-        affected: 'Movement Speed',
-        values: null,
-        cost: 5,
-        prerequisites: 'Carry The Momentum, Calming Stroll',
-        type: 'Mobility'
-      },
-      {
-        id: 'off-the-wall',
-        name: 'Off The Wall',
-        description: 'You can Wall Leap further.',
-        affected: 'Wall Leap Distance',
-        values: null,
-        cost: 5,
-        prerequisites: 'Calming Stroll',
-        type: 'Mobility'
-      },
-      {
-        id: 'heroic-leap',
-        name: 'Heroic Leap',
-        description: 'You can Sprint Dodge Roll Further.',
-        affected: 'Sprint Dodge Distance',
-        values: null,
-        cost: 5,
-        prerequisites: 'Effortless Roll',
-        type: 'Mobility'
-      },
-      {
-        id: 'vigorous-vaulter',
-        name: 'Vigorous Vaulter',
-        description: 'Vaulting is no longer slowed down while exhausted.',
-        affected: 'Climb and Vault Speed',
-        values: null,
-        cost: 1,
-        prerequisites: 'Crawl Before You Walk',
-        type: 'Mobility'
-      },
-      {
-        id: 'ready-to-roll',
-        name: 'Ready To Roll',
-        description: 'When falling, your timing window to perform a Recovery Roll is increased.',
-        affected: 'Recover Roll Window',
-        values: null,
-        cost: 5,
-        prerequisites: 'Off The Wall',
-        type: 'Mobility'
-      },
-      {
-        id: 'vaults-on-vaults-on-vaults',
-        name: 'Vaults on Vaults on Vaults',
-        description: 'Vaulting no longer costs stamina.',
-        affected: 'Stamina Cost Reduction',
-        values: null,
-        cost: 1,
-        prerequisites: 'Heroic Leap, Vigorous Vaulter, 36 Points in Mobility',
-        type: 'Mobility'
-      },
-      {
-        id: 'vault-spring',
-        name: 'Vault Spring',
-        description: 'Lets you jump at the end of a vault.',
-        affected: 'Vault Jump',
-        values: null,
-        cost: 1,
-        prerequisites: 'Vigorous Vaulter, Ready to Roll, 36 Points in Mobility',
-        type: 'Mobility'
-      }
-    ]
-  },
-  {
-    id: 'survival',
-    name: 'Survival',
-    icon: 'fa-shield-heart',
-    skills: [
-      {
-        id: 'agile-croucher',
-        name: 'Agile Croucher',
-        description: 'Your movement speed while crouching is increased.',
-        affected: 'Movement Speed',
-        values: null,
-        cost: 5,
-        prerequisites: 'None',
-        type: 'Survival'
-      },
-      {
-        id: 'looter-s-instincts',
-        name: "Looter's Instincts",
-        description: 'When searching a container, loot is revealed faster',
-        affected: 'Loot Speed',
-        values: null,
-        cost: 5,
-        prerequisites: 'Agile Croucher',
-        type: 'Survival'
-      },
-      {
-        id: 'revitalizing-squat',
-        name: 'Revitalizing Squat',
-        description: 'Stamina regeneration while crouched is increased.',
-        affected: 'Stamina Regeneration',
-        values: null,
-        cost: 5,
-        prerequisites: 'Agile Croucher',
-        type: 'Survival'
-      },
-      {
-        id: 'silent-scavenger',
-        name: 'Silent Scavenger',
-        description: 'You make less noise when looting.',
-        affected: 'Noise Reduction',
-        values: null,
-        cost: 5,
-        prerequisites: "Looter's Instincts",
-        type: 'Survival'
-      },
-      {
-        id: 'in-round-crafting',
-        name: 'In-round Crafting',
-        description: 'Unlocks the ability to field-craft items while topside.',
-        affected: 'Field Crafting',
-        values: null,
-        cost: 1,
-        prerequisites: 'Revitalizing Squat',
-        type: 'Survival'
-      },
-      {
-        id: 'suffer-in-silence',
-        name: 'Suffer In Silence',
-        description: 'While critically hurt, your movement makes less noise.',
-        affected: 'Noise Reduction',
-        values: null,
-        cost: 1,
-        prerequisites: 'Silent Scavenger, 15 Points in Survival',
-        type: 'Survival'
-      },
-      {
-        id: 'good-as-new',
-        name: 'Good As New',
-        description: 'While under a healing effect, stamina regeneration is increased.',
-        affected: 'Stamina Regeneration',
-        values: null,
-        cost: 1,
-        prerequisites: 'In-round Crafting, 15 Points in Survival',
-        type: 'Survival'
-      },
-      {
-        id: 'broad-shoulders',
-        name: 'Broad Shoulders',
-        description: 'Increases the maximum weight you can carry.',
-        affected: 'Max Encumbrance',
-        values: null,
-        cost: 5,
-        prerequisites: 'Suffer In Silence',
-        type: 'Survival'
-      },
-      {
-        id: 'traveling-tinkerer',
-        name: 'Traveling Tinkerer',
-        description: 'Unlocks additional items to field craft.',
-        affected: 'Field Crafting',
-        values: null,
-        cost: 1,
-        prerequisites: 'Suffer In Silence, Good as New',
-        type: 'Survival'
-      },
-      {
-        id: 'stubborn-mule',
-        name: 'Stubborn Mule',
-        description: 'Your stamina regeneration is less affected by being over-encumbered.',
-        affected: 'Stamina Regeneration',
-        values: null,
-        cost: 5,
-        prerequisites: 'Good as New',
-        type: 'Survival'
-      },
-      {
-        id: 'looter-s-luck',
-        name: "Looter's Luck",
-        description: "While looting, there's a chance to reveal twice as many items at once",
-        affected: 'Loot Speed',
-        values: null,
-        cost: 5,
-        prerequisites: 'Broad Shoulders',
-        type: 'Survival'
-      },
-      {
-        id: 'one-raider-s-scraps',
-        name: "One Raider's Scraps",
-        description: 'When looting Raider containers, you have a small chance of finding additional field-crafted items.',
-        affected: 'Loot Find Chance',
-        values: null,
-        cost: 5,
-        prerequisites: 'Traveling Tinkerer',
-        type: 'Survival'
-      },
-      {
-        id: 'three-deep-breaths',
-        name: 'Three Deep Breaths',
-        description: 'After an ability drains your stamina, you recover more quickly.',
-        affected: 'Stamina Regeneration',
-        values: null,
-        cost: 5,
-        prerequisites: 'Stubborn Mule',
-        type: 'Survival'
-      },
-      {
-        id: 'security-breach',
-        name: 'Security Breach',
-        description: 'Lets you breach Security Lockers.',
-        affected: 'Loot Option',
-        values: null,
-        cost: 1,
-        prerequisites: "Looter's Luck, One Raider's Scraps, 36 Points in Survival",
-        type: 'Survival'
-      },
-      {
-        id: 'minesweeper',
-        name: 'Minesweeper',
-        description: 'Mines and explosive deployables can be defused when in close proximity',
-        affected: 'Explosive Defuse',
-        values: null,
-        cost: 1,
-        prerequisites: "On Raider's Scraps, Three Deep Breaths, 36 Points in Survival.",
-        type: 'Survival'
-      }
-    ]
-  }
-];
-
-  const traderMeta = {
-    Shani: {
-      icon: 'fa-compass',
-      color: '#f4a261'
+    {
+      id: 'early',
+      name: 'Early Phase',
+      icon: 'fa-seedling',
+      skills: [
+        {
+          id: 'dash-mastery',
+          name: 'Dash Mastery',
+          description: 'Reduces dash cooldown by 25% and grants brief immunity to slows.',
+          cost: 6,
+          prerequisites: 'None',
+          type: 'Mobility'
+        },
+        {
+          id: 'field-medic',
+          name: 'Field Medic',
+          description: 'Revive allies 30% faster and restore additional health on revive.',
+          cost: 5,
+          prerequisites: 'Medical Lab Lv.1',
+          type: 'Survival'
+        },
+        {
+          id: 'calibrated-shot',
+          name: 'Calibrated Shot',
+          description: 'First shot after sprinting deals 35% more damage.',
+          cost: 4,
+          prerequisites: 'Gunsmith Lv.1',
+          type: 'Conditioning'
+        }
+      ]
     },
-    Celeste: {
-      icon: 'fa-satellite-dish',
-      color: '#6d597a'
+    {
+      id: 'mid',
+      name: 'Mid Phase',
+      icon: 'fa-timeline',
+      skills: [
+        {
+          id: 'adaptive-shield',
+          name: 'Adaptive Shield',
+          description: 'Gain an overshield when your health drops below 30% once per encounter.',
+          cost: 8,
+          prerequisites: 'Utility Station Lv.2',
+          type: 'Survival'
+        },
+        {
+          id: 'kinetic-reserve',
+          name: 'Kinetic Reserve',
+          description: 'Store excess stamina to unleash a powerful knockback melee attack.',
+          cost: 7,
+          prerequisites: 'Dash Mastery',
+          type: 'Mobility'
+        },
+        {
+          id: 'payload-specialist',
+          name: 'Payload Specialist',
+          description: 'Explosives deal 20% more damage and create lingering burn fields.',
+          cost: 9,
+          prerequisites: 'Explosives Station Lv.2',
+          type: 'Conditioning'
+        }
+      ]
     },
-    'Tian Wen': {
-      icon: 'fa-chess-rook',
-      color: '#2ec4b6'
-    },
-    Apollo: {
-      icon: 'fa-bolt',
-      color: '#ff6b6b'
-    },
-    Lance: {
-      icon: 'fa-kit-medical',
-      color: '#3a86ff'
+    {
+      id: 'late',
+      name: 'Late Phase',
+      icon: 'fa-jet-fighter-up',
+      skills: [
+        {
+          id: 'arc-overdrive',
+          name: 'ARC Overdrive',
+          description: 'Temporarily double ability damage and movement speed after a finisher.',
+          cost: 12,
+          prerequisites: 'Kinetic Reserve',
+          type: 'Mobility'
+        },
+        {
+          id: 'nanite-regrowth',
+          name: 'Nanite Regrowth',
+          description: 'Heal 3% health per second for 5 seconds after taking lethal damage once per mission.',
+          cost: 11,
+          prerequisites: 'Adaptive Shield',
+          type: 'Survival'
+        },
+        {
+          id: 'siege-architect',
+          name: 'Siege Architect',
+          description: 'Place automated turrets with increased range and support drones.',
+          cost: 10,
+          prerequisites: 'Payload Specialist',
+          type: 'Conditioning'
+        }
+      ]
     }
-  };
+  ];
 
-  return { workshopStations, quests, skillPhases, traderMeta };
+  return { workshopStations, quests, skillPhases };
 })();
 
 // Shared helper utilities used across modules for repetitive tasks.
@@ -1704,55 +578,26 @@ const NavigationController = (() => {
 const WorkshopView = (() => {
   const container = document.getElementById('workshop-grid');
 
-  const renderLevelHeader = (station, level) => {
-    const row = Utils.createElement('tr', { className: 'level-header' });
-    const crafts = (level.crafts ?? []).map((craft) => `<span class="craft-chip">${craft}</span>`).join('');
-    const functions = (level.functions ?? []).map((fn) => `<li>${fn}</li>`).join('');
-    row.innerHTML = `
-      <td colspan="6">
-        <div class="level-summary">
-          <div class="level-title">
-            <span class="level-badge">Lv.${level.level}</span>
-            <strong>${level.label ?? `Level ${level.level}`}</strong>
-          </div>
-          ${crafts ? `<div class="craft-list">${crafts}</div>` : ''}
-          ${functions ? `<ul class="function-list">${functions}</ul>` : ''}
-        </div>
-      </td>
-    `;
-    return row;
-  };
-
   const renderMaterialRow = (station, level, material) => {
-    const levelId = Utils.formatKey(station.id, `lv${level.level}`);
-    const trackable = Number.isFinite(material.quantity);
-    const row = Utils.createElement('tr', { className: `material-row${trackable ? '' : ' info-row'}`.trim() });
-    row.dataset.levelId = levelId;
+    const row = Utils.createElement('tr');
     const key = Utils.formatKey('workshop', station.id, level.level, material.item);
-    const max = trackable ? material.quantity : 0;
-    const stored = trackable ? StorageManager.get(key, 0) : 0;
-    const have = trackable ? Utils.clamp(Number(stored) || 0, 0, max) : 0;
-    const remaining = trackable ? max - have : '&mdash;';
-    const progress = trackable && max ? (have / max) * 100 : 0;
-    const quantityLabel = trackable ? max : '&mdash;';
-    const inputField = trackable
-      ? `<input type="number" min="0" max="${max}" step="1" value="${have}" class="material-input" data-storage-key="${key}" />`
-      : '<span class="material-note">Info</span>';
+    const stored = StorageManager.get(key, 0);
+    const have = Utils.clamp(Number(stored) || 0, 0, material.quantity);
+    const levelId = Utils.formatKey(station.id, `lv${level.level}`);
+    row.dataset.levelId = levelId;
 
     row.innerHTML = `
       <td>Lv.${level.level}</td>
       <td>${material.item}</td>
-      <td>${quantityLabel}</td>
-      <td>${inputField}</td>
-      <td class="remaining">${remaining}</td>
+      <td>${material.quantity}</td>
       <td>
-        <div class="material-progress"><span style="width: ${progress}%"></span></div>
+        <input type="number" min="0" max="${material.quantity}" step="1" value="${have}" class="material-input" data-storage-key="${key}" />
+      </td>
+      <td class="remaining">${material.quantity - have}</td>
+      <td>
+        <div class="material-progress"><span style="width: ${(have / material.quantity) * 100}%"></span></div>
       </td>
     `;
-
-    if (!trackable) {
-      row.classList.add('material-static');
-    }
 
     return row;
   };
@@ -1761,20 +606,17 @@ const WorkshopView = (() => {
     const footerRow = Utils.createElement('tr');
     footerRow.classList.add('level-footer');
     const levelId = Utils.formatKey(station.id, `lv${level.level}`);
-    const label = level.label ?? `Lv.${level.level}`;
     footerRow.dataset.levelFooter = levelId;
     footerRow.dataset.levelNumber = level.level;
-    const trackable = (level.materials ?? []).filter((material) => Number.isFinite(material.quantity));
-    const remaining = trackable.reduce((sum, material) => {
+    const remaining = level.materials.reduce((sum, material) => {
       const key = Utils.formatKey('workshop', station.id, level.level, material.item);
       const have = StorageManager.get(key, 0) || 0;
-      const max = material.quantity ?? 0;
-      return sum + (max - Math.min(have, max));
+      return sum + (material.quantity - Math.min(have, material.quantity));
     }, 0);
-    footerRow.innerHTML = trackable.length
-      ? `<td colspan="6">Remaining materials for ${label}: <strong class="level-remaining">${remaining}</strong></td>`
-      : `<td colspan="6" class="level-remaining-message">No materials to track for ${label}.</td>`;
-    footerRow.dataset.complete = String(trackable.length === 0 || remaining === 0);
+    footerRow.innerHTML = `
+      <td colspan="6">Remaining materials for Lv.${level.level}: <strong class="level-remaining">${remaining}</strong></td>
+    `;
+    footerRow.dataset.complete = String(remaining === 0);
     return footerRow;
   };
 
@@ -1795,12 +637,6 @@ const WorkshopView = (() => {
     `;
 
     const body = card.querySelector('.card-body');
-    if (station.description) {
-      body.appendChild(
-        Utils.createElement('p', { className: 'station-description', text: station.description })
-      );
-    }
-
     const table = Utils.createElement('table', { className: 'material-table' });
     table.innerHTML = `
       <thead>
@@ -1818,21 +654,9 @@ const WorkshopView = (() => {
 
     const tbody = table.querySelector('tbody');
     station.levels.forEach((level) => {
-      tbody.appendChild(renderLevelHeader(station, level));
-
-      const materials = Array.isArray(level.materials) ? level.materials : [];
-      if (materials.length) {
-        materials.forEach((material) => {
-          tbody.appendChild(renderMaterialRow(station, level, material));
-        });
-      } else {
-        const emptyRow = Utils.createElement('tr', { className: 'material-empty' });
-        emptyRow.dataset.levelId = Utils.formatKey(station.id, `lv${level.level}`);
-        const label = level.label ?? `Lv.${level.level}`;
-        emptyRow.innerHTML = `<td colspan="6" class="no-materials">No materials required for ${label}.</td>`;
-        tbody.appendChild(emptyRow);
-      }
-
+      level.materials.forEach((material) => {
+        tbody.appendChild(renderMaterialRow(station, level, material));
+      });
       tbody.appendChild(renderLevelFooter(station, level));
     });
 
@@ -1872,25 +696,21 @@ const WorkshopView = (() => {
     const remainingCell = row.querySelector('.remaining');
     remainingCell.textContent = max - value;
     const progressBar = row.querySelector('.material-progress span');
-    const percentage = max ? (value / max) * 100 : 0;
-    progressBar.style.width = `${percentage}%`;
+    progressBar.style.width = `${(value / max) * 100}%`;
 
     const levelId = row.dataset.levelId;
     const tbody = row.parentElement;
     const footer = tbody.querySelector(`tr[data-level-footer="${levelId}"]`);
     if (footer) {
-      const materialRows = Array.from(tbody.querySelectorAll(`tr[data-level-id="${levelId}"].material-row`));
+      const materialRows = Array.from(tbody.querySelectorAll(`tr[data-level-id="${levelId}"]`));
       const totalRemaining = materialRows.reduce((sum, materialRow) => {
         const remain = Number(materialRow.querySelector('.remaining')?.textContent ?? 0);
         return sum + remain;
       }, 0);
       const wasComplete = footer.dataset.complete === 'true';
-      const remainingDisplay = footer.querySelector('.level-remaining');
-      if (remainingDisplay) {
-        remainingDisplay.textContent = totalRemaining;
-      }
-      footer.dataset.complete = String(totalRemaining === 0 || materialRows.length === 0);
-      if (totalRemaining === 0 && materialRows.length > 0 && !wasComplete) {
+      footer.querySelector('.level-remaining').textContent = totalRemaining;
+      footer.dataset.complete = String(totalRemaining === 0);
+      if (totalRemaining === 0 && !wasComplete) {
         const stationName = footer.closest('.card').dataset.stationName;
         const levelNumber = footer.dataset.levelNumber;
         Notifier.push(`${stationName} Level ${levelNumber} complete!`);
@@ -1924,7 +744,6 @@ const QuestView = (() => {
   const searchInput = document.getElementById('quest-search');
   const traderFilter = document.getElementById('quest-trader-filter');
   const incompleteOnlyToggle = document.getElementById('quest-incomplete-only');
-  const traderMeta = DataRepository.traderMeta ?? {};
   const FILTER_KEY = 'quest:filters';
   let activeFilters = StorageManager.get(FILTER_KEY, {
     search: '',
@@ -1951,16 +770,11 @@ const QuestView = (() => {
       }
     });
     const progress = computeQuestProgress(quest);
-    const traderDetails = traderMeta[quest.trader] ?? { icon: 'fa-user', color: 'var(--color-accent)' };
-    const mapChips = quest.maps
-      .map((location) => `<span class="map-chip">${location}</span>`)
-      .join('');
-
     card.innerHTML = `
-      <div class="card-header" role="button" tabindex="0" aria-expanded="true" style="--trader-accent: ${traderDetails.color}">
+      <div class="card-header" role="button" tabindex="0" aria-expanded="true">
         <h3><i class="fa-solid ${quest.icon}"></i> ${quest.name}</h3>
         <div class="quest-meta">
-          <span class="trader-badge"><i class="fa-solid ${traderDetails.icon}"></i> ${quest.trader}</span>
+          <span><i class="fa-solid fa-user"></i> ${quest.trader}</span>
           <span>${progress}%</span>
         </div>
         <i class="fa-solid fa-chevron-down chevron" aria-hidden="true"></i>
@@ -1984,17 +798,12 @@ const QuestView = (() => {
     const progressBar = Utils.createElement('div', { className: 'progress-bar' });
     progressBar.innerHTML = `<span style="width: ${progress}%"></span>`;
 
-    const maps = Utils.createElement('div', {
-      className: 'quest-maps',
-      html: `<i class="fa-solid fa-map-location-dot"></i> ${mapChips || '<span class="map-chip">Any</span>'}`
-    });
-
     const rewards = Utils.createElement('p', {
       className: 'quest-rewards',
       html: `<i class="fa-solid fa-gift"></i> Rewards: ${quest.rewards.join(', ')}`
     });
 
-    body.append(list, progressBar, maps, rewards);
+    body.append(list, progressBar, rewards);
 
     const header = card.querySelector('.card-header');
     const toggle = () => {
@@ -2165,18 +974,12 @@ const SkillView = (() => {
       <div class="skill-meta">
         <span><i class="fa-solid fa-star"></i> Cost: ${skill.cost}</span>
         <span><i class="fa-solid fa-diagram-project"></i> ${skill.type}</span>
-        <span><i class="fa-solid fa-bullseye"></i> ${skill.affected}</span>
+        <span><i class="fa-solid fa-link"></i> ${skill.prerequisites}</span>
       </div>
-      <div class="skill-prerequisites"><i class="fa-solid fa-link"></i> ${skill.prerequisites}</div>
     `;
     item.dataset.skillCost = skill.cost;
     item.dataset.skillId = skill.id;
     item.dataset.skillDescription = skill.description;
-    item.dataset.skillAffected = skill.affected;
-    item.dataset.skillPrerequisites = skill.prerequisites;
-    if (skill.values) {
-      item.dataset.skillValues = skill.values;
-    }
     return item;
   };
 
@@ -2227,27 +1030,15 @@ const SkillView = (() => {
   const showTooltip = (button) => {
     const skillItem = button.closest('.skill-item');
     const description = skillItem.dataset.skillDescription;
-    const affected = skillItem.dataset.skillAffected;
-    const values = skillItem.dataset.skillValues;
-    const requires = skillItem.dataset.skillPrerequisites;
     const id = skillItem.dataset.skillId;
     if (activeTooltips.has(id)) {
       hideTooltip(id);
       return;
     }
-    const tooltip = Utils.createElement('div', { className: 'skill-tooltip' });
-    tooltip.appendChild(Utils.createElement('p', { text: description }));
-    const details = Utils.createElement('dl', { className: 'skill-tooltip-details' });
-    const addRow = (label, value) => {
-      if (!value) return;
-      const dt = Utils.createElement('dt', { text: label });
-      const dd = Utils.createElement('dd', { text: value });
-      details.append(dt, dd);
-    };
-    addRow('Affects', affected);
-    addRow('Values', values);
-    addRow('Requires', requires);
-    tooltip.appendChild(details);
+    const tooltip = Utils.createElement('div', {
+      className: 'skill-tooltip',
+      text: description
+    });
     skillItem.appendChild(tooltip);
     activeTooltips.set(id, tooltip);
     document.addEventListener(
@@ -2365,8 +1156,4 @@ const App = (() => {
   return { init };
 })();
 
-if (document.readyState !== 'loading') {
-  App.init();
-} else {
-  window.addEventListener('DOMContentLoaded', App.init);
-}
+window.addEventListener('DOMContentLoaded', App.init);

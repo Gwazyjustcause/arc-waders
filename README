@@ -27,25 +27,9 @@ JavaScript and persists state locally via `localStorage`.
 
 ## Running locally
 
-You can open `index.html` directly in a browser or run a lightweight static
-server so that in-app navigation and imports behave exactly as they would in
-production.
-
-### Using `npx http-server`
-
-1. Ensure you have [Node.js](https://nodejs.org/) installed.
-2. From the project root, run:
-
-   ```bash
-   npx http-server -p 8080
-   ```
-
-   The `-p 8080` flag chooses a port—feel free to pick any open port.
-3. Visit `http://localhost:8080` in your browser. Any progress you enter is
-   stored in the browser’s `localStorage`, so no backend setup is required.
-
-You can use any other static file server (for example, `python -m http.server`)
-if you prefer a different tool.
+Open `index.html` directly in a browser or serve the repository with a static
+file server (for example, `npx http-server`). All data is stored in the
+browser, so no backend is required.
 
 ## Deployment
 

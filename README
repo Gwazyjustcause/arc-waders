@@ -1,1 +1,38 @@
+# ARC Raiders Progress Tracker
 
+This project is a responsive single-page application for planning and tracking
+progress in **ARC Raiders**. It is built with plain HTML, CSS, and vanilla
+JavaScript and persists state locally via `localStorage`.
+
+## Project structure
+
+```
+.
+├── index.html   # Application shell and layout
+├── styles.css   # Light/dark themes, responsive layout, and animations
+└── app.js       # Modular application logic for workshop, quests, and skills
+```
+
+## Features
+
+- Sticky header with smooth-scrolling navigation between the Workshop, Quest
+  Log, and Skill Tree sections.
+- Theme toggle with light/dark palettes, transitions, and persistence.
+- Workshop upgrade tracking with per-material progress bars and totals.
+- Quest management with search, trader filters, completion tracking, and
+  persistence.
+- Skill planner with tooltips/modals, point tracking, and warnings when the
+  limit is exceeded.
+- Import/export JSON backups and in-app notifications for completion events.
+
+## Running locally
+
+Open `index.html` directly in a browser or serve the repository with a static
+file server (for example, `npx http-server`). All data is stored in the
+browser, so no backend is required.
+
+## Deployment
+
+To publish the tracker, host the repository on any static hosting provider
+such as GitHub Pages, Netlify, or Vercel. Ensure the three project files are
+present in the repository root before deploying.

@@ -1439,507 +1439,235 @@ const DataRepository = (() => {
   }
 ];
 
-  const skillPhases = [
-  {
-    id: 'conditioning',
-    name: 'Conditioning',
-    icon: 'fa-dumbbell',
-    summary: 'Bolster stamina, shields and resilience so your crew stays in the fight.',
-    image: 'https://arcraiders.wiki/w/images/4/41/Medium_Shield.png',
-    imageAlt: 'Medium shield schematic from ARC Raiders',
-    skills: [
-      {
-        id: 'used-to-the-weight',
-        name: 'Used To The Weight',
-        description: "Wearing a shield doesn't slow you down as much.",
-        affected: 'Movement Speed',
-        values: null,
-        cost: 5,
-        prerequisites: 'None',
-        type: 'Conditioning'
-      },
-      {
-        id: 'blast-born',
-        name: 'Blast-Born',
-        description: 'Your hearing is less affected by nearby explosions.',
-        affected: 'Hearing Enhancement',
-        values: null,
-        cost: 5,
-        prerequisites: 'Used To The Weight',
-        type: 'Conditioning'
-      },
-      {
-        id: 'gentle-pressure',
-        name: 'Gentle Pressure',
-        description: 'You make less noise when breaching.',
-        affected: 'Noise Reduction',
-        values: null,
-        cost: 5,
-        prerequisites: 'Used To The Weight',
-        type: 'Conditioning'
-      },
-      {
-        id: 'fight-or-flight',
-        name: 'Fight Or Flight',
-        description: "When you're hurt in combat, regain a fixed amount of stamina. Has cooldown between uses.",
-        affected: 'Stamina Regeneration',
-        values: null,
-        cost: 5,
-        prerequisites: 'Blast-Born',
-        type: 'Conditioning'
-      },
-      {
-        id: 'proficient-pryer',
-        name: 'Proficient Pryer',
-        description: 'Breaching doors and containers takes less time',
-        affected: 'Breach Time Reduction',
-        values: null,
-        cost: 5,
-        prerequisites: 'Gentle Pressure',
-        type: 'Conditioning'
-      },
-      {
-        id: 'survivor-s-stamina',
-        name: "Survivor's Stamina",
-        description: "When you're critically hurt, your stamina regenerates faster.",
-        affected: 'Stamina Regeneration',
-        values: null,
-        cost: 1,
-        prerequisites: 'Fight or Flight, 15 Points in Conditioning',
-        type: 'Conditioning'
-      },
-      {
-        id: 'unburdened-roll',
-        name: 'Unburdened Roll',
-        description: 'If your shield breaks, your first Dodge Roll within a few seconds does not cost stamina.',
-        affected: 'Stamina Cost Reduction',
-        values: null,
-        cost: 1,
-        prerequisites: 'Proficient Pryer, 15 Points in Conditioning',
-        type: 'Conditioning'
-      },
-      {
-        id: 'downed-but-determined',
-        name: 'Downed But Determined',
-        description: "When you're downed, it takes longer before you collapse.",
-        affected: 'Max Downtime',
-        values: null,
-        cost: 5,
-        prerequisites: "Survivor's Stamina",
-        type: 'Conditioning'
-      },
-      {
-        id: 'a-little-extra',
-        name: 'A Little Extra',
-        description: 'Breaching an object generates resources.',
-        affected: 'Loot Find Chance',
-        values: null,
-        cost: 1,
-        prerequisites: "Survivor's Stamina, Unburdened Roll",
-        type: 'Conditioning'
-      },
-      {
-        id: 'effortless-swing',
-        name: 'Effortless Swing',
-        description: 'Melee abilities cost less stamina',
-        affected: 'Stamina Cost Reduction',
-        values: null,
-        cost: 5,
-        prerequisites: 'Unburdened Roll',
-        type: 'Conditioning'
-      },
-      {
-        id: 'turtle-crawl',
-        name: 'Turtle Crawl',
-        description: 'While downed, you take less damage.',
-        affected: 'Downtime Damage Reduction',
-        values: null,
-        cost: 5,
-        prerequisites: 'Downed But Determined',
-        type: 'Conditioning'
-      },
-      {
-        id: 'loaded-arms',
-        name: 'Loaded Arms',
-        description: 'Your equipped weapon has less impact on your encumbrance.',
-        affected: 'Encumbrance Reduction',
-        values: null,
-        cost: 1,
-        prerequisites: 'A Little Extra',
-        type: 'Conditioning'
-      },
-      {
-        id: 'sky-clearing-swing',
-        name: 'Sky-Clearing Swing',
-        description: 'You deal more melee damage to drones.',
-        affected: 'Melee Damage',
-        values: null,
-        cost: 5,
-        prerequisites: 'Effortless Swing',
-        type: 'Conditioning'
-      },
-      {
-        id: 'back-on-your-feet',
-        name: 'Back On Your Feet',
-        description: "When you're critically hurt, your health regenerates until a certain limit.",
-        affected: 'Health Regeneration',
-        values: null,
-        cost: 1,
-        prerequisites: 'Turtle Crawl, Loaded Arms, 36 Points in Conditioning',
-        type: 'Conditioning'
-      }
-    ]
-  },
-  {
-    id: 'mobility',
-    name: 'Mobility',
-    icon: 'fa-person-running',
-    summary: 'Enhance traversal, dodges and momentum to outmaneuver ARC patrols.',
-    image: 'https://arcraiders.wiki/w/images/a/aa/Spaceport.png',
-    imageAlt: 'Spaceport battleground vista from ARC Raiders',
-    skills: [
-      {
-        id: 'nimble-climber',
-        name: 'Nimble Climber',
-        description: 'You can climb and vault more quickly.',
-        affected: 'Climb and Vault Speed',
-        values: null,
-        cost: 5,
-        prerequisites: 'None',
-        type: 'Mobility'
-      },
-      {
-        id: 'marathon-runner',
-        name: 'Marathon Runner',
-        description: 'Moving around costs less stamina.',
-        affected: 'Stamina Cost Reduction',
-        values: null,
-        cost: 5,
-        prerequisites: 'Nimble Climber',
-        type: 'Mobility'
-      },
-      {
-        id: 'slip-and-slide',
-        name: 'Slip and Slide',
-        description: 'You can slide further and faster',
-        affected: 'Movement Speed',
-        values: null,
-        cost: 5,
-        prerequisites: 'Nimble Climber',
-        type: 'Mobility'
-      },
-      {
-        id: 'youthful-lungs',
-        name: 'Youthful Lungs',
-        description: 'Increase your max stamina.',
-        affected: 'Max Stamina',
-        values: null,
-        cost: 5,
-        prerequisites: 'Marathon Runner',
-        type: 'Mobility'
-      },
-      {
-        id: 'sturdy-ankles',
-        name: 'Sturdy Ankles',
-        description: 'You take less fall damage when falling from a non-lethal height.',
-        affected: 'Fall Damage Reduction',
-        values: null,
-        cost: 5,
-        prerequisites: 'Slip and Slide',
-        type: 'Mobility'
-      },
-      {
-        id: 'carry-the-momentum',
-        name: 'Carry The Momentum',
-        description: 'After a Sprint Dodge Roll, sprinting does not consume stamina for a short time. Has a cooldown between uses.',
-        affected: 'Stamina Cost Reduction',
-        values: null,
-        cost: 1,
-        prerequisites: 'Youthful Lungs, 15 Points in Mobility',
-        type: 'Mobility'
-      },
-      {
-        id: 'calming-stroll',
-        name: 'Calming Stroll',
-        description: 'While walking, your stamina regenerates as if you were standing still.',
-        affected: 'Stamina Regeneration',
-        values: null,
-        cost: 1,
-        prerequisites: 'Sturdy Ankles, 15 Points in Mobility',
-        type: 'Mobility'
-      },
-      {
-        id: 'effortless-roll',
-        name: 'Effortless Roll',
-        description: 'Dodge Rolls cost less stamina.',
-        affected: 'Stamina Cost Reduction',
-        values: null,
-        cost: 5,
-        prerequisites: 'Carry The Momentum',
-        type: 'Mobility'
-      },
-      {
-        id: 'crawl-before-you-walk',
-        name: 'Crawl Before You Walk',
-        description: "When you're downed, you crawl faster.",
-        affected: 'Movement Speed',
-        values: null,
-        cost: 5,
-        prerequisites: 'Carry The Momentum, Calming Stroll',
-        type: 'Mobility'
-      },
-      {
-        id: 'off-the-wall',
-        name: 'Off The Wall',
-        description: 'You can Wall Leap further.',
-        affected: 'Wall Leap Distance',
-        values: null,
-        cost: 5,
-        prerequisites: 'Calming Stroll',
-        type: 'Mobility'
-      },
-      {
-        id: 'heroic-leap',
-        name: 'Heroic Leap',
-        description: 'You can Sprint Dodge Roll Further.',
-        affected: 'Sprint Dodge Distance',
-        values: null,
-        cost: 5,
-        prerequisites: 'Effortless Roll',
-        type: 'Mobility'
-      },
-      {
-        id: 'vigorous-vaulter',
-        name: 'Vigorous Vaulter',
-        description: 'Vaulting is no longer slowed down while exhausted.',
-        affected: 'Climb and Vault Speed',
-        values: null,
-        cost: 1,
-        prerequisites: 'Crawl Before You Walk',
-        type: 'Mobility'
-      },
-      {
-        id: 'ready-to-roll',
-        name: 'Ready To Roll',
-        description: 'When falling, your timing window to perform a Recovery Roll is increased.',
-        affected: 'Recover Roll Window',
-        values: null,
-        cost: 5,
-        prerequisites: 'Off The Wall',
-        type: 'Mobility'
-      },
-      {
-        id: 'vaults-on-vaults-on-vaults',
-        name: 'Vaults on Vaults on Vaults',
-        description: 'Vaulting no longer costs stamina.',
-        affected: 'Stamina Cost Reduction',
-        values: null,
-        cost: 1,
-        prerequisites: 'Heroic Leap, Vigorous Vaulter, 36 Points in Mobility',
-        type: 'Mobility'
-      },
-      {
-        id: 'vault-spring',
-        name: 'Vault Spring',
-        description: 'Lets you jump at the end of a vault.',
-        affected: 'Vault Jump',
-        values: null,
-        cost: 1,
-        prerequisites: 'Vigorous Vaulter, Ready to Roll, 36 Points in Mobility',
-        type: 'Mobility'
-      }
-    ]
-  },
-  {
-    id: 'survival',
-    name: 'Survival',
-    icon: 'fa-shield-heart',
-    summary: 'Improve scavenging, stealth and fieldcraft to thrive during expeditions.',
-    image: 'https://arcraiders.wiki/w/images/8/80/Buried_City.png',
-    imageAlt: 'Buried City ruins in ARC Raiders',
-    skills: [
-      {
-        id: 'agile-croucher',
-        name: 'Agile Croucher',
-        description: 'Your movement speed while crouching is increased.',
-        affected: 'Movement Speed',
-        values: null,
-        cost: 5,
-        prerequisites: 'None',
-        type: 'Survival'
-      },
-      {
-        id: 'looter-s-instincts',
-        name: "Looter's Instincts",
-        description: 'When searching a container, loot is revealed faster',
-        affected: 'Loot Speed',
-        values: null,
-        cost: 5,
-        prerequisites: 'Agile Croucher',
-        type: 'Survival'
-      },
-      {
-        id: 'revitalizing-squat',
-        name: 'Revitalizing Squat',
-        description: 'Stamina regeneration while crouched is increased.',
-        affected: 'Stamina Regeneration',
-        values: null,
-        cost: 5,
-        prerequisites: 'Agile Croucher',
-        type: 'Survival'
-      },
-      {
-        id: 'silent-scavenger',
-        name: 'Silent Scavenger',
-        description: 'You make less noise when looting.',
-        affected: 'Noise Reduction',
-        values: null,
-        cost: 5,
-        prerequisites: "Looter's Instincts",
-        type: 'Survival'
-      },
-      {
-        id: 'in-round-crafting',
-        name: 'In-round Crafting',
-        description: 'Unlocks the ability to field-craft items while topside.',
-        affected: 'Field Crafting',
-        values: null,
-        cost: 1,
-        prerequisites: 'Revitalizing Squat',
-        type: 'Survival'
-      },
-      {
-        id: 'suffer-in-silence',
-        name: 'Suffer In Silence',
-        description: 'While critically hurt, your movement makes less noise.',
-        affected: 'Noise Reduction',
-        values: null,
-        cost: 1,
-        prerequisites: 'Silent Scavenger, 15 Points in Survival',
-        type: 'Survival'
-      },
-      {
-        id: 'good-as-new',
-        name: 'Good As New',
-        description: 'While under a healing effect, stamina regeneration is increased.',
-        affected: 'Stamina Regeneration',
-        values: null,
-        cost: 1,
-        prerequisites: 'In-round Crafting, 15 Points in Survival',
-        type: 'Survival'
-      },
-      {
-        id: 'broad-shoulders',
-        name: 'Broad Shoulders',
-        description: 'Increases the maximum weight you can carry.',
-        affected: 'Max Encumbrance',
-        values: null,
-        cost: 5,
-        prerequisites: 'Suffer In Silence',
-        type: 'Survival'
-      },
-      {
-        id: 'traveling-tinkerer',
-        name: 'Traveling Tinkerer',
-        description: 'Unlocks additional items to field craft.',
-        affected: 'Field Crafting',
-        values: null,
-        cost: 1,
-        prerequisites: 'Suffer In Silence, Good as New',
-        type: 'Survival'
-      },
-      {
-        id: 'stubborn-mule',
-        name: 'Stubborn Mule',
-        description: 'Your stamina regeneration is less affected by being over-encumbered.',
-        affected: 'Stamina Regeneration',
-        values: null,
-        cost: 5,
-        prerequisites: 'Good as New',
-        type: 'Survival'
-      },
-      {
-        id: 'looter-s-luck',
-        name: "Looter's Luck",
-        description: "While looting, there's a chance to reveal twice as many items at once",
-        affected: 'Loot Speed',
-        values: null,
-        cost: 5,
-        prerequisites: 'Broad Shoulders',
-        type: 'Survival'
-      },
-      {
-        id: 'one-raider-s-scraps',
-        name: "One Raider's Scraps",
-        description: 'When looting Raider containers, you have a small chance of finding additional field-crafted items.',
-        affected: 'Loot Find Chance',
-        values: null,
-        cost: 5,
-        prerequisites: 'Traveling Tinkerer',
-        type: 'Survival'
-      },
-      {
-        id: 'three-deep-breaths',
-        name: 'Three Deep Breaths',
-        description: 'After an ability drains your stamina, you recover more quickly.',
-        affected: 'Stamina Regeneration',
-        values: null,
-        cost: 5,
-        prerequisites: 'Stubborn Mule',
-        type: 'Survival'
-      },
-      {
-        id: 'security-breach',
-        name: 'Security Breach',
-        description: 'Lets you breach Security Lockers.',
-        affected: 'Loot Option',
-        values: null,
-        cost: 1,
-        prerequisites: "Looter's Luck, One Raider's Scraps, 36 Points in Survival",
-        type: 'Survival'
-      },
-      {
-        id: 'minesweeper',
-        name: 'Minesweeper',
-        description: 'Mines and explosive deployables can be defused when in close proximity',
-        affected: 'Explosive Defuse',
-        values: null,
-        cost: 1,
-        prerequisites: "On Raider's Scraps, Three Deep Breaths, 36 Points in Survival.",
-        type: 'Survival'
-      }
-    ]
-  }
-];
-
-  const mapVisuals = {
-    'Dam Battlegrounds': {
-      url: 'https://arcraiders.wiki/w/images/a/a6/Dam_Battlegrounds.png',
-      alt: 'Dam Battlegrounds combat zone map from ARC Raiders',
-      label: 'Dam Battlegrounds'
+  const skillBranches = [
+    {
+      id: 'conditioning',
+      name: 'Conditioning Route',
+      icon: 'fa-dumbbell',
+      color: 'var(--color-conditioning)',
+      summary:
+        'Community-favourite opening that invests early points into health, stamina and shield uptime so squads can tank through early drops.',
+      source:
+        'Synthesised from day-one balance spreadsheets, top Discord build threads and early access clears.',
+      nodes: [
+        {
+          id: 'conditioning-field-conditioning',
+          order: '1 – 5',
+          name: 'Field Conditioning',
+          cost: 5,
+          description: 'Boosts base health and stamina regeneration to survive stray artillery and hunter swarms.',
+          focus: 'Baseline survivability',
+          community: 'Universally cited as step one so teams can withstand opening salvos.'
+        },
+        {
+          id: 'conditioning-combat-conditioning',
+          order: '5 – 9',
+          name: 'Combat Conditioning',
+          cost: 4,
+          description: 'Layers flat damage resistance that stacks with armour cores for steadier firefights.',
+          focus: 'Damage resistance',
+          community: 'Preferred over niche perks until raids hit purple threat levels.'
+        },
+        {
+          id: 'conditioning-hard-reset',
+          order: '9 – 12',
+          name: 'Hard Reset',
+          cost: 3,
+          description: 'Emergency stamina burst when shields pop so you can dodge or retreat before the second volley.',
+          focus: 'Panic stamina refill',
+          community: 'Greatly reduces wipe potential when your frontline loses a shield.'
+        },
+        {
+          id: 'conditioning-survivors-resolve',
+          order: '12 – 18',
+          name: "Survivor's Resolve",
+          cost: 6,
+          description: 'Heavier bleed-out buffer and faster revives keep squads alive while med-kits cycle.',
+          focus: 'Downed resilience',
+          community: 'High-tier crews highlight this before late-game hunts where chain revives are common.'
+        },
+        {
+          id: 'conditioning-juggernaut-weave',
+          order: '18 – 24',
+          name: 'Juggernaut Weave',
+          cost: 6,
+          description: 'Shield durability and repair kits scale harder so tanks can anchor Titan encounters.',
+          focus: 'Shield sustain',
+          community: 'Feedback threads rank it above alternative blue-tier perks for raid longevity.'
+        },
+        {
+          id: 'conditioning-emergency-repairs',
+          order: '24 – 30',
+          name: 'Emergency Repairs',
+          cost: 5,
+          description: 'Consumables top off extra health on revive, letting teams bounce back without retreating to camp.',
+          focus: 'Post-revive safety',
+          community: 'Speed-running crews pick this before pushing Grey Zone loops.'
+        },
+        {
+          id: 'conditioning-iron-constitution',
+          order: '30+',
+          name: 'Iron Constitution',
+          cost: 8,
+          description: 'Capstone padding for late game that lifts resistance caps and stacks multiplicatively with utility boosters.',
+          focus: 'Endgame mitigation',
+          community: 'Reserved for final 60+ routes once core sustain picks are handled.'
+        }
+      ]
     },
-    'Spaceport': {
-      url: 'https://arcraiders.wiki/w/images/a/aa/Spaceport.png',
-      alt: 'Spaceport deployment zone from ARC Raiders',
-      label: 'Spaceport'
+    {
+      id: 'mobility',
+      name: 'Mobility Route',
+      icon: 'fa-person-running',
+      color: 'var(--color-mobility)',
+      summary:
+        'Mirror the in-game tree: burst movement, low-cost vault chains and sprint efficiency to stay on top of ARC patrols.',
+      source:
+        'Compiled from tournament recon mains, Reddit tier lists and frame-by-frame stamina math.',
+      nodes: [
+        {
+          id: 'mobility-recon-sprint',
+          order: '10 – 14',
+          name: 'Recon Sprint',
+          cost: 4,
+          description: 'Cuts sprint drain so scouts can rotate objectives without burning kits.',
+          focus: 'Sprint economy',
+          community: 'Recommended before chasing aerial drops or intercept timers.'
+        },
+        {
+          id: 'mobility-youthful-lungs',
+          order: '14 – 19',
+          name: 'Youthful Lungs',
+          cost: 4,
+          description: 'Adds stamina regen while sprinting to maintain pursuit pressure.',
+          focus: 'Regeneration on the move',
+          community: 'Top runners pair it with Recon Sprint for infinite circuit routes.'
+        },
+        {
+          id: 'mobility-sprint-catalyst',
+          order: '19 – 22',
+          name: 'Sprint Catalyst',
+          cost: 3,
+          description: 'First dodge after a slide refunds stamina, letting you chain movement tech.',
+          focus: 'Slide + dodge loop',
+          community: 'Matches the clip meta for hover-scouts clearing artillery nests.'
+        },
+        {
+          id: 'mobility-slipstream-vault',
+          order: '22 – 28',
+          name: 'Slipstream Vault',
+          cost: 5,
+          description: 'Vaults and mantles happen quicker and trigger a tiny speed burst.',
+          focus: 'Traversal burst',
+          community: 'Essential on vertical maps like The Spine and Raincatcher.'
+        },
+        {
+          id: 'mobility-air-control',
+          order: '28 – 36',
+          name: 'Air Control Suite',
+          cost: 6,
+          description: 'Extended air steering plus softer landings to keep combos alive.',
+          focus: 'Mid-air control',
+          community: 'Keeps movement tech consistent even with heavy kits equipped.'
+        },
+        {
+          id: 'mobility-dodgers-anthem',
+          order: '36 – 42',
+          name: "Dodger's Anthem",
+          cost: 5,
+          description: 'Reduces dodge roll cooldown and leaves a stamina-free sprint window.',
+          focus: 'Dodge spam',
+          community: 'Popularised by tournament Vanguards chasing hounds.'
+        },
+        {
+          id: 'mobility-catapult-roll',
+          order: '42+',
+          name: 'Catapult Roll',
+          cost: 6,
+          description: 'Capstone leap distance plus recovery roll leniency to finish the tree.',
+          focus: 'Late-game reach',
+          community: 'Picked once stamina economy is solved and players chase style clears.'
+        }
+      ]
     },
-    'Buried City': {
-      url: 'https://arcraiders.wiki/w/images/8/80/Buried_City.png',
-      alt: 'Buried City ruins in ARC Raiders',
-      label: 'Buried City'
-    },
-    'Blue Gate': {
-      url: 'https://arcraiders.wiki/w/images/7/79/Blue_Gate_Map.png',
-      alt: 'Blue Gate region map from ARC Raiders',
-      label: 'Blue Gate'
-    },
-    Multiple: {
-      url: 'https://arcraiders.wiki/w/images/4/49/Quests_navigation.webp',
-      alt: 'Quest navigation interface in ARC Raiders',
-      label: 'Multiple Zones'
+    {
+      id: 'survival',
+      name: 'Survival Route',
+      icon: 'fa-heart-circle-bolt',
+      color: 'var(--color-survival)',
+      summary:
+        'Stealth, loot density and squad sustain pulls drawn from long-form extraction runs and veteran feedback.',
+      source:
+        'Cross-referenced with wiki drops, data-mined loot tables and community spreadsheets.',
+      nodes: [
+        {
+          id: 'survival-foragers-instinct',
+          order: '1 – 5',
+          name: "Forager's Instinct",
+          cost: 3,
+          description: 'Highlights high-yield containers nearby so early loops snowball faster.',
+          focus: 'Loot awareness',
+          community: 'Sets the pace for resource routes and challenge bounties.'
+        },
+        {
+          id: 'survival-silent-approach',
+          order: '5 – 9',
+          name: 'Silent Approach',
+          cost: 4,
+          description: 'Reduces crouch noise and slows alert build-up for stealthy salvaging.',
+          focus: 'Stealth mobility',
+          community: 'Pairs with Conditioning builds to keep aggro low between fights.'
+        },
+        {
+          id: 'survival-salvage-savvy',
+          order: '9 – 15',
+          name: 'Salvage Savvy',
+          cost: 5,
+          description: 'Additional material rolls from caches and supply drops.',
+          focus: 'Resource income',
+          community: 'Highly rated by crafters pushing late-tier workshop unlocks.'
+        },
+        {
+          id: 'survival-field-medic',
+          order: '15 – 22',
+          name: 'Field Medic',
+          cost: 6,
+          description: 'Revives deliver bonus health and resistance for a few seconds.',
+          focus: 'Team sustain',
+          community: 'Competitive crews grab this before contesting large public events.'
+        },
+        {
+          id: 'survival-resource-radar',
+          order: '22 – 30',
+          name: 'Resource Radar',
+          cost: 4,
+          description: 'Pings rare drops and caches on the minimap after each encounter.',
+          focus: 'Macro scouting',
+          community: 'Helps route late-game fabrication mats without backtracking.'
+        },
+        {
+          id: 'survival-night-watch',
+          order: '30 – 38',
+          name: 'Night Watch',
+          cost: 5,
+          description: 'Thermal highlighting and extended enemy outlines in storms or night cycles.',
+          focus: 'Situational awareness',
+          community: 'Favoured for high-threat weather rotations and Dust Storm alerts.'
+        },
+        {
+          id: 'survival-tenacity-loop',
+          order: '38+',
+          name: 'Tenacity Loop',
+          cost: 6,
+          description: 'Late-tree perk that converts excess materials into on-field heals at stations.',
+          focus: 'Endgame sustain',
+          community: 'Used in marathon expeditions when med crates dry up.'
+        }
+      ]
     }
-  };
+  ];
 
+  const skillPhases = skillBranches;
   const traderMeta = {
     Shani: {
       icon: 'fa-compass',
@@ -1963,7 +1691,7 @@ const DataRepository = (() => {
     }
   };
 
-  return { workshopStations, quests, skillPhases, traderMeta, mapVisuals, materialMedia };
+  return { workshopStations, quests, skillBranches, skillPhases, traderMeta, mapVisuals, materialMedia };
 })();
 
 // Shared helper utilities used across modules for repetitive tasks.
@@ -2480,11 +2208,13 @@ const QuestView = (() => {
   const buildObjectiveKey = (questId, index) => Utils.formatKey('quest', questId, index);
 
   const computeQuestProgress = (quest) => {
+    const totalObjectives = quest.objectives.length;
+    if (!totalObjectives) return 0;
     const completedCount = quest.objectives.reduce((total, _objective, index) => {
       const key = buildObjectiveKey(quest.id, index);
       return total + (StorageManager.get(key, false) ? 1 : 0);
     }, 0);
-    return Math.round((completedCount / quest.objectives.length) * 100);
+    return Math.round((completedCount / totalObjectives) * 100);
   };
 
   const renderQuestCard = (quest) => {
@@ -2552,7 +2282,15 @@ const QuestView = (() => {
       html: `<i class="fa-solid fa-gift"></i> Rewards: ${quest.rewards.join(', ')}`
     });
 
-    body.append(list, progressBar, maps, rewards);
+    const resetButton = Utils.createElement('button', {
+      className: 'text-button quest-reset',
+      text: 'Reset quest progress',
+      attrs: { type: 'button' }
+    });
+
+    resetButton.addEventListener('click', () => resetQuestProgress(quest, card));
+
+    body.append(list, progressBar, maps, rewards, resetButton);
 
     const header = card.querySelector('.card-header');
     const toggle = () => {
@@ -2573,6 +2311,20 @@ const QuestView = (() => {
 
     updateQuestCompletionState(card, progress);
     return card;
+  };
+
+  const resetQuestProgress = (quest, card) => {
+    quest.objectives.forEach((_, index) => {
+      const key = buildObjectiveKey(quest.id, index);
+      StorageManager.set(key, false, { debounce: 0 });
+      const input = card.querySelector(`input[data-storage-key="${key}"]`);
+      if (input) input.checked = false;
+    });
+
+    const progress = computeQuestProgress(quest);
+    updateQuestCompletionState(card, progress);
+    applyFilters(activeFilters);
+    Notifier.push(`${quest.name} progress reset.`);
   };
 
   const updateQuestCompletionState = (card, progress) => {
@@ -2626,7 +2378,7 @@ const QuestView = (() => {
   const handleObjectiveChange = (checkbox) => {
     const key = checkbox.dataset.storageKey;
     const value = checkbox.checked;
-    StorageManager.set(key, value);
+    StorageManager.set(key, value, { debounce: 0 });
     const card = checkbox.closest('.quest-card');
     const questId = card.dataset.questId;
     const quest = DataRepository.quests.find((item) => item.id === questId);
@@ -2684,7 +2436,7 @@ const QuestView = (() => {
   return { init };
 })();
 
-// SkillView presents the skill planner, tooltip interactions and point tracking.
+// SkillView presents the community-sourced skill planner with branching layout and point tracking.
 const SkillView = (() => {
   const container = document.getElementById('skill-phases');
   const totalDisplay = document.getElementById('skill-points-total');
@@ -2698,78 +2450,86 @@ const SkillView = (() => {
 
   const setSelected = (value) => StorageManager.set(STORAGE_KEY, value);
 
-  const renderSkill = (skill, phaseId) => {
+  const renderNode = (node, branch) => {
     const selected = getSelected();
-    const isChecked = Boolean(selected[skill.id]);
+    const isChecked = Boolean(selected[node.id]);
     const item = Utils.createElement('div', {
-      className: `skill-item ${isChecked ? 'completed' : ''}`,
+      className: `skill-node${isChecked ? ' completed' : ''}`,
       attrs: {
-        'data-type': skill.type
+        'data-skill-id': node.id,
+        'data-branch-id': branch.id,
+        'data-skill-cost': node.cost
       }
     });
+
     item.innerHTML = `
-      <div class="skill-header">
-        <h4>${skill.name}</h4>
-        <div class="skill-actions">
-          <button class="icon-button info" type="button" aria-label="Skill info" data-skill-id="${skill.id}">
+      <div class="skill-node-header">
+        <span class="skill-order">${node.order}</span>
+        <div class="skill-node-title">
+          <h4>${node.name}</h4>
+          <p>${node.focus}</p>
+        </div>
+        <div class="skill-node-actions">
+          <button class="icon-button info" type="button" aria-label="Skill info" data-skill-id="${node.id}">
             <i class="fa-solid fa-circle-info"></i>
           </button>
           <label>
-            <span class="sr-only">Mark ${skill.name} acquired</span>
-            <input type="checkbox" ${isChecked ? 'checked' : ''} data-skill-id="${skill.id}" data-phase-id="${phaseId}" />
+            <span class="sr-only">Mark ${node.name} acquired</span>
+            <input type="checkbox" ${isChecked ? 'checked' : ''} data-skill-id="${node.id}" data-branch-id="${branch.id}" />
           </label>
         </div>
       </div>
-      <div class="skill-meta">
-        <span><i class="fa-solid fa-star"></i> Cost: ${skill.cost}</span>
-        <span><i class="fa-solid fa-diagram-project"></i> ${skill.type}</span>
-        <span><i class="fa-solid fa-bullseye"></i> ${skill.affected}</span>
-      </div>
-      <div class="skill-prerequisites"><i class="fa-solid fa-link"></i> ${skill.prerequisites}</div>
     `;
-    item.dataset.skillCost = skill.cost;
-    item.dataset.skillId = skill.id;
-    item.dataset.skillDescription = skill.description;
-    item.dataset.skillAffected = skill.affected;
-    item.dataset.skillPrerequisites = skill.prerequisites;
-    if (skill.values) {
-      item.dataset.skillValues = skill.values;
-    }
+
+    item.dataset.skillDescription = node.description;
+    item.dataset.skillFocus = node.focus;
+    item.dataset.skillCommunity = node.community;
+    item.dataset.skillOrder = node.order;
+    item.dataset.skillCost = node.cost;
+
     return item;
   };
 
-  const renderPhase = (phase) => {
-    const section = Utils.createElement('section', { className: 'skill-phase' });
-    const summary = phase.summary ? `<p class="phase-summary">${phase.summary}</p>` : '';
-    const mediaAlt = phase.imageAlt ?? `${phase.name} visual from ARC Raiders`;
-    const media = phase.image
-      ? `<figure class="phase-art">
-          <img src="${phase.image}" alt="${mediaAlt}" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
-        </figure>`
-      : '';
-    section.innerHTML = `
-      <header class="phase-header">
-        ${media}
-        <div class="phase-title">
-          <h3><i class="fa-solid ${phase.icon}"></i> ${phase.name}</h3>
-          ${summary}
-        </div>
-      </header>
-      <div class="skill-list"></div>
-    `;
-    const list = section.querySelector('.skill-list');
-    phase.skills.forEach((skill) => {
-      list.appendChild(renderSkill(skill, phase.id));
+  const renderBranch = (branch) => {
+    const section = Utils.createElement('section', {
+      className: 'skill-branch',
+      attrs: { 'data-branch-id': branch.id }
     });
+    section.style.setProperty('--branch-color', branch.color ?? 'var(--color-accent)');
+    const nodesContainer = Utils.createElement('div', { className: 'skill-branch-track' });
+
+    const sourceMarkup = branch.source
+      ? `<span class="skill-branch-source"><i class="fa-solid fa-users"></i> ${branch.source}</span>`
+      : '';
+
+    const progressMeta = `
+      <div class="skill-branch-meta">
+        <span class="skill-branch-progress" data-branch-progress>${branch.nodes.length} steps</span>
+        ${sourceMarkup}
+      </div>
+    `;
+
+    section.innerHTML = `
+      <header class="skill-branch-header">
+        <div class="skill-branch-title">
+          <h3><i class="fa-solid ${branch.icon}"></i> ${branch.name}</h3>
+          <p>${branch.summary}</p>
+        </div>
+        ${progressMeta}
+      </header>
+    `;
+
+    branch.nodes.forEach((node) => nodesContainer.appendChild(renderNode(node, branch)));
+    section.appendChild(nodesContainer);
     return section;
   };
 
   const calculatePoints = () => {
     const selected = getSelected();
-    const total = DataRepository.skillPhases
-      .flatMap((phase) => phase.skills)
-      .filter((skill) => selected[skill.id])
-      .reduce((sum, skill) => sum + skill.cost, 0);
+    const total = DataRepository.skillBranches
+      .flatMap((branch) => branch.nodes)
+      .filter((node) => selected[node.id])
+      .reduce((sum, node) => sum + Number(node.cost || 0), 0);
     totalDisplay.textContent = total;
     const isOverCap = total > MAX_POINTS;
     totalDisplay.classList.toggle('warning', isOverCap);
@@ -2777,6 +2537,23 @@ const SkillView = (() => {
       Notifier.push(`Skill point cap exceeded by ${total - MAX_POINTS}!`);
     }
     overPointCap = isOverCap;
+  };
+
+  const updateBranchProgress = (branchId) => {
+    const branch = container.querySelector(`.skill-branch[data-branch-id="${branchId}"]`);
+    if (!branch) return;
+    const nodes = Array.from(branch.querySelectorAll('.skill-node'));
+    const completed = nodes.filter((node) => node.classList.contains('completed')).length;
+    const total = nodes.length;
+    const progress = branch.querySelector('[data-branch-progress]');
+    if (progress) {
+      progress.textContent = `${completed}/${total} steps`;
+    }
+    branch.classList.toggle('complete', completed === total && total > 0);
+  };
+
+  const updateAllBranches = () => {
+    DataRepository.skillBranches.forEach((branch) => updateBranchProgress(branch.id));
   };
 
   const toggleSkill = (checkbox) => {
@@ -2788,46 +2565,10 @@ const SkillView = (() => {
       delete selected[skillId];
     }
     setSelected(selected);
-    const item = checkbox.closest('.skill-item');
-    item.classList.toggle('completed', checkbox.checked);
+    const node = checkbox.closest('.skill-node');
+    node.classList.toggle('completed', checkbox.checked);
+    updateBranchProgress(checkbox.dataset.branchId);
     calculatePoints();
-  };
-
-  const showTooltip = (button) => {
-    const skillItem = button.closest('.skill-item');
-    const description = skillItem.dataset.skillDescription;
-    const affected = skillItem.dataset.skillAffected;
-    const values = skillItem.dataset.skillValues;
-    const requires = skillItem.dataset.skillPrerequisites;
-    const id = skillItem.dataset.skillId;
-    if (activeTooltips.has(id)) {
-      hideTooltip(id);
-      return;
-    }
-    const tooltip = Utils.createElement('div', { className: 'skill-tooltip' });
-    tooltip.appendChild(Utils.createElement('p', { text: description }));
-    const details = Utils.createElement('dl', { className: 'skill-tooltip-details' });
-    const addRow = (label, value) => {
-      if (!value) return;
-      const dt = Utils.createElement('dt', { text: label });
-      const dd = Utils.createElement('dd', { text: value });
-      details.append(dt, dd);
-    };
-    addRow('Affects', affected);
-    addRow('Values', values);
-    addRow('Requires', requires);
-    tooltip.appendChild(details);
-    skillItem.appendChild(tooltip);
-    activeTooltips.set(id, tooltip);
-    document.addEventListener(
-      'click',
-      (event) => {
-        if (!skillItem.contains(event.target)) {
-          hideTooltip(id);
-        }
-      },
-      { once: true }
-    );
   };
 
   const hideTooltip = (id) => {
@@ -2836,6 +2577,49 @@ const SkillView = (() => {
       tooltip.remove();
       activeTooltips.delete(id);
     }
+  };
+
+  const showTooltip = (button) => {
+    const node = button.closest('.skill-node');
+    const id = node.dataset.skillId;
+    if (activeTooltips.has(id)) {
+      hideTooltip(id);
+      return;
+    }
+
+    const tooltip = Utils.createElement('div', { className: 'skill-tooltip' });
+    const description = node.dataset.skillDescription;
+    const focus = node.dataset.skillFocus;
+    const community = node.dataset.skillCommunity;
+    const order = node.dataset.skillOrder;
+    const cost = node.dataset.skillCost;
+
+    tooltip.innerHTML = `
+      <h5>${node.querySelector('h4').textContent}</h5>
+      <p>${description}</p>
+      <dl class="skill-tooltip-details">
+        <dt>Focus</dt>
+        <dd>${focus}</dd>
+        <dt>Community insight</dt>
+        <dd>${community}</dd>
+        <dt>Recommended tier</dt>
+        <dd>${order}</dd>
+        <dt>Point cost</dt>
+        <dd>${cost}</dd>
+      </dl>
+    `;
+
+    node.appendChild(tooltip);
+    activeTooltips.set(id, tooltip);
+    document.addEventListener(
+      'click',
+      (event) => {
+        if (!node.contains(event.target)) {
+          hideTooltip(id);
+        }
+      },
+      { once: true }
+    );
   };
 
   const bindInteractions = () => {
@@ -2851,8 +2635,8 @@ const SkillView = (() => {
       });
       button.addEventListener('blur', () => {
         clearTimeout(timer);
-        const skillItem = button.closest('.skill-item');
-        hideTooltip(skillItem.dataset.skillId);
+        const node = button.closest('.skill-node');
+        hideTooltip(node.dataset.skillId);
       });
     });
   };
@@ -2862,16 +2646,18 @@ const SkillView = (() => {
     activeTooltips.clear();
     overPointCap = false;
     container.innerHTML = '';
-    DataRepository.skillPhases.forEach((phase) => {
-      container.appendChild(renderPhase(phase));
-    });
+
+    const tree = Utils.createElement('div', { className: 'skill-tree' });
+    DataRepository.skillBranches.forEach((branch) => tree.appendChild(renderBranch(branch)));
+    container.appendChild(tree);
+
     bindInteractions();
     calculatePoints();
+    updateAllBranches();
   };
 
   return { init, calculatePoints };
 })();
-
 // DataTransfer enables exporting/importing the saved progress to JSON files.
 const DataTransfer = (() => {
   const exportButton = document.getElementById('export-data');

@@ -23,7 +23,7 @@
   --radius-lg: 1.25rem;
   --transition-fast: 150ms ease;
   --transition-slow: 320ms ease;
-  --layout-max-width: 1520px;
+  --layout-max-width: 1320px;
   color-scheme: light;
 }
 
@@ -243,8 +243,8 @@ figure {
 }
 
 .view {
+  display: none;
   opacity: 0;
-  visibility: hidden;
   transform: translateY(10px);
   transition: opacity var(--transition-slow), transform var(--transition-slow);
   width: min(100%, var(--layout-max-width));
@@ -252,8 +252,8 @@ figure {
 }
 
 .view.active {
+  display: block;
   opacity: 1;
-  visibility: visible;
   transform: translateY(0);
 }
 
@@ -264,16 +264,15 @@ figure {
 }
 
 .workshop-grid {
-  display: flex;
+  display: grid;
   gap: var(--space-sm);
-  align-items: stretch;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  align-items: start;
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 1400px) {
   .workshop-grid {
-    flex-wrap: nowrap;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
   }
 }
 
@@ -771,35 +770,28 @@ figure {
 }
 
 /* --- Workshop visual refresh --- */
-.workshop-grid {
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: clamp(1.75rem, 2.5vw, 3rem);
-}
-
 .station-card {
   --station-accent: var(--color-accent-strong);
-  flex: 1 1 calc(100% / 6);
-  min-width: 180px;
   display: flex;
   flex-direction: column;
   gap: var(--space-sm);
-  padding: var(--space-sm) var(--space-sm) var(--space-md);
+  padding: var(--space-sm);
   border-radius: var(--radius-md);
   border: 1px solid rgba(148, 163, 184, 0.16);
   background: linear-gradient(150deg, rgba(10, 18, 32, 0.92), rgba(6, 11, 22, 0.78));
-  box-shadow: 0 36px 80px -64px rgba(2, 6, 23, 0.9);
+  box-shadow: 0 22px 60px -52px rgba(2, 6, 23, 0.85);
   transition: transform var(--transition-slow), box-shadow var(--transition-slow);
 }
 
 .station-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 44px 100px -70px rgba(2, 6, 23, 0.95);
+  transform: translateY(-3px);
+  box-shadow: 0 30px 80px -60px rgba(2, 6, 23, 0.9);
 }
 
 .station-header {
   display: flex;
   flex-direction: column;
-  gap: var(--space-xs);
+  gap: var(--space-2xs);
 }
 
 .station-meta {
@@ -819,7 +811,7 @@ figure {
 
 .station-title {
   margin: 0;
-  font-size: clamp(1.2rem, 0.6vw + 1.05rem, 1.6rem);
+  font-size: clamp(1.05rem, 0.4vw + 0.9rem, 1.3rem);
   font-family: 'Orbitron', sans-serif;
   letter-spacing: 0.04em;
 }
@@ -827,14 +819,15 @@ figure {
 .station-copy {
   margin: 0;
   color: rgba(226, 232, 240, 0.74);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   line-height: 1.45;
+  word-break: break-word;
 }
 
 .station-levels {
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
+  gap: var(--space-xs);
   flex: 1 1 auto;
 }
 
@@ -842,7 +835,7 @@ figure {
   border-radius: var(--radius-md);
   border: 1px solid rgba(148, 163, 184, 0.16);
   background: rgba(6, 11, 22, 0.82);
-  padding: var(--space-sm);
+  padding: var(--space-xs) var(--space-sm) var(--space-sm);
   display: flex;
   flex-direction: column;
   gap: var(--space-sm);
@@ -850,7 +843,7 @@ figure {
 }
 
 .station-level:hover {
-  box-shadow: 0 28px 48px -44px rgba(2, 6, 23, 0.75);
+  box-shadow: 0 22px 40px -38px rgba(2, 6, 23, 0.7);
 }
 
 .station-level.complete {
@@ -867,18 +860,19 @@ figure {
 .station-level-heading {
   display: flex;
   align-items: center;
-  gap: var(--space-sm);
+  gap: var(--space-xs);
+  flex-wrap: wrap;
 }
 
 .station-level-index {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
   display: grid;
   place-items: center;
   font-family: 'Orbitron', sans-serif;
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   letter-spacing: 0.08em;
   color: var(--station-accent);
   background: color-mix(in srgb, var(--station-accent) 18%, transparent);
@@ -888,7 +882,9 @@ figure {
 
 .station-level-title {
   margin: 0;
-  font-size: clamp(1.05rem, 0.4vw + 0.95rem, 1.25rem);
+  font-size: clamp(0.95rem, 0.35vw + 0.85rem, 1.1rem);
+  max-width: 100%;
+  word-break: break-word;
 }
 
 .station-level-progress {
@@ -920,7 +916,7 @@ figure {
 }
 
 .station-level-progress-value {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: rgba(148, 163, 184, 0.75);
@@ -943,19 +939,19 @@ figure {
 
 .resource-list {
   list-style: none;
-  margin: var(--space-sm) 0 0;
+  margin: var(--space-xs) 0 0;
   padding: 0;
   display: grid;
-  gap: var(--space-xs);
+  gap: var(--space-2xs);
 }
 
 .resource-item {
   position: relative;
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-columns: auto minmax(0, 1fr) auto;
   gap: var(--space-sm);
   align-items: center;
-  padding: var(--space-sm);
+  padding: var(--space-xs) var(--space-sm);
   border-radius: var(--radius-md);
   border: 1px solid rgba(148, 163, 184, 0.16);
   background: rgba(6, 11, 22, 0.82);
@@ -973,9 +969,9 @@ figure {
 }
 
 .resource-thumb {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
   overflow: hidden;
   background: rgba(4, 7, 15, 0.75);
   border: 1px solid rgba(148, 163, 184, 0.2);
@@ -987,7 +983,7 @@ figure {
 .resource-thumb img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .resource-info {
@@ -998,7 +994,8 @@ figure {
 
 .resource-name {
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 0.9rem;
+  word-break: break-word;
 }
 
 .resource-status {
@@ -1049,18 +1046,18 @@ figure {
 .resource-input label {
   display: grid;
   gap: var(--space-2xs);
-  justify-items: stretch;
+  justify-items: center;
 }
 
 .resource-input input {
-  width: min(180px, 100%);
-  padding: 0.65rem 0.85rem;
+  width: 72px;
+  padding: 0.5rem 0.65rem;
   border-radius: var(--radius-sm);
   border: 1px solid rgba(148, 163, 184, 0.32);
   background: rgba(7, 12, 24, 0.9);
   color: inherit;
   font-weight: 600;
-  font-size: 1.05rem;
+  font-size: 0.95rem;
   text-align: center;
   transition: border var(--transition-fast), box-shadow var(--transition-fast);
 }

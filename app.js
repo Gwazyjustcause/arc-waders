@@ -2141,7 +2141,7 @@ const WorkshopView = (() => {
       .map(
         (entry) => `
           <figure>
-            <img src="${entry.url}" alt="${entry.alt ?? station.name}" loading="lazy" />
+            <img src="${entry.url}" alt="${entry.alt ?? station.name}" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
           </figure>
         `
       )
@@ -2217,7 +2217,7 @@ const WorkshopView = (() => {
 
     row.innerHTML = `
       <figure class="resource-thumb">
-        <img src="${visual.image}" alt="${visual.alt ?? `${material.item} item from ARC Raiders`}" loading="lazy" />
+        <img src="${visual.image}" alt="${visual.alt ?? `${material.item} item from ARC Raiders`}" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
       </figure>
       <div class="resource-info">
         <span class="resource-name">${material.item}</span>
@@ -2327,7 +2327,7 @@ const WorkshopView = (() => {
     const heroMarkup = hero
       ? `
           <figure class="station-hero">
-            <img src="${hero.url}" alt="${hero.alt}" loading="lazy" />
+            <img src="${hero.url}" alt="${hero.alt}" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
             <figcaption>${station.name}</figcaption>
           </figure>
         `
@@ -2490,7 +2490,7 @@ const QuestView = (() => {
     const visualAlt = questVisual?.alt ?? `${questMapLabel} location from ARC Raiders`;
     const media = questVisual
       ? `<figure class="card-media quest-media">
-          <img src="${questVisual.url}" alt="${visualAlt}" loading="lazy" />
+          <img src="${questVisual.url}" alt="${visualAlt}" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
           <figcaption>${questMapLabel}</figcaption>
         </figure>`
       : '';
@@ -2726,7 +2726,7 @@ const SkillView = (() => {
     const mediaAlt = phase.imageAlt ?? `${phase.name} visual from ARC Raiders`;
     const media = phase.image
       ? `<figure class="phase-art">
-          <img src="${phase.image}" alt="${mediaAlt}" loading="lazy" />
+          <img src="${phase.image}" alt="${mediaAlt}" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
         </figure>`
       : '';
     section.innerHTML = `

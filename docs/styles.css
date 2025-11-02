@@ -23,7 +23,7 @@
   --radius-lg: 1.25rem;
   --transition-fast: 150ms ease;
   --transition-slow: 320ms ease;
-  --layout-max-width: 1320px;
+  --layout-max-width: 1480px;
   color-scheme: light;
 }
 
@@ -266,11 +266,11 @@ figure {
 .workshop-grid {
   display: grid;
   gap: var(--space-sm);
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  align-items: start;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  align-items: stretch;
 }
 
-@media (min-width: 1400px) {
+@media (min-width: 1200px) {
   .workshop-grid {
     grid-template-columns: repeat(7, minmax(0, 1fr));
   }
@@ -774,13 +774,14 @@ figure {
   --station-accent: var(--color-accent-strong);
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
-  padding: var(--space-sm);
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
   border-radius: var(--radius-md);
   border: 1px solid rgba(148, 163, 184, 0.16);
   background: linear-gradient(150deg, rgba(10, 18, 32, 0.92), rgba(6, 11, 22, 0.78));
   box-shadow: 0 22px 60px -52px rgba(2, 6, 23, 0.85);
   transition: transform var(--transition-slow), box-shadow var(--transition-slow);
+  min-width: 0;
 }
 
 .station-card:hover {
@@ -790,8 +791,16 @@ figure {
 
 .station-header {
   display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
+.station-headline {
+  display: flex;
   flex-direction: column;
   gap: var(--space-2xs);
+  min-width: 0;
 }
 
 .station-meta {
@@ -811,35 +820,67 @@ figure {
 
 .station-title {
   margin: 0;
-  font-size: clamp(1.05rem, 0.4vw + 0.9rem, 1.3rem);
+  font-size: clamp(1rem, 0.35vw + 0.9rem, 1.2rem);
   font-family: 'Orbitron', sans-serif;
   letter-spacing: 0.04em;
 }
 
 .station-copy {
-  margin: 0;
-  color: rgba(226, 232, 240, 0.74);
-  font-size: 0.82rem;
-  line-height: 1.45;
-  word-break: break-word;
+  display: none;
+}
+
+.station-level-selector {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-2xs);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: rgba(148, 163, 184, 0.78);
+}
+
+.station-level-selector .selector-label {
+  white-space: nowrap;
+}
+
+.station-level-picker {
+  width: 100%;
+  min-width: 120px;
+  padding: 0.35rem 0.6rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  background: rgba(6, 11, 22, 0.9);
+  color: inherit;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+}
+
+.station-level-picker:focus-visible {
+  outline: none;
+  border-color: var(--station-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--station-accent) 28%, transparent);
 }
 
 .station-levels {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xs);
-  flex: 1 1 auto;
+  position: relative;
+  min-height: 0;
 }
 
 .station-level {
+  display: none;
   border-radius: var(--radius-md);
   border: 1px solid rgba(148, 163, 184, 0.16);
   background: rgba(6, 11, 22, 0.82);
   padding: var(--space-xs) var(--space-sm) var(--space-sm);
-  display: flex;
   flex-direction: column;
   gap: var(--space-sm);
   transition: border-color var(--transition-fast), box-shadow var(--transition-slow);
+}
+
+.station-level.active {
+  display: flex;
 }
 
 .station-level:hover {
@@ -854,7 +895,7 @@ figure {
 .station-level-headline {
   display: flex;
   flex-direction: column;
-  gap: var(--space-xs);
+  gap: var(--space-2xs);
 }
 
 .station-level-heading {

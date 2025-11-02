@@ -2232,6 +2232,7 @@ const WorkshopView = (() => {
         'data-station-id': station.id,
         'data-station-name': station.name,
         'data-level-number': level.level,
+        'data-level-id': String(level.level),
         'data-total-required': totalRequired,
         'data-total-remaining': totalRemaining
       }
@@ -2282,6 +2283,14 @@ const WorkshopView = (() => {
   };
 
   const renderStation = (station) => {
+    const trackedLevels = (station.levels ?? [])
+      .filter((level) => Number(level.level) !== 1)
+      .sort((a, b) => Number(a.level) - Number(b.level));
+
+    if (!trackedLevels.length) {
+      return null;
+    }
+
     const card = Utils.createElement('section', {
       className: 'station-card',
       attrs: {
@@ -2290,22 +2299,37 @@ const WorkshopView = (() => {
       }
     });
 
+    if (station.accentColor) {
+      card.style.setProperty('--station-accent', station.accentColor);
+    }
+
     const header = Utils.createElement('div', { className: 'station-header' });
     header.innerHTML = `
       <div class="station-headline">
         <span class="station-meta"><i class="fa-solid ${station.icon}"></i> Workshop Station</span>
         <h3 class="station-title">${station.name}</h3>
-        ${station.description ? `<p class="station-copy">${station.description}</p>` : ''}
       </div>
     `;
 
-    if (station.accentColor) {
-      card.style.setProperty('--station-accent', station.accentColor);
-    }
+    let select = null;
+    if (trackedLevels.length > 1) {
+      const selector = Utils.createElement('label', {
+        className: 'station-level-selector',
+        html: `
+          <span class="selector-label">Level</span>
+          <select class="station-level-picker" aria-label="Select upgrade level for ${station.name}"></select>
+        `
+      });
 
-    const trackedLevels = (station.levels ?? []).filter((level) => Number(level.level) !== 1);
-    if (!trackedLevels.length) {
-      return null;
+      select = selector.querySelector('select');
+      trackedLevels.forEach((level) => {
+        const option = document.createElement('option');
+        option.value = String(level.level);
+        option.textContent = level.label ? level.label : `Level ${Utils.toRoman(level.level) || level.level}`;
+        select.appendChild(option);
+      });
+
+      header.appendChild(selector);
     }
 
     const levels = Utils.createElement('div', { className: 'station-levels' });
@@ -2313,6 +2337,34 @@ const WorkshopView = (() => {
       const levelCard = renderLevelCard(station, level);
       levels.appendChild(levelCard);
     });
+
+    const storageKey = `workshop:${station.id}:selectedLevel`;
+    const storedLevel = StorageManager.get(storageKey, String(trackedLevels[0].level));
+
+    const updateVisibleLevel = (levelValue) => {
+      const target = trackedLevels.find((level) => String(level.level) === levelValue);
+      const fallbackValue = String(trackedLevels[0].level);
+      const finalValue = target ? levelValue : fallbackValue;
+      Array.from(levels.children).forEach((node) => {
+        const isActive = node.getAttribute('data-level-id') === finalValue;
+        node.classList.toggle('active', isActive);
+      });
+      if (select && select.value !== finalValue) {
+        select.value = finalValue;
+      }
+    };
+
+    const initialLevel = String(storedLevel);
+    updateVisibleLevel(initialLevel);
+
+    if (select) {
+      select.value = initialLevel;
+      select.addEventListener('change', (event) => {
+        const value = event.target.value;
+        StorageManager.set(storageKey, value);
+        updateVisibleLevel(value);
+      });
+    }
 
     card.append(header, levels);
     return card;

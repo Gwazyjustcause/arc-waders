@@ -23,7 +23,7 @@
   --radius-lg: 1.25rem;
   --transition-fast: 150ms ease;
   --transition-slow: 320ms ease;
-  --layout-max-width: 1480px;
+  --layout-max-width: 1760px;
   color-scheme: light;
 }
 
@@ -39,6 +39,9 @@
   --color-conditioning: #fb923c;
   --color-mobility: #22d3ee;
   --color-survival: #4ade80;
+  --body-gradient-1: rgba(56, 189, 248, 0.12);
+  --body-gradient-2: rgba(14, 165, 233, 0.08);
+  --body-gradient-overlay: linear-gradient(180deg, rgba(3, 6, 14, 0.96), rgba(3, 7, 18, 0.92));
   color-scheme: dark;
 }
 
@@ -102,7 +105,7 @@ figure {
 .branding h1 {
   margin: 0;
   font-family: 'Orbitron', sans-serif;
-  font-size: clamp(1.1rem, 2vw + 0.4rem, 1.5rem);
+  font-size: clamp(1.4rem, 2.8vw + 0.6rem, 2.35rem);
   letter-spacing: 0.05em;
 }
 
@@ -115,7 +118,7 @@ figure {
 .primary-nav {
   grid-column: 1 / -1;
   display: flex;
-  gap: var(--space-xs);
+  gap: var(--space-sm);
   justify-content: center;
 }
 
@@ -123,15 +126,20 @@ figure {
   display: flex;
   align-items: center;
   gap: var(--space-xs);
-  padding: var(--space-xs) var(--space-md);
+  padding: var(--space-sm) clamp(1.4rem, 2.6vw, 2.6rem);
   border-radius: 999px;
   border: 1px solid transparent;
   background: transparent;
   color: inherit;
   font-weight: 600;
+  font-size: clamp(0.95rem, 0.4vw + 0.85rem, 1.15rem);
   cursor: pointer;
   transition: background var(--transition-fast), transform var(--transition-fast),
     border var(--transition-fast);
+}
+
+.nav-link i {
+  font-size: 1.1em;
 }
 
 .nav-link:hover,
@@ -153,7 +161,7 @@ figure {
   align-items: center;
   justify-content: center;
   gap: var(--space-2xs);
-  padding: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
   border-radius: var(--radius-sm);
   border: 1px solid var(--color-border);
   background: var(--color-surface);
@@ -199,10 +207,10 @@ figure {
 }
 
 .section-header {
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-lg);
   display: grid;
-  gap: var(--space-md);
-  padding: var(--space-md);
+  gap: var(--space-lg);
+  padding: clamp(var(--space-md), 3vw, var(--space-lg));
   border-radius: var(--radius-md);
   border: 1px solid var(--color-border);
   background:
@@ -214,12 +222,12 @@ figure {
 
 .section-copy {
   display: grid;
-  gap: var(--space-sm);
+  gap: var(--space-md);
 }
 
 .section-header h2 {
   font-family: 'Orbitron', sans-serif;
-  font-size: clamp(1.4rem, 2.4vw + 0.5rem, 2rem);
+  font-size: clamp(1.8rem, 2.8vw + 0.7rem, 2.65rem);
   display: flex;
   align-items: center;
   gap: var(--space-xs);
@@ -229,6 +237,7 @@ figure {
 .section-header p {
   margin: 0;
   color: var(--color-muted);
+  font-size: clamp(1rem, 0.6vw + 0.9rem, 1.2rem);
   max-width: 60ch;
   line-height: 1.6;
 }
@@ -293,7 +302,7 @@ figure {
 }
 
 .workshop-grid {
-  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
 }
 
 .quest-grid {
@@ -904,7 +913,7 @@ figure {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2xs);
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.16em;
   color: rgba(148, 163, 184, 0.8);
@@ -917,7 +926,7 @@ figure {
 
 .station-title {
   margin: 0;
-  font-size: clamp(1.45rem, 2.4vw, 2rem);
+  font-size: clamp(1.6rem, 2.6vw, 2.25rem);
   font-family: 'Orbitron', sans-serif;
   letter-spacing: 0.05em;
 }
@@ -992,14 +1001,14 @@ figure {
 }
 
 .station-level-index {
-  width: 48px;
-  height: 48px;
+  width: 56px;
+  height: 56px;
   border-radius: 14px;
   display: grid;
   place-items: center;
   font-family: 'Orbitron', sans-serif;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 1.1rem;
   letter-spacing: 0.08em;
   color: var(--station-accent);
   background: color-mix(in srgb, var(--station-accent) 18%, transparent);
@@ -1015,7 +1024,7 @@ figure {
 
 .station-level-title {
   margin: 0;
-  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  font-size: clamp(1.3rem, 2.1vw, 1.65rem);
 }
 
 .station-level-subtitle {
@@ -1109,7 +1118,7 @@ figure {
 .resource-item {
   position: relative;
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) minmax(120px, 0.45fr);
+  grid-template-columns: auto minmax(0, 1fr) minmax(160px, 0.5fr);
   gap: var(--space-sm);
   align-items: center;
   padding: var(--space-sm);
@@ -1131,8 +1140,8 @@ figure {
 }
 
 .resource-thumb {
-  width: 64px;
-  height: 64px;
+  width: 72px;
+  height: 72px;
   border-radius: 18px;
   overflow: hidden;
   background: rgba(4, 7, 15, 0.75);
@@ -1155,14 +1164,14 @@ figure {
 
 .resource-name {
   font-weight: 600;
-  font-size: 0.98rem;
+  font-size: 1.08rem;
 }
 
 .resource-count {
   display: inline-flex;
   align-items: baseline;
   gap: 0.35rem;
-  font-size: 0.88rem;
+  font-size: 0.98rem;
   color: rgba(226, 232, 240, 0.82);
 }
 
@@ -1171,7 +1180,7 @@ figure {
 }
 
 .resource-progress {
-  height: 6px;
+  height: 8px;
   border-radius: 999px;
   background: rgba(148, 163, 184, 0.18);
   overflow: hidden;
@@ -1202,14 +1211,14 @@ figure {
 }
 
 .resource-input input {
-  width: min(140px, 100%);
-  padding: 0.55rem 0.65rem;
+  width: min(180px, 100%);
+  padding: 0.65rem 0.85rem;
   border-radius: var(--radius-sm);
   border: 1px solid rgba(148, 163, 184, 0.32);
   background: rgba(7, 12, 24, 0.9);
   color: inherit;
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   text-align: center;
   transition: border var(--transition-fast), box-shadow var(--transition-fast);
 }

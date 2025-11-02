@@ -2072,15 +2072,25 @@ const NavigationController = (() => {
   const sections = Array.from(document.querySelectorAll('.view'));
 
   const showSection = (targetId) => {
+    let activated = null;
     sections.forEach((section) => {
       const isActive = section.id === targetId;
       section.classList.toggle('active', isActive);
+      if (isActive) {
+        activated = section;
+      }
       const navButton = navButtons.find((button) => button.dataset.target === section.id);
       if (navButton) {
         navButton.classList.toggle('active', isActive);
         navButton.setAttribute('aria-expanded', String(isActive));
       }
     });
+
+    if (activated) {
+      window.requestAnimationFrame(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
   };
 
   const init = () => {
@@ -2235,6 +2245,18 @@ const WorkshopView = (() => {
       }
     `;
 
+    const resourceImg = row.querySelector('img');
+    if (resourceImg) {
+      resourceImg.addEventListener(
+        'error',
+        () => {
+          resourceImg.src = FALLBACK_MEDIA.image;
+          resourceImg.alt = FALLBACK_MEDIA.alt;
+        },
+        { once: true }
+      );
+    }
+
     return row;
   };
 
@@ -2344,8 +2366,24 @@ const WorkshopView = (() => {
       ${galleryMarkup ? `<div class="station-gallery">${galleryMarkup}</div>` : ''}
     `;
 
+    header.querySelectorAll('img').forEach((img) => {
+      img.addEventListener(
+        'error',
+        () => {
+          img.src = FALLBACK_MEDIA.image;
+          img.alt = FALLBACK_MEDIA.alt;
+        },
+        { once: true }
+      );
+    });
+
+    const trackedLevels = (station.levels ?? []).filter((level) => Number(level.level) !== 1);
+    if (!trackedLevels.length) {
+      return null;
+    }
+
     const levels = Utils.createElement('div', { className: 'station-levels' });
-    station.levels.forEach((level) => {
+    trackedLevels.forEach((level) => {
       const levelCard = renderLevelCard(station, level);
       levels.appendChild(levelCard);
     });
@@ -2435,8 +2473,10 @@ const WorkshopView = (() => {
     container.innerHTML = '';
     DataRepository.workshopStations.forEach((station) => {
       const card = renderStation(station);
-      container.appendChild(card);
-      bindInputs(card);
+      if (card) {
+        container.appendChild(card);
+        bindInputs(card);
+      }
     });
   };
 

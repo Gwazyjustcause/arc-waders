@@ -2113,51 +2113,6 @@ const WorkshopView = (() => {
 
   const getMaterialVisual = (name) => materialMedia[name] ?? FALLBACK_MEDIA;
 
-  const getHeroVisual = (station) => {
-    if (station.heroImage) {
-      return {
-        url: station.heroImage,
-        alt: station.heroAlt ?? `${station.name} hero art from ARC Raiders`
-      };
-    }
-
-    if (Array.isArray(station.gallery) && station.gallery.length) {
-      const [first] = station.gallery;
-      return {
-        url: first.url,
-        alt: first.alt ?? `${station.name} illustration from ARC Raiders`
-      };
-    }
-
-    if (station.image) {
-      return {
-        url: station.image,
-        alt: station.imageAlt ?? `${station.name} concept art from ARC Raiders`
-      };
-    }
-
-    return null;
-  };
-
-  const buildGalleryMarkup = (station) => {
-    const entries = Array.isArray(station.gallery) && station.gallery.length
-      ? station.gallery
-      : station.image
-      ? [{ url: station.image, alt: station.imageAlt ?? `${station.name} illustration from ARC Raiders` }]
-      : [];
-    if (!entries.length) return '';
-    return entries
-      .slice(0, 3)
-      .map(
-        (entry) => `
-          <figure>
-            <img src="${entry.url}" alt="${entry.alt ?? station.name}" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
-          </figure>
-        `
-      )
-      .join('');
-  };
-
   const calculateLevelTotals = (station, level) => {
     const trackable = Array.isArray(level.materials)
       ? level.materials.filter((material) => Number.isFinite(material.quantity))
@@ -2214,16 +2169,24 @@ const WorkshopView = (() => {
 
     const haveMarkup = trackable
       ? `
-          <span class="resource-count">
-            <strong class="resource-have">${have}</strong>
-            <span class="resource-divider">/</span>
-            <span class="resource-total">${max}</span>
-          </span>
-          <div class="resource-progress"><span style="width: ${percentage}%"></span></div>
+          <div class="resource-status">
+            <span class="resource-count">
+              <strong class="resource-have">${have}</strong>
+              <span class="resource-divider">/</span>
+              <span class="resource-total">${max}</span>
+            </span>
+            <div class="resource-progress"><span style="width: ${percentage}%"></span></div>
+          </div>
         `
-      : material.note
-      ? `<p class="resource-note">${material.note}</p>`
-      : '<p class="resource-note">No tracking required.</p>';
+      : `
+          <div class="resource-status">
+            ${
+              material.note
+                ? `<p class="resource-note">${material.note}</p>`
+                : '<p class="resource-note">No tracking required.</p>'
+            }
+          </div>
+        `;
 
     row.innerHTML = `
       <figure class="resource-thumb">
@@ -2274,8 +2237,6 @@ const WorkshopView = (() => {
       }
     });
 
-    const chips = (level.crafts ?? []).map((craft) => `<span class="station-level-chip">${craft}</span>`).join('');
-    const functions = (level.functions ?? []).map((fn) => `<li>${fn}</li>`).join('');
     const levelLabel = level.label ?? `Level ${level.level}`;
     const levelIndex = roman || level.level;
 
@@ -2283,17 +2244,12 @@ const WorkshopView = (() => {
     header.innerHTML = `
       <div class="station-level-heading">
         <span class="station-level-index">${levelIndex}</span>
-        <div class="station-level-text">
-          <h4 class="station-level-title">${levelLabel}</h4>
-          <span class="station-level-subtitle">${station.name}</span>
-        </div>
+        <h4 class="station-level-title">${levelLabel}</h4>
       </div>
       <div class="station-level-progress">
         <div class="station-level-progress-bar"><span style="width: ${progress}%"></span></div>
         <span class="station-level-progress-value">${progress}% complete</span>
       </div>
-      ${chips ? `<div class="station-level-chips">${chips}</div>` : ''}
-      ${functions ? `<ul class="station-level-functions">${functions}</ul>` : ''}
     `;
 
     const resourcesSection = Utils.createElement('div', { className: 'station-resources' });
@@ -2334,48 +2290,18 @@ const WorkshopView = (() => {
       }
     });
 
-    if (station.accentColor) {
-      card.style.setProperty('--station-accent', station.accentColor);
-    }
-
-    const hero = getHeroVisual(station);
-    if (hero) {
-      card.style.setProperty('--station-hero', `url("${hero.url}")`);
-    } else {
-      card.style.setProperty('--station-hero', 'none');
-    }
-
-    const galleryMarkup = buildGalleryMarkup(station);
-    const heroMarkup = hero
-      ? `
-          <figure class="station-hero">
-            <img src="${hero.url}" alt="${hero.alt}" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
-            <figcaption>${station.name}</figcaption>
-          </figure>
-        `
-      : '';
-
     const header = Utils.createElement('div', { className: 'station-header' });
     header.innerHTML = `
-      ${heroMarkup}
       <div class="station-headline">
         <span class="station-meta"><i class="fa-solid ${station.icon}"></i> Workshop Station</span>
         <h3 class="station-title">${station.name}</h3>
         ${station.description ? `<p class="station-copy">${station.description}</p>` : ''}
       </div>
-      ${galleryMarkup ? `<div class="station-gallery">${galleryMarkup}</div>` : ''}
     `;
 
-    header.querySelectorAll('img').forEach((img) => {
-      img.addEventListener(
-        'error',
-        () => {
-          img.src = FALLBACK_MEDIA.image;
-          img.alt = FALLBACK_MEDIA.alt;
-        },
-        { once: true }
-      );
-    });
+    if (station.accentColor) {
+      card.style.setProperty('--station-accent', station.accentColor);
+    }
 
     const trackedLevels = (station.levels ?? []).filter((level) => Number(level.level) !== 1);
     if (!trackedLevels.length) {

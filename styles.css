@@ -903,32 +903,19 @@ figure {
   word-break: break-word;
 }
 
-.station-level-progress {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2xs);
-  align-items: flex-start;
-}
-
+.station-level-progress { display: flex; align-items: center; gap: 10px; }
 .station-level-progress-bar {
-  width: 100%;
-  height: 6px;
+  flex: 1;
+  height: 8px;
+  background: rgba(255,255,255,0.08);
   border-radius: 999px;
-  background: rgba(148, 163, 184, 0.2);
   overflow: hidden;
 }
-
 .station-level-progress-bar span {
   display: block;
   height: 100%;
   width: 0;
-  border-radius: inherit;
-  background: linear-gradient(
-    120deg,
-    var(--station-accent),
-    color-mix(in srgb, var(--station-accent) 65%, #ffffff 20%)
-  );
-  transition: width var(--transition-slow);
+  background: var(--station-accent, #2dd4bf);
 }
 
 .station-level-progress-value {
@@ -954,25 +941,28 @@ figure {
 }
 
 .resource-list {
-  list-style: none;
-  margin: var(--space-xs) 0 0;
-  padding: 0;
   display: grid;
-  gap: var(--space-2xs);
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin: 12px 0;
 }
-
+@media (min-width: 720px) {
+  .resource-list { grid-template-columns: 1fr 1fr; }
+}
 .resource-item {
-  position: relative;
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  gap: var(--space-sm);
+  grid-template-columns: 64px 1fr auto;
+  gap: 12px;
   align-items: center;
-  padding: var(--space-xs) var(--space-sm);
-  border-radius: var(--radius-md);
-  border: 1px solid rgba(148, 163, 184, 0.16);
-  background: rgba(6, 11, 22, 0.82);
-  transition: border var(--transition-fast), transform var(--transition-fast);
+  padding: 10px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  background: rgba(255,255,255,0.03);
 }
+.resource-thumb img { width: 64px; height: 64px; object-fit: contain; }
+.resource-status { margin-top: 6px; }
+.resource-progress { height: 6px; background: rgba(255,255,255,0.08); border-radius: 999px; overflow: hidden; }
+.resource-progress span { display: block; height: 100%; width: 0; }
 
 .resource-item:hover {
   border-color: color-mix(in srgb, var(--station-accent) 26%, transparent);

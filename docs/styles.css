@@ -638,11 +638,11 @@ figure {
 /* --- Workshop Station Card --- */
 #workshop-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  grid-template-columns:repeat(auto-fit, minmax(320px,1fr));
   gap:var(--space-lg);
 }
 
-/* Station card */
+/* -------- Station Card -------- */
 .station-card{
   background:var(--color-surface);
   border:1px solid var(--color-border);
@@ -651,13 +651,14 @@ figure {
   padding:var(--space-md);
   display:grid;
   gap:var(--space-md);
-  overflow:hidden;                 /* keep the card tidy */
+  /* allow inner content to breathe; no clipping of inner tiles */
+  overflow:visible;
 }
 
-/* Hero image at the top of the card (optional) */
-.station-card>img,
-.station-card>figure,
-.station-card>figure>img{
+/* optional top image/figure */
+.station-card > img,
+.station-card > figure,
+.station-card > figure > img{
   max-height:140px;
   max-width:100%;
   width:auto;
@@ -667,180 +668,183 @@ figure {
   margin-inline:auto;
 }
 
-/* Header (icon/title/level dropdown) */
 .station-header{
   display:flex;
   align-items:center;
   gap:var(--space-sm);
 }
-.station-title{ margin:0; flex:1; min-width:0; }
-
-/* ---- Levels wrapper ---- */
-.station-levels{
-  display:grid;
-  gap:var(--space-md);
-  padding:0;                       /* we’ll pad the inner panel instead */
+.station-headline{
+  display:flex;
+  align-items:center;
+  gap:var(--space-sm);
+  flex:1;
+  min-width:0;
+}
+.station-title{
+  margin:0;
+  flex:1;
+  min-width:0;
 }
 
-/* Single level panel (only .active is shown) */
+/* -------- Levels wrapper -------- */
+.station-levels{
+  position:relative;
+  display:grid;
+  gap:var(--space-md);
+  padding:0;
+}
+
+/* Each visible level block */
 .station-level{
-  display:none;                    /* show only the active one */
-  background:rgba(148,163,184,0.06);
-  border:1px solid var(--color-border);
-  border-radius:var(--radius-md);
+  box-sizing:border-box;
+  max-width:100%;
   padding:var(--space-md);
-  overflow:visible;                /* allow rounded tiles/shadows to show */
+  border-radius:var(--radius-md);
+  background:rgba(148,163,184,0.08);
+  border:1px solid var(--color-border);
+  /* do not clip inner resource rows */
+  overflow:visible;
 }
 .station-level.active{ display:block; }
 .station-level.complete{
-  background:rgba(34,197,94,.12);
-  border-color:rgba(34,197,94,.35);
+  background:rgba(34,197,94,0.12);
+  border-color:rgba(34,197,94,0.35);
 }
 
-/* ---- Level top row: “Level 2 | 92% complete” + bar ---- */
-.station-level-head{
-  display:grid;
-  grid-template-columns:1fr auto;
+/* -------- Inline headline: [II] Level 2  —  progress bar  % -------- */
+.station-level-headline{
+  display:flex;
   align-items:center;
   gap:var(--space-sm);
+  margin:0 0 var(--space-sm) 0;
+  flex-wrap:wrap;       /* wraps nicely on small cards */
 }
-.station-level-percent{
-  color:var(--color-muted);
+.station-level-index{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:0.25rem 0.75rem;
+  border-radius:999px;
+  background:rgba(148,163,184,0.18);
+  font-weight:700;
+  line-height:1;
+  font-size:0.9rem;
+}
+.station-level-headline .level-title{
   font-weight:600;
+  margin:0;
   white-space:nowrap;
 }
-
-/* Percentage progress bar (blue) */
 .station-level-progress{
   display:flex;
   align-items:center;
   gap:var(--space-sm);
+  flex:1;              /* fills remaining line space */
+  min-width:160px;
 }
 .station-level-progress-bar{
   flex:1;
   height:8px;
   border-radius:999px;
-  background:rgba(148,163,184,.25);
+  background:rgba(148,163,184,0.25);
   overflow:hidden;
 }
 .station-level-progress-bar span{
   display:block;
   height:100%;
-  background:linear-gradient(120deg, var(--color-accent), var(--color-accent-strong));
+  /* width is driven by your inline style="width:XX%" OR CSS var --progress */
+  width:var(--progress, auto);
+  background:linear-gradient(120deg,var(--color-accent),var(--color-accent-strong));
   transition:width 220ms ease;
 }
+.station-level-progress-value{
+  white-space:nowrap;
+  flex-shrink:0;
+}
 
-/* ---- Required resources title ---- */
+/* -------- Resource list -------- */
 .station-resources h5{
-  margin:var(--space-md) 0 var(--space-sm);
+  margin:0 0 var(--space-sm);
   display:flex;
   align-items:center;
   gap:var(--space-xs);
 }
 
-/* Resource list: centered tiles, no clipping */
 .resource-list{
   list-style:none;
   margin:0;
   padding:0;
   display:grid;
   gap:var(--space-sm);
-  justify-items:center;            /* center tiles */
+  max-width:100%;
 }
 
-/* Resource tile */
+/* Center each resource row and prevent edge cuts */
 .resource-item{
-  width:clamp(260px,92%,520px);    /* centered card look; prevents edge cut */
+  box-sizing:border-box;
+  width:100%;
+  margin-inline:auto;
   display:grid;
   grid-template-columns:56px 1fr auto;
-  align-items:center;
   gap:var(--space-sm);
+  align-items:center;
   padding:var(--space-sm);
-  background:var(--color-bg);
   border:1px solid var(--color-border);
   border-radius:var(--radius-sm);
-  box-sizing:border-box;
+  background:var(--color-bg);
 }
 .resource-item.complete{
-  background:rgba(34,197,94,.12);
-  border-color:rgba(34,197,94,.35);
+  background:rgba(34,197,94,0.12);
+  border-color:rgba(34,197,94,0.35);
 }
 
-/* Thumbnail */
 .resource-thumb img{
-  width:56px; height:56px; object-fit:contain; display:block;
+  display:block;
+  width:56px;
+  height:56px;
+  object-fit:contain;
 }
 
-/* Name/count + small progress */
-.resource-status{ display:grid; gap:var(--space-2xs); min-width:0; }
+.resource-status{
+  display:grid;
+  gap:var(--space-2xs);
+  min-width:0;
+}
 .resource-progress{
-  width:100%; height:6px;
+  width:100%;
+  height:6px;
   border-radius:999px;
-  background:rgba(148,163,184,.25);
+  background:rgba(148,163,184,0.25);
   overflow:hidden;
 }
 .resource-progress span{
   display:block;
   height:100%;
-  background:linear-gradient(120deg, var(--color-accent), var(--color-accent-strong));
-  transition:width 220ms ease;
+  width:var(--progress, auto); /* or your inline width */
+  background:linear-gradient(120deg,var(--color-accent),var(--color-accent-strong));
+  transition:width 200ms ease;
 }
 
-/* Right-side pill (owned count, etc.) */
-.resource-input,
-.resource-pill{
-  justify-self:end;
-}
-.resource-pill{
-  min-width:64px;
-  padding:.35rem .6rem;
+.resource-input input[type="number"]{
+  width:6rem;
+  padding:0.35rem 0.5rem;
+  border-radius:var(--radius-sm);
   border:1px solid var(--color-border);
-  border-radius:999px;
-  background:rgba(2,6,23,.35);
-  text-align:center;
+  background:var(--color-surface);
+  color:inherit;
 }
 
-/* Level footer alert (not enough resources) */
+/* -------- Level status strip (warning/ready) -------- */
 .station-level-status{
-  display:flex; align-items:center; gap:var(--space-sm);
-  margin-top:var(--space-sm);
+  display:flex;
+  align-items:center;
+  gap:var(--space-sm);
   padding:var(--space-sm);
   border-radius:var(--radius-sm);
   border:1px solid var(--color-border);
   background:var(--color-bg);
 }
 .station-level-status--ready{
-  background:rgba(34,197,94,.12);
-  border-color:rgba(34,197,94,.35);
-}
-
-/* Tighten vertical rhythm a touch on large screens */
-@media (min-width: 960px){
-  .station-card{ gap:calc(var(--space-md) * .9); }
-  .station-level{ padding:calc(var(--space-md) * .9); }
-}
-.station-level-headline {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: var(--space-sm);
-  margin: 0 0 var(--space-sm) 0;
-}
-
-.station-level-headline .station-level-index {
-  margin: 0;
-  width: auto;
-  height: auto;
-  padding: 0.25rem 0.75rem;
-  border-radius: 999px;
-  background: rgba(148,163,184,0.18);
-  font-weight: 700;
-  line-height: 1;
-}
-
-.station-level-headline h4,
-.station-level-headline h5,
-.station-level-headline span {
-  margin: 0;
-  font-weight: 600;
+  background:rgba(34,197,94,0.12);
+  border-color:rgba(34,197,94,0.35);
 }

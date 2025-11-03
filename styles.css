@@ -656,6 +656,7 @@ figure {
   padding: var(--space-md);
   display: grid;
   gap: var(--space-md);
+  overflow: hidden;
 }
 
 .station-header {
@@ -672,6 +673,7 @@ figure {
   position: relative;
   display: grid;
   gap: var(--space-md);
+  padding: var(--space-sm);
 }
 
 .station-level {
@@ -779,6 +781,9 @@ figure {
   background: var(--color-surface);
   color: inherit;
 }
+
+.resource-list { max-width: 100%; }
+.resource-item { box-sizing: border-box; }
 
 /* --- Level Status --- */
 .station-level-status {

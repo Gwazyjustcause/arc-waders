@@ -656,7 +656,7 @@ figure {
   padding: var(--space-md);
   display: grid;
   gap: var(--space-md);
-  overflow: visible;
+  overflow: hidden;
 }
 
 .station-header {
@@ -682,17 +682,19 @@ figure {
   position: relative;
   display: grid;
   gap: var(--space-md);
-  padding: var(--space-sm);
+  padding: 0;
 }
 
-.station-level {
-  display: none;
-  background: rgba(148, 163, 184, 0.08);
-  border: 1px solid var(--color-border);
+.station-level{
+  box-sizing: border-box;
+  max-width: 100%;
+  padding: var(--space-md);
   border-radius: var(--radius-md);
-  overflow: visible;
-  padding: var(--space-sm) var(--space-md) var(--space-md);
+  overflow: hidden;
 }
+
+.resource-list{ margin:0; max-width:100%; }
+.resource-item{ box-sizing:border-box; }
 
 .station-level.active {
   display: block;
@@ -704,27 +706,19 @@ figure {
 }
 
 /* --- Progress Bar --- */
-.station-level-progress {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  min-width: 0;
+.station-level-progress{
+  display:flex; align-items:center; gap:var(--space-sm); min-width:0;
 }
+
+.station-level-progress-value{ white-space:nowrap; flex-shrink:0; }
+
 .station-level-selector {      
   flex-shrink: 0;             
 }
 
-.station-level-progress-value {
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.station-level-progress-bar {
-  flex: 1;
-  height: 8px;
-  border-radius: 999px;
-  background: rgba(148, 163, 184, 0.25);
-  overflow: hidden;
+.station-level-progress-bar span{
+  width: var(--progress, 0%);
+  transition: width 220ms ease;
 }
 
 .station-level-progress-bar span {
@@ -800,9 +794,6 @@ figure {
   background: var(--color-surface);
   color: inherit;
 }
-
-.resource-list { max-width: 100%; }
-.resource-item { box-sizing: border-box; }
 
 /* --- Level Status --- */
 .station-level-status {

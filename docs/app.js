@@ -1700,13 +1700,7 @@ const traderMeta = {
 };
 
 return {
-  workshopStations,
-  quests,
-  skillBranches,
-  skillPhases,
-  traderMeta,
-  mapVisuals,
-  materialMedia
+  workshopStations, quests, skillBranches, skillPhases, traderMeta, mapVisuals, materialMedia
 };
 })();
 

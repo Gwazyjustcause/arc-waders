@@ -276,6 +276,29 @@ const DataRepository = (() => {
     }
   };
 
+  const mapVisuals = {
+    'Dam Battlegrounds': {
+      url: 'https://arcraiders.wiki/wiki/Special:FilePath/Dam_Battlegrounds.png',
+      label: 'Dam Battlegrounds',
+      alt: 'Dam Battlegrounds map in ARC Raiders'
+    },
+    'Spaceport': {
+      url: 'https://arcraiders.wiki/wiki/Special:FilePath/Spaceport.png',
+      label: 'Spaceport',
+      alt: 'Spaceport map in ARC Raiders'
+    },
+    'Buried City': {
+      url: 'https://arcraiders.wiki/wiki/Special:FilePath/Buried_City.png',
+      label: 'Buried City',
+      alt: 'Buried City map in ARC Raiders'
+    },
+    'Blue Gate': {
+      url: 'https://arcraiders.wiki/wiki/Special:FilePath/Blue_Gate.png',
+      label: 'Blue Gate',
+      alt: 'Blue Gate map in ARC Raiders'
+    }
+  };
+
   const workshopStations = [
   {
     id: 'workbench',
@@ -1667,31 +1690,18 @@ const DataRepository = (() => {
     }
   ];
 
-  const skillPhases = skillBranches;
-  const traderMeta = {
-    Shani: {
-      icon: 'fa-compass',
-      color: '#f4a261'
-    },
-    Celeste: {
-      icon: 'fa-satellite-dish',
-      color: '#6d597a'
-    },
-    'Tian Wen': {
-      icon: 'fa-chess-rook',
-      color: '#2ec4b6'
-    },
-    Apollo: {
-      icon: 'fa-bolt',
-      color: '#ff6b6b'
-    },
-    Lance: {
-      icon: 'fa-kit-medical',
-      color: '#3a86ff'
-    }
-  };
+const skillPhases = skillBranches;
+const traderMeta = {
+  Shani:  { icon: 'fa-compass',       color: '#f4a261' },
+  Celeste:{ icon: 'fa-satellite-dish',color: '#6d597a' },
+  'Tian Wen': { icon: 'fa-chess-rook', color: '#2ec4b6' },
+  Apollo: { icon: 'fa-bolt',           color: '#ff6b6b' },
+  Lance:  { icon: 'fa-kit-medical',    color: '#3a86ff' }
+};
 
-  return { workshopStations, quests, skillBranches, skillPhases, traderMeta, mapVisuals, materialMedia };
+return {
+  workshopStations, quests, skillBranches, skillPhases, traderMeta, mapVisuals, materialMedia
+};
 })();
 
 // Shared helper utilities used across modules for repetitive tasks.
@@ -1713,7 +1723,7 @@ const Utils = (() => {
 
   const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 
-  const sum = (values) => values.reduce((total, current) => total  current, 0);
+  const sum = (values) => values.reduce((total, current) => total + current, 0);
 
   const toRoman = (value) => {
     if (!Number.isFinite(value) || value <= 0) return '';
@@ -1736,7 +1746,7 @@ const Utils = (() => {
     let remaining = Math.floor(value);
     lookup.forEach(([symbol, amount]) => {
       while (remaining >= amount) {
-        result = symbol;
+        result += symbol;
         remaining -= amount;
       }
     });
@@ -1845,12 +1855,12 @@ const WorkshopView = (() => {
     const trackable = Array.isArray(level.materials)
       ? level.materials.filter((material) => Number.isFinite(material.quantity))
       : [];
-    const totalRequired = trackable.reduce((sum, material) => sum  (material.quantity ?? 0), 0);
+    const totalRequired = trackable.reduce((sum, material) => sum + (material.quantity ?? 0), 0);
     const totalHave = trackable.reduce((sum, material) => {
       const key = Utils.formatKey('workshop', station.id, level.level, material.item);
       const stored = StorageManager.get(key, 0) || 0;
       const cap = material.quantity ?? 0;
-      return sum  Math.min(stored, cap);
+      return sum + Math.min(stored, cap);
     }, 0);
     const totalRemaining = Math.max(totalRequired - totalHave, 0);
     const progress = totalRequired
@@ -2129,8 +2139,8 @@ const WorkshopView = (() => {
         const required = Number(item.dataset.required || 0);
         const current = Math.min(Number(item.dataset.current || 0), required);
         return {
-          required: acc.required  required,
-          remaining: acc.remaining  Math.max(required - current, 0)
+          required: acc.required + required,
+          remaining: acc.remaining + Math.max(required - current, 0)
         };
       },
       { required: 0, remaining: 0 }
@@ -2212,7 +2222,7 @@ const QuestView = (() => {
     if (!totalObjectives) return 0;
     const completedCount = quest.objectives.reduce((total, _objective, index) => {
       const key = buildObjectiveKey(quest.id, index);
-      return total  (StorageManager.get(key, false) ? 1 : 0);
+      return total + (StorageManager.get(key, false) ? 1 : 0);
     }, 0);
     return Math.round((completedCount / totalObjectives) * 100);
   };
@@ -2297,7 +2307,7 @@ const QuestView = (() => {
       const isOpen = card.classList.toggle('open');
       header.setAttribute('aria-expanded', String(isOpen));
       card.classList.toggle('collapsed', !isOpen);
-      body.style.maxHeight = isOpen ? `${body.scrollHeight  16}px` : '0';
+      body.style.maxHeight = isOpen ? `${body.scrollHeight + 16}px` : '0';
       body.style.paddingTop = isOpen ? 'var(--space-sm)' : '0';
     };
 
@@ -2425,7 +2435,7 @@ const QuestView = (() => {
       const card = renderQuestCard(quest);
       container.appendChild(card);
       const body = card.querySelector('.card-body');
-      body.style.maxHeight = `${body.scrollHeight  16}px`;
+      body.style.maxHeight = `${body.scrollHeight + 16}px`;
     });
     populateTraderFilter();
     bindInteractions();
@@ -2529,7 +2539,7 @@ const SkillView = (() => {
     const total = DataRepository.skillBranches
       .flatMap((branch) => branch.nodes)
       .filter((node) => selected[node.id])
-      .reduce((sum, node) => sum  Number(node.cost || 0), 0);
+      .reduce((sum, node) => sum + Number(node.cost || 0), 0);
     totalDisplay.textContent = total;
     const isOverCap = total > MAX_POINTS;
     totalDisplay.classList.toggle('warning', isOverCap);

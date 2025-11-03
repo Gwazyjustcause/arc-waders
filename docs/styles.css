@@ -656,17 +656,26 @@ figure {
   padding: var(--space-md);
   display: grid;
   gap: var(--space-md);
-  overflow: hidden;
+  overflow: visible;
 }
 
 .station-header {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
   gap: var(--space-sm);
+  align-items: center;
+}
+.station-headline {            
+  align-items: center;
+  gap: var(--space-sm);
+  flex: 1;                     
+  min-width: 0;               
 }
 
-.station-title { margin: 0; }
+.station-title {
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+}
 
 /* --- Levels --- */
 .station-levels {
@@ -682,6 +691,7 @@ figure {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   padding: var(--space-md);
+  overflow: hidden;
 }
 
 .station-level.active {
@@ -698,6 +708,15 @@ figure {
   display: flex;
   align-items: center;
   gap: var(--space-sm);
+  min-width: 0;
+}
+.station-level-selector {      
+  flex-shrink: 0;             
+}
+
+.station-level-progress-value {
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .station-level-progress-bar {

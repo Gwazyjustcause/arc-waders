@@ -1678,6 +1678,34 @@ const DataRepository = (() => {
     }
   ];
 
+  const mapVisuals = {
+    'Dam Battlegrounds': {
+      label: 'Dam Battlegrounds',
+      url: 'https://arcraiders.wiki/wiki/Special:FilePath/Dam_Battlegrounds.png',
+      alt: 'Dam Battlegrounds conflict zone overview from ARC Raiders'
+    },
+    Spaceport: {
+      label: 'Spaceport',
+      url: 'https://arcraiders.wiki/wiki/Special:FilePath/Spaceport.png',
+      alt: 'Spaceport launch facility map from ARC Raiders'
+    },
+    'Buried City': {
+      label: 'Buried City',
+      url: 'https://arcraiders.wiki/wiki/Special:FilePath/Buried_City.png',
+      alt: 'Buried City ruins map from ARC Raiders'
+    },
+    'Blue Gate': {
+      label: 'Blue Gate',
+      url: 'https://arcraiders.wiki/wiki/Special:FilePath/Blue_Gate.png',
+      alt: 'Blue Gate wilderness region from ARC Raiders'
+    },
+    Multiple: {
+      label: 'Multiple Regions',
+      url: 'https://arcraiders.wiki/wiki/Special:FilePath/ARC_Raiders_Logo.png',
+      alt: 'ARC Raiders emblem representing multiple deployment zones'
+    }
+  };
+
   const skillPhases = skillBranches;
   const traderMeta = {
     Shani: {

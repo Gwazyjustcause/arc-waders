@@ -2725,4 +2725,3 @@
 +} else {
 +  window.addEventListener('DOMContentLoaded', App.init);
 +}
-)

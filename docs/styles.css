@@ -819,3 +819,28 @@ figure {
   .station-card{ gap:calc(var(--space-md) * .9); }
   .station-level{ padding:calc(var(--space-md) * .9); }
 }
+.station-level-headline {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--space-sm);
+  margin: 0 0 var(--space-sm) 0;
+}
+
+.station-level-headline .station-level-index {
+  margin: 0;
+  width: auto;
+  height: auto;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(148,163,184,0.18);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.station-level-headline h4,
+.station-level-headline h5,
+.station-level-headline span {
+  margin: 0;
+  font-weight: 600;
+}

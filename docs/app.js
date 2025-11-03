@@ -276,8 +276,11 @@ const DataRepository = (() => {
     }
   };
 
+  // order values keep the cards aligned with the in-game workshop strip
+  // (Scrappy → Medical Lab → Gear Bench → Workbench → Gunsmith → Utility Station → Explosives Station → Refiner).
   const workshopStations = [
   {
+    order: 4,
     id: 'workbench',
     name: 'Workbench',
     description: 'Starter crafting bench for ammo, grenades and essential supplies.',
@@ -323,6 +326,7 @@ const DataRepository = (() => {
     ]
   },
   {
+    order: 5,
     id: 'gunsmith',
     name: 'Gunsmith',
     description: 'Add that extra oomph to your weapons by upgrading them here.',
@@ -406,6 +410,7 @@ const DataRepository = (() => {
     ]
   },
   {
+    order: 3,
     id: 'gear-bench',
     name: 'Gear Bench',
     description: 'The Gear Bench lets you craft Shields and Augments - provided you have the right resources.',
@@ -498,6 +503,7 @@ const DataRepository = (() => {
     ]
   },
   {
+    order: 7,
     id: 'explosives-station',
     name: 'Explosives Station',
     description: 'Craft your grenades and mines here. Very carefully.',
@@ -583,6 +589,7 @@ const DataRepository = (() => {
     ]
   },
   {
+    order: 2,
     id: 'medical-lab',
     name: 'Medical Lab',
     description: 'The Medical Lab is where you can create stimulants to give you that extra boost out in the wilds.',
@@ -669,6 +676,7 @@ const DataRepository = (() => {
     ]
   },
   {
+    order: 6,
     id: 'utility-station',
     name: 'Utility Station',
     description: 'Fabricates traversal tools and support gadgets to help raiders adapt on the fly.',
@@ -756,6 +764,7 @@ const DataRepository = (() => {
     ]
   },
   {
+    order: 8,
     id: 'refiner',
     name: 'Refiner',
     description: 'Crucial companion for any Raider finding themselves in frequent need of custom parts.',
@@ -851,6 +860,7 @@ const DataRepository = (() => {
     ]
   },
   {
+    order: 1,
     id: 'scrappy-the-rooster',
     name: 'Scrappy the Rooster',
     description: 'This rooster has been a resident of the workshop since the day you moved in, and likely long before that. Will periodically bring back dubiously-sourced materials and share them with you.',
@@ -963,7 +973,8 @@ const DataRepository = (() => {
       }
     ]
   }
-];
+].sort((a, b) => a.order - b.order)
+  .map(({ order, ...station }) => station);
 
   const quests = [
   {

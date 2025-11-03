@@ -1690,31 +1690,24 @@ const DataRepository = (() => {
     }
   ];
 
-  const skillPhases = skillBranches;
-  const traderMeta = {
-    Shani: {
-      icon: 'fa-compass',
-      color: '#f4a261'
-    },
-    Celeste: {
-      icon: 'fa-satellite-dish',
-      color: '#6d597a'
-    },
-    'Tian Wen': {
-      icon: 'fa-chess-rook',
-      color: '#2ec4b6'
-    },
-    Apollo: {
-      icon: 'fa-bolt',
-      color: '#ff6b6b'
-    },
-    Lance: {
-      icon: 'fa-kit-medical',
-      color: '#3a86ff'
-    }
-  };
+const skillPhases = skillBranches;
+const traderMeta = {
+  Shani:  { icon: 'fa-compass',       color: '#f4a261' },
+  Celeste:{ icon: 'fa-satellite-dish',color: '#6d597a' },
+  'Tian Wen': { icon: 'fa-chess-rook', color: '#2ec4b6' },
+  Apollo: { icon: 'fa-bolt',           color: '#ff6b6b' },
+  Lance:  { icon: 'fa-kit-medical',    color: '#3a86ff' }
+};
 
-  return { workshopStations, quests, skillBranches, skillPhases, traderMeta, mapVisuals, materialMedia };
+return {
+  workshopStations,
+  quests,
+  skillBranches,
+  skillPhases,
+  traderMeta,
+  mapVisuals,
+  materialMedia
+};
 })();
 
 // Shared helper utilities used across modules for repetitive tasks.

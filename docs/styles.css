@@ -405,7 +405,7 @@ figure {
   content: '';
   position: absolute;
   inset-block: var(--space-sm);
-  inset-inline-start: -clamp(20px, 4vw, 28px);
+  inset-inline-start: calc(-1 * clamp(20px, 4vw, 28px));
   width: 10px;
   border-radius: 999px;
   background: color-mix(in srgb, var(--branch-color) 70%, rgba(30, 64, 175, 0.35));

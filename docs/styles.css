@@ -636,201 +636,186 @@ figure {
   text-transform: uppercase;
 }
 /* --- Workshop Station Card --- */
-.station-card > img,
-.station-card > figure,
-.station-card > figure > img {
-  max-height: 140px;
-  max-width: 100%;
-  width: auto;
-  height: auto;
-  display: block;
-  object-fit: contain;
-  margin-inline: auto;
+#workshop-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:var(--space-lg);
 }
 
-/* Card container */
-.station-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  box-shadow: 0 18px 36px -28px var(--color-card-shadow);
-  padding: var(--space-md);
-  display: grid;
-  gap: var(--space-md);
-  overflow: hidden; /* keep children inside */
+/* Station card */
+.station-card{
+  background:var(--color-surface);
+  border:1px solid var(--color-border);
+  border-radius:var(--radius-lg);
+  box-shadow:0 18px 36px -28px var(--color-card-shadow);
+  padding:var(--space-md);
+  display:grid;
+  gap:var(--space-md);
+  overflow:hidden;                 /* keep the card tidy */
 }
 
-/* Header */
-.station-header {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-}
-.station-title {
-  margin: 0;
-  flex: 1;
-  min-width: 0;
-}
-
-/* Levels stack */
-.station-levels {
-  display: grid;
-  gap: var(--space-sm);         /* tighter spacing */
-  padding: 0;
+/* Hero image at the top of the card (optional) */
+.station-card>img,
+.station-card>figure,
+.station-card>figure>img{
+  max-height:140px;
+  max-width:100%;
+  width:auto;
+  height:auto;
+  display:block;
+  object-fit:contain;
+  margin-inline:auto;
 }
 
-/* A single level panel */
-.station-level {
-  display: none;                /* hidden unless active */
-  box-sizing: border-box;
-  width: 100%;
-  background: rgba(15, 23, 42, 0.6);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: var(--space-md);
-  overflow: hidden;             /* prevent overflow */
+/* Header (icon/title/level dropdown) */
+.station-header{
+  display:flex;
+  align-items:center;
+  gap:var(--space-sm);
 }
-.station-level.active { display: block; }
-.station-level.complete {
-  background: rgba(34, 197, 94, 0.12);
-  border-color: rgba(34, 197, 94, 0.35);
+.station-title{ margin:0; flex:1; min-width:0; }
+
+/* ---- Levels wrapper ---- */
+.station-levels{
+  display:grid;
+  gap:var(--space-md);
+  padding:0;                       /* we’ll pad the inner panel instead */
 }
 
-/* Level headline row (e.g., "Level 2", badge, etc.) */
-.station-level-headline {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  margin: 0 0 var(--space-sm);
+/* Single level panel (only .active is shown) */
+.station-level{
+  display:none;                    /* show only the active one */
+  background:rgba(148,163,184,0.06);
+  border:1px solid var(--color-border);
+  border-radius:var(--radius-md);
+  padding:var(--space-md);
+  overflow:visible;                /* allow rounded tiles/shadows to show */
 }
-.station-level-headline > * { margin: 0; }
-.station-level-index {
-  width: 28px;
-  height: 28px;
-  border-radius: 999px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(148,163,184,0.18);
-  font-weight: 700;
+.station-level.active{ display:block; }
+.station-level.complete{
+  background:rgba(34,197,94,.12);
+  border-color:rgba(34,197,94,.35);
 }
 
-/* Progress (percentage + bar) */
-.station-level-progress {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  margin-top: var(--space-sm);
-  min-width: 0;
+/* ---- Level top row: “Level 2 | 92% complete” + bar ---- */
+.station-level-head{
+  display:grid;
+  grid-template-columns:1fr auto;
+  align-items:center;
+  gap:var(--space-sm);
 }
-.station-level-progress-value {
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-.station-level-progress-bar {
-  flex: 1;
-  height: 8px;
-  border-radius: 999px;
-  background: rgba(148, 163, 184, 0.25);
-  overflow: hidden;
-}
-/* single source of truth for bar width */
-.station-level-progress-bar > span {
-  display: block;
-  height: 100%;
-  width: var(--progress, 0%);   /* set this via inline style or JS */
-  background: linear-gradient(120deg, var(--color-accent), var(--color-accent-strong));
-  transition: width 220ms ease;
+.station-level-percent{
+  color:var(--color-muted);
+  font-weight:600;
+  white-space:nowrap;
 }
 
-/* Resources section */
-.station-resources h5 {
-  margin: var(--space-md) 0 var(--space-sm);
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
+/* Percentage progress bar (blue) */
+.station-level-progress{
+  display:flex;
+  align-items:center;
+  gap:var(--space-sm);
+}
+.station-level-progress-bar{
+  flex:1;
+  height:8px;
+  border-radius:999px;
+  background:rgba(148,163,184,.25);
+  overflow:hidden;
+}
+.station-level-progress-bar span{
+  display:block;
+  height:100%;
+  width:var(--progress,0%);        /* set this inline via style or JS */
+  background:linear-gradient(120deg,var(--color-accent),var(--color-accent-strong));
+  transition:width 220ms ease;
 }
 
-.resource-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: var(--space-sm);
-  max-width: 100%;
+/* ---- Required resources title ---- */
+.station-resources h5{
+  margin:var(--space-md) 0 var(--space-sm);
+  display:flex;
+  align-items:center;
+  gap:var(--space-xs);
 }
 
-.resource-item {
-  display: grid;
-  grid-template-columns: 56px 1fr auto;
-  gap: var(--space-sm);
-  align-items: center;
-  padding: var(--space-sm);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  background: var(--color-bg);
-  box-sizing: border-box;
-}
-.resource-item.complete {
-  background: rgba(34, 197, 94, 0.12);
-  border-color: rgba(34, 197, 94, 0.35);
+/* Resource list: centered tiles, no clipping */
+.resource-list{
+  list-style:none;
+  margin:0;
+  padding:0;
+  display:grid;
+  gap:var(--space-sm);
+  justify-items:center;            /* center tiles */
 }
 
-.resource-thumb img {
-  display: block;
-  width: 56px;
-  height: 56px;
-  object-fit: contain;
+/* Resource tile */
+.resource-item{
+  width:clamp(260px,92%,520px);    /* centered card look; prevents edge cut */
+  display:grid;
+  grid-template-columns:56px 1fr auto;
+  align-items:center;
+  gap:var(--space-sm);
+  padding:var(--space-sm);
+  background:var(--color-bg);
+  border:1px solid var(--color-border);
+  border-radius:var(--radius-sm);
+  box-sizing:border-box;
+}
+.resource-item.complete{
+  background:rgba(34,197,94,.12);
+  border-color:rgba(34,197,94,.35);
 }
 
-.resource-status {
-  display: grid;
-  gap: var(--space-2xs);
-  min-width: 0;
+/* Thumbnail */
+.resource-thumb img{
+  width:56px; height:56px; object-fit:contain; display:block;
 }
 
-.resource-progress {
-  width: 100%;
-  height: 6px;
-  border-radius: 999px;
-  background: rgba(148, 163, 184, 0.25);
-  overflow: hidden;
+/* Name/count + small progress */
+.resource-status{ display:grid; gap:var(--space-2xs); min-width:0; }
+.resource-progress{
+  width:100%; height:6px;
+  border-radius:999px;
+  background:rgba(148,163,184,.25);
+  overflow:hidden;
 }
-.resource-progress > span {
-  display: block;
-  height: 100%;
-  width: var(--progress, 0%);   /* optional: mirror same approach */
-  background: linear-gradient(120deg, var(--color-accent), var(--color-accent-strong));
-}
-
-.resource-input input[type="number"] {
-  width: 6rem;
-  padding: 0.35rem 0.5rem;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--color-border);
-  background: var(--color-surface);
-  color: inherit;
+.resource-progress span{
+  display:block; height:100%;
+  width:var(--progress,0%);        /* set via style or JS */
+  background:linear-gradient(120deg,var(--color-accent),var(--color-accent-strong));
 }
 
-/* Not-enough-resources banner */
-.station-level-status {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  padding: var(--space-sm);
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--color-border);
-  background: rgba(15, 23, 42, 0.9);
-  margin-top: var(--space-sm);
+/* Right-side pill (owned count, etc.) */
+.resource-input,
+.resource-pill{
+  justify-self:end;
 }
-.station-level-status--ready {
-  background: rgba(34, 197, 94, 0.12);
-  border-color: rgba(34, 197, 94, 0.35);
+.resource-pill{
+  min-width:64px;
+  padding:.35rem .6rem;
+  border:1px solid var(--color-border);
+  border-radius:999px;
+  background:rgba(2,6,23,.35);
+  text-align:center;
 }
 
-/* Grid that holds cards */
-#workshop-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: var(--space-lg);
+/* Level footer alert (not enough resources) */
+.station-level-status{
+  display:flex; align-items:center; gap:var(--space-sm);
+  margin-top:var(--space-sm);
+  padding:var(--space-sm);
+  border-radius:var(--radius-sm);
+  border:1px solid var(--color-border);
+  background:var(--color-bg);
+}
+.station-level-status--ready{
+  background:rgba(34,197,94,.12);
+  border-color:rgba(34,197,94,.35);
+}
+
+/* Tighten vertical rhythm a touch on large screens */
+@media (min-width: 960px){
+  .station-card{ gap:calc(var(--space-md) * .9); }
+  .station-level{ padding:calc(var(--space-md) * .9); }
 }

@@ -1,10 +1,3 @@
- (cd "$(git rev-parse --show-toplevel)" && git apply --3way <<'EOF' 
-diff --git a/docs/app.js b/docs/app.js
-new file mode 100644
-index 0000000000000000000000000000000000000000..e3d4d89cc21c51e5b3d2b975dff497bc7012e7c0
---- /dev/null
-+++ b/docs/app.js
-@@ -0,0 +1,2727 @@
 +// StorageManager wraps localStorage with JSON serialisation, namespacing and
 +// lightweight publish/subscribe capabilities so UI components can react to
 +// state changes and persist data consistently.
@@ -2732,6 +2725,3 @@ index 0000000000000000000000000000000000000000..e3d4d89cc21c51e5b3d2b975dff497bc
 +} else {
 +  window.addEventListener('DOMContentLoaded', App.init);
 +}
- 
-EOF
-)

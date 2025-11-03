@@ -636,208 +636,158 @@ figure {
   text-transform: uppercase;
 }
 /* --- Workshop Station Card --- */
-#workshop-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-  gap:var(--space-lg);
+.station-header .station-kind,
+.station-card .station-kind,
+.station-header .station-label,
+.station-card .station-label,
+.station-header [data-role="station-label"],
+.station-card [data-role="station-label"],
+/* Fallbacks for unknown markup: a very small, muted header text right after the icon */
+.station-header > small,
+.station-header > .muted,
+.station-header > .subtle {
+  display: none !important;
 }
 
-/* -------- Station card -------- */
+/* 2) Card containment: nothing should bleed outside */
 .station-card{
-  background:var(--color-surface);
-  border:1px solid var(--color-border);
-  border-radius:var(--radius-lg);
-  box-shadow:0 18px 36px -28px var(--color-card-shadow);
-  padding:var(--space-md);
-  display:grid;
-  gap:var(--space-md);
-  overflow:visible;               /* never clip inner tiles */
+  overflow: hidden;                 /* contain tiles within the rounded card */
+  padding: var(--space-md);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 18px 36px -28px var(--color-card-shadow);
+  display: grid;
+  gap: var(--space-md);
 }
 
-/* header row */
+/* Header row stays tight */
 .station-header{
-  display:flex;
-  align-items:center;
-  gap:var(--space-sm);
-}
-.station-headline{
-  display:flex;
-  align-items:center;
-  gap:var(--space-sm);
-  flex:1;
-  min-width:0;
-}
-.station-title{ margin:0; flex:1; min-width:0; }
-
-/* optional hero image */
-.station-card>img,
-.station-card>figure,
-.station-card>figure>img{
-  max-height:140px;
-  max-width:100%;
-  width:auto;height:auto;
-  object-fit:contain;
-  display:block;
-  margin-inline:auto;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
 }
 
-/* -------- Levels wrapper -------- */
-.station-levels{
-  position:relative;
-  display:grid;
-  gap:var(--space-md);
-  padding:0;
-}
-
-/* hide non-active levels (so Level 3 won’t appear) */
-.station-level{ display:none; }
-.station-level.active{ display:block; }
-
-/* visible level block */
+/* 3) Active level block: contained and responsive */
+.station-levels{ display: grid; gap: var(--space-md); padding: 0; }
+.station-level{ display: none; }
 .station-level.active{
-  box-sizing:border-box;
-  max-width:100%;
-  padding:var(--space-md);
-  border-radius:var(--radius-md);
-  background:rgba(148,163,184,0.08);
-  border:1px solid var(--color-border);
-  overflow:visible;               /* keep tiles fully visible */
-}
-.station-level.complete{
-  background:rgba(34,197,94,0.12);
-  border-color:rgba(34,197,94,0.35);
+  display: block;
+  box-sizing: border-box;
+  max-width: 100%;
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  background: rgba(148,163,184,.08);
+  border: 1px solid var(--color-border);
+  overflow: hidden;                 /* keep inner rows inside */
 }
 
-/* -------- Inline headline: II + Level + progress -------- */
+/* Inline headline: “II  Level 2  [bar]  94% complete” */
 .station-level-headline{
-  display:flex;
-  align-items:center;
-  gap:var(--space-sm);
-  margin:0 0 var(--space-sm) 0;
-  flex-wrap:wrap;                 /* wrap on small widths */
+  display: flex; align-items: center; gap: var(--space-sm);
+  margin: 0 0 var(--space-sm) 0;
+  flex-wrap: wrap;                  /* wrap on narrow cards */
 }
 .station-level-index{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding:.25rem .75rem;
-  border-radius:999px;
-  background:rgba(148,163,184,.18);
-  font-weight:700;
-  line-height:1;
-  font-size:.9rem;
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: .25rem .65rem; border-radius: 999px;
+  background: rgba(148,163,184,.18); font-weight: 700; line-height: 1;
 }
-.station-level-headline .level-title{
-  font-weight:600;
-  margin:0;
-  white-space:nowrap;
-}
+.station-level-headline .level-title{ margin: 0; font-weight: 600; white-space: nowrap; }
 .station-level-progress{
-  display:flex;
-  align-items:center;
-  gap:var(--space-sm);
-  flex:1;                         /* bar takes the remaining line */
-  min-width:160px;
+  display: flex; align-items: center; gap: var(--space-sm);
+  flex: 1; min-width: 160px;
 }
 .station-level-progress-bar{
-  flex:1;
-  height:8px;
-  border-radius:999px;
-  background:rgba(148,163,184,.25);
-  overflow:hidden;
+  flex: 1; height: 8px; border-radius: 999px;
+  background: rgba(148,163,184,.25); overflow: hidden;
 }
 .station-level-progress-bar span{
-  display:block;
-  height:100%;
-  /* width is driven by your inline style or --progress */
-  width:var(--progress, auto);
-  background:linear-gradient(120deg,var(--color-accent),var(--color-accent-strong));
-  transition:width .22s ease;
+  display: block; height: 100%;
+  width: var(--progress, auto);     /* or your inline style="width: 92%" */
+  background: linear-gradient(120deg,var(--color-accent),var(--color-accent-strong));
+  transition: width .22s ease;
 }
-.station-level-progress-value{
-  white-space:nowrap;
-  flex-shrink:0;
-}
+.station-level-progress-value{ white-space: nowrap; flex-shrink: 0; }
 
-/* -------- Resources -------- */
+/* Resources */
 .station-resources h5{
-  margin:0 0 var(--space-sm);
-  display:flex;
-  align-items:center;
-  gap:var(--space-xs);
+  margin: 0 0 var(--space-sm);
+  display: flex; align-items: center; gap: var(--space-xs);
 }
 
-.resource-list{
-  list-style:none;
-  margin:0;
-  padding:0;
-  display:grid;
-  gap:var(--space-sm);
-  max-width:100%;
-}
-
+/* Each resource row fits the card and never clips text */
+.resource-list{ list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-sm); }
 .resource-item{
-  box-sizing:border-box;
-  width:100%;
-  margin-inline:auto;             /* centered inside card */
-  display:grid;
-  grid-template-columns:56px 1fr auto;
-  gap:var(--space-sm);
-  align-items:center;
-  padding:var(--space-sm);
-  border:1px solid var(--color-border);
-  border-radius:var(--radius-sm);
-  background:var(--color-bg);
+  box-sizing: border-box;
+  width: 100%;
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 56px minmax(0,1fr) minmax(3.5rem,auto); /* icon | text wraps | counter */
+  gap: var(--space-sm);
+  align-items: center;
+  padding: var(--space-sm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+  font-size: clamp(.85rem, .9vw, .95rem);     /* auto-shrink on narrow cards */
 }
 .resource-item.complete{
-  background:rgba(34,197,94,.12);
-  border-color:rgba(34,197,94,.35);
+  background: rgba(34,197,94,.12);
+  border-color: rgba(34,197,94,.35);
 }
 
+/* Icon stays small */
 .resource-thumb img{
-  width:56px;height:56px;object-fit:contain;display:block;
+  width: 56px; height: 56px; object-fit: contain; display: block;
 }
 
+/* Text column can wrap instead of being cut */
 .resource-status{
-  display:grid;
-  gap:var(--space-2xs);
-  min-width:0;
+  display: grid; gap: var(--space-2xs);
+  min-width: 0;                      /* let it shrink */
+  overflow: hidden;
+  word-break: break-word;            /* long words won’t overflow */
 }
+
+/* Small progress inside the row */
 .resource-progress{
-  width:100%;
-  height:6px;
-  border-radius:999px;
-  background:rgba(148,163,184,.25);
-  overflow:hidden;
+  width: 100%; height: 6px; border-radius: 999px;
+  background: rgba(148,163,184,.25); overflow: hidden;
 }
 .resource-progress span{
-  display:block;
-  height:100%;
-  width:var(--progress, auto);    /* or inline width */
-  background:linear-gradient(120deg,var(--color-accent),var(--color-accent-strong));
-  transition:width .2s ease;
+  display: block; height: 100%;
+  width: var(--progress, auto);      /* or inline width */
+  background: linear-gradient(120deg,var(--color-accent),var(--color-accent-strong));
+  transition: width .2s ease;
 }
 
+/* Counter/input on the right stays compact but readable */
+.resource-input,
+.resource-count { min-width: 3.5rem; justify-self: end; }
 .resource-input input[type="number"]{
-  width:6rem;
-  padding:.35rem .5rem;
-  border-radius:var(--radius-sm);
-  border:1px solid var(--color-border);
-  background:var(--color-surface);
-  color:inherit;
+  width: 6rem; max-width: 7rem;
+  padding: .35rem .5rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: inherit;
 }
 
-/* -------- Status strip -------- */
+/* Status strip */
 .station-level-status{
-  display:flex;
-  align-items:center;
-  gap:var(--space-sm);
-  padding:var(--space-sm);
-  border-radius:var(--radius-sm);
-  border:1px solid var(--color-border);
-  background:var(--color-bg);
+  display: flex; align-items: center; gap: var(--space-sm);
+  padding: var(--space-sm);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
 }
 .station-level-status--ready{
-  background:rgba(34,197,94,.12);
-  border-color:rgba(34,197,94,.35);
+  background: rgba(34,197,94,.12);
+  border-color: rgba(34,197,94,.35);
 }
+
+/* Tighten vertical rhythm a bit so everything fits nicely */
+#workshop-grid{ gap: calc(var(--space-lg) * .8); }
+.station-card{ gap: calc(var(--space-md) * .9); }
+.station-level.active{ padding: calc(var(--space-md) * .9); }

@@ -276,6 +276,29 @@ const DataRepository = (() => {
     }
   };
 
+  const mapVisuals = {
+    'Dam Battlegrounds': {
+      url: 'https://arcraiders.wiki/wiki/Special:FilePath/Dam_Battlegrounds.png',
+      label: 'Dam Battlegrounds',
+      alt: 'Dam Battlegrounds map in ARC Raiders'
+    },
+    'Spaceport': {
+      url: 'https://arcraiders.wiki/wiki/Special:FilePath/Spaceport.png',
+      label: 'Spaceport',
+      alt: 'Spaceport map in ARC Raiders'
+    },
+    'Buried City': {
+      url: 'https://arcraiders.wiki/wiki/Special:FilePath/Buried_City.png',
+      label: 'Buried City',
+      alt: 'Buried City map in ARC Raiders'
+    },
+    'Blue Gate': {
+      url: 'https://arcraiders.wiki/wiki/Special:FilePath/Blue_Gate.png',
+      label: 'Blue Gate',
+      alt: 'Blue Gate map in ARC Raiders'
+    }
+  };
+
   const workshopStations = [
   {
     id: 'workbench',

@@ -726,8 +726,7 @@ figure {
 .station-level-progress-bar span{
   display:block;
   height:100%;
-  width:var(--progress,0%);        /* set this inline via style or JS */
-  background:linear-gradient(120deg,var(--color-accent),var(--color-accent-strong));
+  background:linear-gradient(120deg, var(--color-accent), var(--color-accent-strong));
   transition:width 220ms ease;
 }
 
@@ -781,9 +780,10 @@ figure {
   overflow:hidden;
 }
 .resource-progress span{
-  display:block; height:100%;
-  width:var(--progress,0%);        /* set via style or JS */
-  background:linear-gradient(120deg,var(--color-accent),var(--color-accent-strong));
+  display:block;
+  height:100%;
+  background:linear-gradient(120deg, var(--color-accent), var(--color-accent-strong));
+  transition:width 220ms ease;
 }
 
 /* Right-side pill (owned count, etc.) */

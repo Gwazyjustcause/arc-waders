@@ -638,11 +638,11 @@ figure {
 /* --- Workshop Station Card --- */
 #workshop-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(320px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
   gap:var(--space-lg);
 }
 
-/* -------- Station Card -------- */
+/* -------- Station card -------- */
 .station-card{
   background:var(--color-surface);
   border:1px solid var(--color-border);
@@ -651,23 +651,10 @@ figure {
   padding:var(--space-md);
   display:grid;
   gap:var(--space-md);
-  /* allow inner content to breathe; no clipping of inner tiles */
-  overflow:visible;
+  overflow:visible;               /* never clip inner tiles */
 }
 
-/* optional top image/figure */
-.station-card > img,
-.station-card > figure,
-.station-card > figure > img{
-  max-height:140px;
-  max-width:100%;
-  width:auto;
-  height:auto;
-  display:block;
-  object-fit:contain;
-  margin-inline:auto;
-}
-
+/* header row */
 .station-header{
   display:flex;
   align-items:center;
@@ -680,10 +667,18 @@ figure {
   flex:1;
   min-width:0;
 }
-.station-title{
-  margin:0;
-  flex:1;
-  min-width:0;
+.station-title{ margin:0; flex:1; min-width:0; }
+
+/* optional hero image */
+.station-card>img,
+.station-card>figure,
+.station-card>figure>img{
+  max-height:140px;
+  max-width:100%;
+  width:auto;height:auto;
+  object-fit:contain;
+  display:block;
+  margin-inline:auto;
 }
 
 /* -------- Levels wrapper -------- */
@@ -694,41 +689,43 @@ figure {
   padding:0;
 }
 
-/* Each visible level block */
-.station-level{
+/* hide non-active levels (so Level 3 won’t appear) */
+.station-level{ display:none; }
+.station-level.active{ display:block; }
+
+/* visible level block */
+.station-level.active{
   box-sizing:border-box;
   max-width:100%;
   padding:var(--space-md);
   border-radius:var(--radius-md);
   background:rgba(148,163,184,0.08);
   border:1px solid var(--color-border);
-  /* do not clip inner resource rows */
-  overflow:visible;
+  overflow:visible;               /* keep tiles fully visible */
 }
-.station-level.active{ display:block; }
 .station-level.complete{
   background:rgba(34,197,94,0.12);
   border-color:rgba(34,197,94,0.35);
 }
 
-/* -------- Inline headline: [II] Level 2  —  progress bar  % -------- */
+/* -------- Inline headline: II + Level + progress -------- */
 .station-level-headline{
   display:flex;
   align-items:center;
   gap:var(--space-sm);
   margin:0 0 var(--space-sm) 0;
-  flex-wrap:wrap;       /* wraps nicely on small cards */
+  flex-wrap:wrap;                 /* wrap on small widths */
 }
 .station-level-index{
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  padding:0.25rem 0.75rem;
+  padding:.25rem .75rem;
   border-radius:999px;
-  background:rgba(148,163,184,0.18);
+  background:rgba(148,163,184,.18);
   font-weight:700;
   line-height:1;
-  font-size:0.9rem;
+  font-size:.9rem;
 }
 .station-level-headline .level-title{
   font-weight:600;
@@ -739,30 +736,30 @@ figure {
   display:flex;
   align-items:center;
   gap:var(--space-sm);
-  flex:1;              /* fills remaining line space */
+  flex:1;                         /* bar takes the remaining line */
   min-width:160px;
 }
 .station-level-progress-bar{
   flex:1;
   height:8px;
   border-radius:999px;
-  background:rgba(148,163,184,0.25);
+  background:rgba(148,163,184,.25);
   overflow:hidden;
 }
 .station-level-progress-bar span{
   display:block;
   height:100%;
-  /* width is driven by your inline style="width:XX%" OR CSS var --progress */
+  /* width is driven by your inline style or --progress */
   width:var(--progress, auto);
   background:linear-gradient(120deg,var(--color-accent),var(--color-accent-strong));
-  transition:width 220ms ease;
+  transition:width .22s ease;
 }
 .station-level-progress-value{
   white-space:nowrap;
   flex-shrink:0;
 }
 
-/* -------- Resource list -------- */
+/* -------- Resources -------- */
 .station-resources h5{
   margin:0 0 var(--space-sm);
   display:flex;
@@ -779,11 +776,10 @@ figure {
   max-width:100%;
 }
 
-/* Center each resource row and prevent edge cuts */
 .resource-item{
   box-sizing:border-box;
   width:100%;
-  margin-inline:auto;
+  margin-inline:auto;             /* centered inside card */
   display:grid;
   grid-template-columns:56px 1fr auto;
   gap:var(--space-sm);
@@ -794,15 +790,12 @@ figure {
   background:var(--color-bg);
 }
 .resource-item.complete{
-  background:rgba(34,197,94,0.12);
-  border-color:rgba(34,197,94,0.35);
+  background:rgba(34,197,94,.12);
+  border-color:rgba(34,197,94,.35);
 }
 
 .resource-thumb img{
-  display:block;
-  width:56px;
-  height:56px;
-  object-fit:contain;
+  width:56px;height:56px;object-fit:contain;display:block;
 }
 
 .resource-status{
@@ -814,27 +807,27 @@ figure {
   width:100%;
   height:6px;
   border-radius:999px;
-  background:rgba(148,163,184,0.25);
+  background:rgba(148,163,184,.25);
   overflow:hidden;
 }
 .resource-progress span{
   display:block;
   height:100%;
-  width:var(--progress, auto); /* or your inline width */
+  width:var(--progress, auto);    /* or inline width */
   background:linear-gradient(120deg,var(--color-accent),var(--color-accent-strong));
-  transition:width 200ms ease;
+  transition:width .2s ease;
 }
 
 .resource-input input[type="number"]{
   width:6rem;
-  padding:0.35rem 0.5rem;
+  padding:.35rem .5rem;
   border-radius:var(--radius-sm);
   border:1px solid var(--color-border);
   background:var(--color-surface);
   color:inherit;
 }
 
-/* -------- Level status strip (warning/ready) -------- */
+/* -------- Status strip -------- */
 .station-level-status{
   display:flex;
   align-items:center;
@@ -845,6 +838,6 @@ figure {
   background:var(--color-bg);
 }
 .station-level-status--ready{
-  background:rgba(34,197,94,0.12);
-  border-color:rgba(34,197,94,0.35);
+  background:rgba(34,197,94,.12);
+  border-color:rgba(34,197,94,.35);
 }

@@ -1928,7 +1928,7 @@ const WorkshopView = (() => {
 
     row.innerHTML = `
       <figure class="resource-thumb">
-       <img src="${visual.image}"
+        <img src="${visual.image}"
      alt="${visual.alt || (material.item + ' item from ARC Raiders')}"
      loading="lazy" decoding="async" referrerpolicy="no-referrer" />
       </figure>

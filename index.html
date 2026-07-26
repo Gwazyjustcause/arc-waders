@@ -1,13 +1,18 @@
-<!DOCTYPE html>
-<html lang="en" data-theme="light">
+<!doctype html>
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ARC Raiders Progress Tracker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#121212" />
+    <meta
+      name="description"
+      content="A lightweight desktop companion for planning your ARC Raiders progression."
+    />
+    <title>ARC Companion</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Inter:wght@300;400;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
     <link
@@ -17,96 +22,209 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/pages.css" />
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <div class="notifications" aria-live="polite" aria-atomic="true"></div>
-    <header class="app-header">
-      <div class="branding">
-        <i class="fa-solid fa-satellite-dish" aria-hidden="true"></i>
-        <h1>ARC Raiders Progress Tracker</h1>
-      </div>
-      <div class="header-controls">
-        <button id="theme-toggle" class="icon-button" aria-label="Toggle theme">
-          <i class="fa-solid fa-moon"></i>
-        </button>
-      </div>
-      <nav class="primary-nav" aria-label="Primary">
-        <button class="nav-link active" data-target="workshop" aria-controls="workshop" aria-expanded="true">
-          <i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i>
-          <span>Workshop</span>
-        </button>
-        <button class="nav-link" data-target="quests" aria-controls="quests" aria-expanded="false">
-          <i class="fa-solid fa-bullseye" aria-hidden="true"></i>
-          <span>Quests</span>
-        </button>
-        <button class="nav-link" data-target="skills" aria-controls="skills" aria-expanded="false">
-          <i class="fa-solid fa-diagram-project" aria-hidden="true"></i>
-          <span>Skill Tree</span>
-        </button>
-      </nav>
-    </header>
 
-    <main class="app-main">
-      <section id="workshop" class="view active" aria-labelledby="workshop">
-        <div class="section-header">
-          <h2><i class="fa-solid fa-screwdriver-wrench"></i> Workshop Upgrades</h2>
-          <p>Track materials for each station and see progress in real time.</p>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Primary navigation">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"><span>ARC</span></div>
+          <div>
+            <strong>ARC Companion</strong>
+            <span>Raider utility // v1</span>
+          </div>
         </div>
-        <div class="workshop-grid" id="workshop-grid"></div>
-      </section>
 
-      <section id="quests" class="view" aria-labelledby="quests">
-        <div class="section-header">
-          <h2><i class="fa-solid fa-bullseye"></i> Quest Log</h2>
-          <p>Filter quests, tick off objectives and monitor completion per trader.</p>
-        </div>
-        <div class="quest-controls">
-          <label>
-            <span class="sr-only">Search quests</span>
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="search" id="quest-search" placeholder="Search quests" />
-          </label>
-          <label>
-            <span class="sr-only">Filter by trader</span>
-            <i class="fa-solid fa-user-astronaut"></i>
-            <select id="quest-trader-filter">
-              <option value="all">All Traders</option>
-            </select>
-          </label>
-          <label class="toggle">
-            <input type="checkbox" id="quest-incomplete-only" />
-            <span>Show incomplete only</span>
-          </label>
-        </div>
-        <div class="quest-grid" id="quest-grid"></div>
-      </section>
-
-      <section id="skills" class="view" aria-labelledby="skills">
-        <div class="section-header">
-          <h2><i class="fa-solid fa-diagram-project"></i> Skill Tree Planner</h2>
-          <p>Plan your skill progression and keep track of points spent.</p>
-        </div>
-        <div class="skills-summary">
-          <span>Total Skill Points: <strong id="skill-points-total">0</strong> / 75</span>
-          <button id="export-data" class="icon-button">
-            <i class="fa-solid fa-file-export"></i>
-            <span class="sr-only">Export progress</span>
+        <nav class="sidebar-nav">
+          <p class="nav-label">Navigation</p>
+          <button class="nav-link active" data-target="dashboard" aria-controls="dashboard">
+            <i class="fa-solid fa-table-cells-large" aria-hidden="true"></i><span>Dashboard</span>
           </button>
-          <label class="file-upload">
-            <i class="fa-solid fa-file-import"></i>
-            <span>Import</span>
-            <input type="file" id="import-data" accept="application/json" />
-          </label>
+          <button class="nav-link" data-target="workshop" aria-controls="workshop">
+            <i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i><span>Workshop</span>
+          </button>
+          <button class="nav-link" data-target="quests" aria-controls="quests">
+            <i class="fa-solid fa-list-check" aria-hidden="true"></i><span>Quests</span>
+          </button>
+          <button class="nav-link" data-target="skills" aria-controls="skills">
+            <i class="fa-solid fa-diagram-project" aria-hidden="true"></i><span>Skill Builds</span>
+          </button>
+          <button class="nav-link" data-target="loot-planner" aria-controls="loot-planner">
+            <i class="fa-solid fa-box-open" aria-hidden="true"></i><span>Loot Planner</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-footer">
+          <button class="nav-link" data-target="settings" aria-controls="settings">
+            <i class="fa-solid fa-gear" aria-hidden="true"></i><span>Settings</span>
+          </button>
+          <div class="system-status"><span aria-hidden="true"></span> Local data ready</div>
         </div>
-        <div class="skill-phases" id="skill-phases"></div>
-      </section>
-    </main>
+      </aside>
 
-    <template id="tooltip-template">
-      <div class="tooltip" role="dialog"></div>
-    </template>
+      <div class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Raider operations</p>
+            <h1 id="page-title">Dashboard</h1>
+          </div>
+          <div class="topbar-actions">
+            <span class="sync-state"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Stored locally</span>
+            <button class="button button-icon" id="theme-toggle" type="button" aria-label="Toggle interface theme">
+              <i class="fa-solid fa-sun" aria-hidden="true"></i>
+            </button>
+          </div>
+        </header>
 
-    <script type="module" src="app.js"></script>
+        <main class="app-main" id="main-content" tabindex="-1">
+          <section id="dashboard" class="view active" aria-labelledby="dashboard-title">
+            <header class="page-header">
+              <div>
+                <p class="eyebrow">Command overview</p>
+                <h2 id="dashboard-title">Prepare for the surface</h2>
+                <p>Your progression tools, organized into one quiet workspace.</p>
+              </div>
+              <button class="button button-primary" type="button" data-jump-to="workshop">
+                Open workshop <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+              </button>
+            </header>
+
+            <div class="dashboard-grid">
+              <article class="card card-feature">
+                <div class="card-header-static">
+                  <div class="icon-tile"><i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i></div>
+                  <span class="status-badge status-ready">Ready</span>
+                </div>
+                <div class="card-content">
+                  <p class="card-kicker">Workshop</p>
+                  <h3>Upgrade stations</h3>
+                  <p>Review every bench and record the materials already in your stash.</p>
+                </div>
+                <footer class="card-footer">
+                  <button class="text-button" type="button" data-jump-to="workshop">View stations <i class="fa-solid fa-arrow-right"></i></button>
+                </footer>
+              </article>
+
+              <article class="card card-feature">
+                <div class="card-header-static">
+                  <div class="icon-tile"><i class="fa-solid fa-list-check" aria-hidden="true"></i></div>
+                  <span class="status-badge">Tracker</span>
+                </div>
+                <div class="card-content">
+                  <p class="card-kicker">Quests</p>
+                  <h3>Stay on objective</h3>
+                  <p>Keep trader objectives visible and quickly find what still needs attention.</p>
+                </div>
+                <footer class="card-footer">
+                  <button class="text-button" type="button" data-jump-to="quests">Open quest log <i class="fa-solid fa-arrow-right"></i></button>
+                </footer>
+              </article>
+
+              <article class="card card-feature">
+                <div class="card-header-static">
+                  <div class="icon-tile"><i class="fa-solid fa-diagram-project" aria-hidden="true"></i></div>
+                  <span class="status-badge">Planner</span>
+                </div>
+                <div class="card-content">
+                  <p class="card-kicker">Skill Builds</p>
+                  <h3>Shape your build</h3>
+                  <p>Explore the existing skill paths and keep an eye on your point budget.</p>
+                </div>
+                <footer class="card-footer">
+                  <button class="text-button" type="button" data-jump-to="skills">Plan a build <i class="fa-solid fa-arrow-right"></i></button>
+                </footer>
+              </article>
+            </div>
+
+            <section class="section-block" aria-labelledby="systems-title">
+              <div class="section-heading">
+                <div><p class="eyebrow">Application modules</p><h3 id="systems-title">Your workspace</h3></div>
+              </div>
+              <div class="module-list">
+                <button type="button" data-jump-to="workshop"><i class="fa-solid fa-screwdriver-wrench"></i><span><strong>Workshop</strong><small>Material requirements</small></span><i class="fa-solid fa-chevron-right"></i></button>
+                <button type="button" data-jump-to="quests"><i class="fa-solid fa-list-check"></i><span><strong>Quests</strong><small>Objective tracking</small></span><i class="fa-solid fa-chevron-right"></i></button>
+                <button type="button" data-jump-to="skills"><i class="fa-solid fa-diagram-project"></i><span><strong>Skill Builds</strong><small>Point planning</small></span><i class="fa-solid fa-chevron-right"></i></button>
+                <button type="button" data-jump-to="loot-planner"><i class="fa-solid fa-box-open"></i><span><strong>Loot Planner</strong><small>Arriving in a future phase</small></span><i class="fa-solid fa-chevron-right"></i></button>
+              </div>
+            </section>
+          </section>
+
+          <section id="workshop" class="view" aria-labelledby="workshop-title" hidden>
+            <header class="page-header">
+              <div><p class="eyebrow">Station management</p><h2 id="workshop-title">Workshop</h2><p>Track material requirements across every upgrade station.</p></div>
+              <span class="status-badge status-ready">Local progress</span>
+            </header>
+            <div class="workshop-grid" id="workshop-grid"></div>
+          </section>
+
+          <section id="quests" class="view" aria-labelledby="quests-title" hidden>
+            <header class="page-header">
+              <div><p class="eyebrow">Objective tracking</p><h2 id="quests-title">Quests</h2><p>Search, filter, and mark existing objectives complete.</p></div>
+            </header>
+            <div class="filter-bar" aria-label="Quest filters">
+              <label class="field field-search"><span class="sr-only">Search quests</span><i class="fa-solid fa-magnifying-glass"></i><input type="search" id="quest-search" placeholder="Search quests" /></label>
+              <label class="field"><span class="sr-only">Filter by trader</span><i class="fa-solid fa-user"></i><select id="quest-trader-filter"><option value="all">All traders</option></select></label>
+              <label class="check-control"><input type="checkbox" id="quest-incomplete-only" /><span>Incomplete only</span></label>
+            </div>
+            <div class="quest-grid" id="quest-grid"></div>
+          </section>
+
+          <section id="skills" class="view" aria-labelledby="skills-title" hidden>
+            <header class="page-header">
+              <div><p class="eyebrow">Build planning</p><h2 id="skills-title">Skill Builds</h2><p>Plan your existing skill progression and monitor points spent.</p></div>
+              <div class="points-counter"><span>Points used</span><strong id="skill-points-total">0</strong><small>/ 75</small></div>
+            </header>
+            <div class="toolbar">
+              <button id="export-data" class="button button-secondary" type="button"><i class="fa-solid fa-arrow-up-from-bracket"></i> Export progress</button>
+              <label class="button button-secondary file-upload"><i class="fa-solid fa-arrow-down-to-bracket"></i> Import progress<input type="file" id="import-data" accept="application/json" /></label>
+            </div>
+            <div class="skill-phases" id="skill-phases"></div>
+          </section>
+
+          <section id="loot-planner" class="view" aria-labelledby="loot-title" hidden>
+            <header class="page-header"><div><p class="eyebrow">Future module</p><h2 id="loot-title">Loot Planner</h2><p>A scalable home for searchable items, filters, sorting, and loadout planning.</p></div></header>
+            <div class="empty-state card">
+              <div class="empty-state-icon"><i class="fa-solid fa-box-open" aria-hidden="true"></i></div>
+              <p class="eyebrow">Module reserved</p><h3>Loot planning is coming next</h3>
+              <p>The interface foundation is ready. Gameplay data and interactions will be added in a later phase.</p>
+              <span class="status-badge">Future phase</span>
+            </div>
+          </section>
+
+          <section id="settings" class="view" aria-labelledby="settings-title" hidden>
+            <header class="page-header"><div><p class="eyebrow">Application controls</p><h2 id="settings-title">Settings</h2><p>Manage interface preferences and local progress files.</p></div></header>
+            <div class="settings-grid">
+              <article class="card settings-card">
+                <div><div class="icon-tile"><i class="fa-solid fa-circle-half-stroke"></i></div><span><strong>Interface theme</strong><small>Switch between charcoal and light display modes.</small></span></div>
+                <button class="button button-secondary" type="button" id="settings-theme-toggle">Toggle theme</button>
+              </article>
+              <article class="card settings-card">
+                <div><div class="icon-tile"><i class="fa-solid fa-database"></i></div><span><strong>Local storage</strong><small>Your tracker progress remains in this browser.</small></span></div>
+                <span class="status-badge status-ready">Active</span>
+              </article>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <nav class="mobile-nav" aria-label="Mobile navigation">
+      <button class="nav-link active" data-target="dashboard"><i class="fa-solid fa-table-cells-large"></i><span>Home</span></button>
+      <button class="nav-link" data-target="workshop"><i class="fa-solid fa-screwdriver-wrench"></i><span>Workshop</span></button>
+      <button class="nav-link" data-target="quests"><i class="fa-solid fa-list-check"></i><span>Quests</span></button>
+      <button class="nav-link" data-target="skills"><i class="fa-solid fa-diagram-project"></i><span>Builds</span></button>
+      <button class="nav-link" id="mobile-more-toggle" aria-expanded="false" aria-controls="mobile-more"><i class="fa-solid fa-ellipsis"></i><span>More</span></button>
+    </nav>
+    <div class="mobile-more" id="mobile-more" hidden>
+      <button class="nav-link" data-target="loot-planner"><i class="fa-solid fa-box-open"></i><span>Loot Planner</span></button>
+      <button class="nav-link" data-target="settings"><i class="fa-solid fa-gear"></i><span>Settings</span></button>
+    </div>
+
+    <script type="module" src="js/app.js"></script>
   </body>
 </html>

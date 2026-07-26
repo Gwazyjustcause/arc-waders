@@ -520,55 +520,112 @@ const Notifier = (() => {
   return { push };
 })();
 
-// Controls theme toggling and persistence between light and dark modes.
+// Controls the application palette and keeps the setting local to this device.
 const ThemeController = (() => {
   const toggleButton = document.getElementById('theme-toggle');
+  const settingsToggleButton = document.getElementById('settings-theme-toggle');
   const root = document.documentElement;
-  const STORAGE_KEY = 'theme';
+  const STORAGE_KEY = 'ui:theme';
 
   const applyTheme = (theme) => {
     root.setAttribute('data-theme', theme);
-    toggleButton.innerHTML =
-      theme === 'dark'
-        ? '<i class="fa-solid fa-sun"></i>'
-        : '<i class="fa-solid fa-moon"></i>';
-    toggleButton.setAttribute('aria-pressed', theme === 'dark');
+    if (toggleButton) {
+      toggleButton.innerHTML =
+        theme === 'dark'
+          ? '<i class="fa-solid fa-sun" aria-hidden="true"></i>'
+          : '<i class="fa-solid fa-moon" aria-hidden="true"></i>';
+      toggleButton.setAttribute('aria-pressed', String(theme === 'light'));
+    }
+  };
+
+  const toggleTheme = () => {
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+    StorageManager.set(STORAGE_KEY, next);
   };
 
   const init = () => {
-    const saved = StorageManager.get(STORAGE_KEY, 'light');
+    const saved = StorageManager.get(STORAGE_KEY, 'dark');
     applyTheme(saved);
-    toggleButton.addEventListener('click', () => {
-      const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      applyTheme(next);
-      StorageManager.set(STORAGE_KEY, next);
-    });
+    toggleButton?.addEventListener('click', toggleTheme);
+    settingsToggleButton?.addEventListener('click', toggleTheme);
   };
 
   return { init };
 })();
 
-// Handles switching between the SPA views while keeping ARIA attributes in sync.
+// Handles view routing for the desktop sidebar, mobile bar, and contextual links.
 const NavigationController = (() => {
   const navButtons = Array.from(document.querySelectorAll('.nav-link'));
   const sections = Array.from(document.querySelectorAll('.view'));
+  const pageTitle = document.getElementById('page-title');
+  const moreToggle = document.getElementById('mobile-more-toggle');
+  const moreMenu = document.getElementById('mobile-more');
+  const titles = {
+    dashboard: 'Dashboard',
+    workshop: 'Workshop',
+    quests: 'Quests',
+    skills: 'Skill Builds',
+    'loot-planner': 'Loot Planner',
+    settings: 'Settings'
+  };
 
-  const showSection = (targetId) => {
+  const closeMoreMenu = () => {
+    if (!moreMenu || !moreToggle) return;
+    moreMenu.hidden = true;
+    moreToggle.setAttribute('aria-expanded', 'false');
+  };
+
+  const showSection = (targetId, { updateHash = true, focusContent = false } = {}) => {
+    if (!sections.some((section) => section.id === targetId)) return;
     sections.forEach((section) => {
       const isActive = section.id === targetId;
       section.classList.toggle('active', isActive);
-      const navButton = navButtons.find((button) => button.dataset.target === section.id);
-      if (navButton) {
-        navButton.classList.toggle('active', isActive);
-        navButton.setAttribute('aria-expanded', String(isActive));
+      section.hidden = !isActive;
+    });
+    navButtons.forEach((button) => {
+      const isActive = button.dataset.target === targetId;
+      button.classList.toggle('active', isActive);
+      if (button.dataset.target) {
+        button.setAttribute('aria-current', isActive ? 'page' : 'false');
       }
     });
+    if (moreToggle) {
+      const isSecondaryPage = targetId === 'loot-planner' || targetId === 'settings';
+      moreToggle.classList.toggle('active', isSecondaryPage);
+      moreToggle.setAttribute('aria-current', isSecondaryPage ? 'page' : 'false');
+    }
+    if (pageTitle) pageTitle.textContent = titles[targetId] ?? 'ARC Companion';
+    document.title = `${titles[targetId] ?? 'ARC Companion'} — ARC Companion`;
+    closeMoreMenu();
+    if (updateHash) history.replaceState(null, '', `#${targetId}`);
+    if (focusContent) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      document.getElementById('main-content')?.focus({ preventScroll: true });
+    }
   };
 
   const init = () => {
     navButtons.forEach((button) => {
-      button.addEventListener('click', () => showSection(button.dataset.target));
+      if (button.dataset.target) {
+        button.addEventListener('click', () => showSection(button.dataset.target, { focusContent: true }));
+      }
     });
+    document.querySelectorAll('[data-jump-to]').forEach((button) => {
+      button.addEventListener('click', () => showSection(button.dataset.jumpTo, { focusContent: true }));
+    });
+    moreToggle?.addEventListener('click', () => {
+      const willOpen = moreMenu.hidden;
+      moreMenu.hidden = !willOpen;
+      moreToggle.setAttribute('aria-expanded', String(willOpen));
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closeMoreMenu();
+    });
+    window.addEventListener('hashchange', () => {
+      showSection(window.location.hash.slice(1) || 'dashboard', { updateHash: false });
+    });
+    showSection(window.location.hash.slice(1) || 'dashboard', { updateHash: false });
   };
 
   return { init };
